@@ -69,10 +69,14 @@ const App = () => {
               alt=""
             />
           </div>
-            <img className="w-14 mx-6 rounded-md" src="https://avatars.githubusercontent.com/u/1505683?v=4" alt="" />
+          <img
+            className="w-14 mx-6 rounded-md"
+            src="https://avatars.githubusercontent.com/u/1505683?v=4"
+            alt=""
+          />
         </div>
         <p className="text-xl mb-8 bg-slate-800 px-3 rounded-md ring-red-100 ring-1">
-          git clone{" "}
+          git clone https://github.com/abdullahalnirob/react-tled.git
         </p>
       </div>
     </div>
