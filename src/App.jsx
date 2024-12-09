@@ -1,9 +1,13 @@
-import React from 'react'
+import OrdersPage from "./components/orders/page";
+
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div className="bg-black">
+     <OrdersPage className=""/>
+      
+    </div>
+  );
+};
 
-export default App
+export default App;
