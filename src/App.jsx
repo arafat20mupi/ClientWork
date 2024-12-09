@@ -1,11 +1,24 @@
-import OrdersPage from "./components/orders/page";
-
+import { useContext } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import Sidebar from "./components/Sidebar/Sidebar";
+import SidebarContext from "./Context/SidebarConext/SidebarContext";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
+  const { OpenSide, setOpenSide } = useContext(SidebarContext);
+
   return (
-    <div className="bg-black">
-     <OrdersPage className=""/>
-      
+    <div className="py-10">
+      <Navbar />
+      <Sidebar />
+      <div
+        className={`md:pl-60 pt-16 ${
+          OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"
+        }`}
+      >
+        <Outlet />
+        {/* <OrdersPage /> */}
+      </div>
     </div>
   );
 };

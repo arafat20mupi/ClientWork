@@ -12,8 +12,8 @@ const PendingOrders = () => {
   ];
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-white">Pending Orders</h1>
+    <div className="px-2 w-full overflow-x-scroll md:overflow-x-hidden">
+      <h1 className="text-2xl font-bold mb-4">Pending Orders</h1>
       <table className="min-w-full bg-gray-900 shadow-sm text-gray-400">
         <thead>
           <tr>
@@ -32,9 +32,6 @@ const PendingOrders = () => {
               <td className="border px-4 py-2">
                 <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                   View
-                </button>
-                <button className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                  Cancel
                 </button>
               </td>
             </tr>

@@ -70,8 +70,8 @@ const SuccessTable = () => {
   ];
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 text-white">Success Orders</h1>
+    <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
+      <h1 className="text-2xl font-bold mb-4">Success Orders</h1>
       <table className="min-w-full border-collapse shadow-md bg-gray-800 text-white">
         <thead className="text-gray-400 font-extrabold">
           <tr>
