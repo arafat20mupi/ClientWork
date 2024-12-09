@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*{
+    font-family: "Nunito Sans", sans-serif;
+}
+.z-besi{
+    z-index: 111;
+}
+.z-kom{
+    z-index: 22;
+}
