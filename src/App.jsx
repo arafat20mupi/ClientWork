@@ -8,11 +8,11 @@ const App = () => {
   const { OpenSide, setOpenSide } = useContext(SidebarContext);
 
   return (
-    <div className="py-10">
+    <div className="py-10 overflow-x-hidden">
       <Navbar />
       <Sidebar />
       <div
-        className={`md:pl-60 pt-16 ${
+        className={`pt-16 ${
           OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"
         }`}
       >
