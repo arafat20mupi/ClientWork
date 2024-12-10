@@ -4,7 +4,6 @@ import { MdLogout } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
-
 const Navbar = () => {
   const { OpenSide, setOpenSide } = useContext(SidebarContext);
   const [UserDorpDpwn, setUserDorpDpwn] = useState(false);
@@ -18,10 +17,12 @@ const Navbar = () => {
     <div>
       <nav className="h-[80px] z-40 fixed top-0 left-0 right-0 dark:bg-slate-700 bg-zinc-100 shadow-md px-5 md:px-20 flex items-center justify-between">
         <div className="flex items-center space-x-2 cursor-pointer">
-          <div onClick={handleSidebar} >
+          <div onClick={handleSidebar}>
             <GiHamburgerMenu className="text-2xl md:mr-5" />
           </div>
-          <h1 className="dark:text-white text-black md:text-xl">{"Abdullah"}</h1>
+          <h1 className="dark:text-white text-black md:text-xl">
+            {"Abdullah"}
+          </h1>
           <div className="w-8" onClick={handleClick}>
             <FaUserCircle className="md:text-2xl" />
           </div>
@@ -42,7 +43,9 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-6">
           <h1 className="dark:text-white text-black">Balace :{20} BDT</h1>
-          <h1 className="dark:text-white text-black text-xl">{"Logo"}</h1>
+          <div className="w-16 h-16">
+            <img src={`logo.jpg`} alt="" />
+          </div>
         </div>
       </nav>
     </div>
