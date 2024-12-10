@@ -4,6 +4,7 @@ import PendingOrders from "../components/orders/PendingOrders/PendingOrders";
 import Dashboard from "../components/Dashboard/Dashboard";
 import SuccessTable from "../components/orders/SuccessTable/SuccessTable";
 import CanceledOrders from "../components/orders/CanceledOrders/CanceledOrders";
+import Reacharge from "../components/reacharge/Reacharge";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
       {
         path: "/order/cancel",
         element: <CanceledOrders />,
+      },
+
+      {
+        path: "/reacharge",
+        element: <Reacharge />,
       },
     ],
   },
