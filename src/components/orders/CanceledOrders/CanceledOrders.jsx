@@ -14,7 +14,7 @@ const CanceledOrders = () => {
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Cancel Orders</h1>
-      <table className="min-w-full bg-gray-900 shadow-sm text-gray-400">
+      <table className="min-w-full dark:bg-slate-700 bg-zinc-100 shadow-sm">
         <thead>
           <tr>
             <th className="border px-4 py-2 text-left">Order</th>
