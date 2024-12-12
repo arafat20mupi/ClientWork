@@ -5,6 +5,7 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import SuccessTable from "../components/orders/SuccessTable/SuccessTable";
 import CanceledOrders from "../components/orders/CanceledOrders/CanceledOrders";
 import Reacharge from "../components/reacharge/Reacharge";
+import PriceList from "../components/PriceList/PriceList";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +28,17 @@ const router = createBrowserRouter([
         path: "/order/cancel",
         element: <CanceledOrders />,
       },
-
+    
       {
         path: "/reacharge",
         element: <Reacharge />,
       },
+
+      {
+        path: "/PriceList",
+        element: <PriceList />,
+      },
+
     ],
   },
 ]);
