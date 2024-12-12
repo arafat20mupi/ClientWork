@@ -30,8 +30,8 @@ const PendingOrders = () => {
               <td className="border px-4 py-2">{order.details}</td>
               <td className="border px-4 py-2">{order.price}</td>
               <td className="border px-4 py-2">
-                <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                  View
+                <button className="px-4 py-2 bg-blue-500 text-white rounded">
+                  Proccessing.....
                 </button>
               </td>
             </tr>
