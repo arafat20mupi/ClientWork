@@ -6,6 +6,7 @@ import SuccessTable from "../components/orders/SuccessTable/SuccessTable";
 import CanceledOrders from "../components/orders/CanceledOrders/CanceledOrders";
 import Reacharge from "../components/reacharge/Reacharge";
 import PriceList from "../components/PriceList/PriceList";
+import SignCopyToNidPdf from "../components/SignCopyToNidPdf/SignCopyToNidPdf";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/PriceList",
         element: <PriceList />,
+      },
+      {
+        path: "/sign-copy-to-nid-pdf",
+        element: <SignCopyToNidPdf />,
       },
 
     ],

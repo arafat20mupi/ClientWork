@@ -90,11 +90,11 @@ const PriceList = () => {
           </tr>
         </thead>
         <tbody>
-          {prices.map((price) => (
+          {prices.map((price , index) => (
             <tr key={price.id} className="">
               {/* Order Column */}
               <td className="border border-gray-300 px-4 py-2">
-                <p>{price.price}</p>
+                <p>{index +1 }</p>
               </td>
 
               {/* Details Column */}
