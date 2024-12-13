@@ -7,6 +7,7 @@ import CanceledOrders from "../components/orders/CanceledOrders/CanceledOrders";
 import Reacharge from "../components/reacharge/Reacharge";
 import PriceList from "../components/PriceList/PriceList";
 import SignCopyToNidPdf from "../components/SignCopyToNidPdf/SignCopyToNidPdf";
+import NidCopy from "../components/NidCopy/NidCopy";
 
 const router = createBrowserRouter([
   {
@@ -22,14 +23,14 @@ const router = createBrowserRouter([
         element: <PendingOrders></PendingOrders>,
       },
       {
-        path: "/order/sucess",
+        path: "/order/success",
         element: <SuccessTable />,
       },
       {
         path: "/order/cancel",
         element: <CanceledOrders />,
       },
-    
+
       {
         path: "/reacharge",
         element: <Reacharge />,
@@ -43,7 +44,10 @@ const router = createBrowserRouter([
         path: "/sign-copy-to-nid-pdf",
         element: <SignCopyToNidPdf />,
       },
-
+      {
+        path: "/nid",
+        element: <NidCopy />,
+      },
     ],
   },
 ]);
