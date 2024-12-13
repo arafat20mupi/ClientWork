@@ -58,7 +58,7 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  to="/order/sucess"
+                  to="/order/success"
                   className="pl-10 md:pl-16 cursor-pointer dark:hover:text-white hover:text-black"
                 >
                   Success
@@ -82,8 +82,8 @@ const Sidebar = () => {
             <div>Recharge</div>
           </Link>
           <Link to={'/PriceList'} className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
-            <div className="p-2 bg-yellow-200 rounded-full">
-              <RiMoneyDollarCircleFill className="text-xl text-yellow-600" />
+            <div className="p-2 bg-lime-200 rounded-full">
+              <RiMoneyDollarCircleFill className="text-xl text-lime-600" />
             </div>
             <div>Price List</div>
           </Link>
