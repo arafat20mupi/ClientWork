@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowTrendUp, FaFilePdf } from "react-icons/fa6";
 import { FaServer } from "react-icons/fa";
-import { RiFileDownloadFill } from "react-icons/ri";
+// import { RiFileDownloadFill } from "react-icons/ri";
 import { IoPricetags } from "react-icons/io5";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
@@ -32,7 +32,7 @@ const Dashboard = () => {
           <br />
           <h1 className="md:text-xl">Server copy</h1>
         </div>
-        <Link to="/sign-copy-to-nid-pdf">
+        {/* <Link to="/sign-copy-to-nid-pdf">
           <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
             <div className="text-2xl p-3 w-[50px] rounded-md text-yellow-600 text-center bg-yellow-200">
               <h2 className="">
@@ -42,7 +42,7 @@ const Dashboard = () => {
             <br />
             <h1 className="md:text-xl">Sign copy to NID</h1>
           </div>
-        </Link>
+        </Link> */}
         <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
           <div className="text-2xl p-3 w-[50px] rounded-md text-red-600 text-center bg-red-200">
             <h2 className="">

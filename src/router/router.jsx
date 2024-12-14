@@ -6,8 +6,8 @@ import SuccessTable from "../components/orders/SuccessTable/SuccessTable";
 import CanceledOrders from "../components/orders/CanceledOrders/CanceledOrders";
 import Reacharge from "../components/reacharge/Reacharge";
 import PriceList from "../components/PriceList/PriceList";
-import SignCopyToNidPdf from "../components/SignCopyToNidPdf/SignCopyToNidPdf";
-import NidCopy from "../components/NidCopy/NidCopy";
+// import SignCopyToNidPdf from "../components/SignCopyToNidPdf/SignCopyToNidPdf";
+// import NidCopy from "../components/NidCopy/NidCopy";
 import SignUp from "../components/Signup/Signup";
 import SignIn from "../components/SignIn/SignIn";
 
@@ -42,14 +42,14 @@ const router = createBrowserRouter([
         path: "/PriceList",
         element: <PriceList />,
       },
-      {
-        path: "/sign-copy-to-nid-pdf",
-        element: <SignCopyToNidPdf />,
-      },
-      {
-        path: "/nid",
-        element: <NidCopy />,
-      },
+      // {
+      //   path: "/sign-copy-to-nid-pdf",
+      //   element: <SignCopyToNidPdf />,
+      // },
+      // {
+      //   path: "/nid",
+      //   element: <NidCopy />,
+      // },
      
     ],
   },

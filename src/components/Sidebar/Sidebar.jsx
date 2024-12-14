@@ -99,7 +99,7 @@ const Sidebar = () => {
             </div>
             <div>Sign Copy</div>
           </li>
-          <Link
+          {/* <Link
             to="/sign-copy-to-nid-pdf"
             className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
           >
@@ -107,7 +107,7 @@ const Sidebar = () => {
               <FaServer className="text-xl text-purple-600" />
             </div>
             <div>Sign copy to NID PDF</div>
-          </Link>
+          </Link> */}
           <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
             <div className="p-2 bg-pink-200 rounded-full">
               <IoMdKey className="text-xl text-pink-600" />
