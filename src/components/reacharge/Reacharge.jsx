@@ -4,10 +4,13 @@ const Recharge = () => {
       <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">
         Recharge
       </h1>
-
+      <h2>
+      নিচের দেওয়া নম্বরগুলোতে Send Money Korben </h2>
+      <p className="font-extrabold text-pink-500">বিকাশ Personal: 01738485576</p>
+      <p className="font-extrabold text-red-500">নগদ Personal: 01738485576</p>
+      
       {/* Dropdown for Payment Method */}
       <div className="mb-4">
-       
         <select
           id="paymentMethod"
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -15,7 +18,6 @@ const Recharge = () => {
           <option value="">Select Payment Method</option>
           <option value="bkash">Bkash</option>
           <option value="nogod">Nogod</option>
-          <option value="nogod">Rocket</option>
         </select>
       </div>
 
@@ -42,7 +44,9 @@ const Recharge = () => {
           placeholder="Enter TrxId"
         />
       </div>
-<div className="flex items-center font-extrabold text-red-500">সর্বনিম্ন রিচার্জ: 20 টাকা</div>
+      <div className="flex items-center font-extrabold text-red-500">
+        সর্বনিম্ন রিচার্জ: 20 টাকা
+      </div>
       <div className="mt-4">
         <button className="w-full px-6 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition">
           Proceed to Payment

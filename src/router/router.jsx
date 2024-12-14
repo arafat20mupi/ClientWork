@@ -5,6 +5,11 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import SuccessTable from "../components/orders/SuccessTable/SuccessTable";
 import CanceledOrders from "../components/orders/CanceledOrders/CanceledOrders";
 import Reacharge from "../components/reacharge/Reacharge";
+import PriceList from "../components/PriceList/PriceList";
+// import SignCopyToNidPdf from "../components/SignCopyToNidPdf/SignCopyToNidPdf";
+// import NidCopy from "../components/NidCopy/NidCopy";
+import SignUp from "../components/Signup/Signup";
+import SignIn from "../components/SignIn/SignIn";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +25,7 @@ const router = createBrowserRouter([
         element: <PendingOrders></PendingOrders>,
       },
       {
-        path: "/order/sucess",
+        path: "/order/success",
         element: <SuccessTable />,
       },
       {
@@ -32,8 +37,30 @@ const router = createBrowserRouter([
         path: "/reacharge",
         element: <Reacharge />,
       },
+
+      {
+        path: "/PriceList",
+        element: <PriceList />,
+      },
+      // {
+      //   path: "/sign-copy-to-nid-pdf",
+      //   element: <SignCopyToNidPdf />,
+      // },
+      // {
+      //   path: "/nid",
+      //   element: <NidCopy />,
+      // },
+     
     ],
   },
+  {
+    path: 'signUp',
+    element: <SignUp/>,
+  },
+  {
+    path: 'signIn',
+    element: <SignIn/>,
+  }
 ]);
 
 export default router;

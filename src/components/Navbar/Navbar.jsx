@@ -43,8 +43,8 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-6">
           <h1 className="dark:text-white text-black">Balace :{20} BDT</h1>
-          <div className="w-16 h-16">
-            <img src={`logo.jpg`} alt="" />
+          <div className="w-20 h-20">
+            <img src={`logo.png`} alt="" />
           </div>
         </div>
       </nav>

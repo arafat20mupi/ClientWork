@@ -1,6 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Tiro+Bangla:ital@0;1&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
-    font-family: "Nunito Sans", sans-serif;
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.font-nikosh {
+  font-family: "Tiro Bangla", serif;
+}
+html{
+  scroll-behavior: smooth;
+}
+
+.react-tel-input .form-control {
+  @apply !w-full py-6 !text-base;
+}
+
+.opt-container {
+  @apply flex justify-between gap-2;
+}
+.opt-container input {
+  @apply !mr-0 flex-1 py-5 outline-none;
 }
