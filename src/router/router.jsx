@@ -8,6 +8,8 @@ import Reacharge from "../components/reacharge/Reacharge";
 import PriceList from "../components/PriceList/PriceList";
 import SignCopyToNidPdf from "../components/SignCopyToNidPdf/SignCopyToNidPdf";
 import NidCopy from "../components/NidCopy/NidCopy";
+import SignUp from "../components/Signup/Signup";
+import SignIn from "../components/SignIn/SignIn";
 
 const router = createBrowserRouter([
   {
@@ -48,8 +50,17 @@ const router = createBrowserRouter([
         path: "/nid",
         element: <NidCopy />,
       },
+     
     ],
   },
+  {
+    path: 'signUp',
+    element: <SignUp/>,
+  },
+  {
+    path: 'signIn',
+    element: <SignIn/>,
+  }
 ]);
 
 export default router;
