@@ -1,6 +1,5 @@
-import { FaArrowTrendUp, FaFilePdf } from "react-icons/fa6";
+import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaServer } from "react-icons/fa";
-import { RiFileDownloadFill } from "react-icons/ri";
 import { IoPricetags } from "react-icons/io5";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
@@ -27,7 +26,7 @@ const Dashboard = () => {
         )
           // If user is not authenticated or does not have admin role, render login link
           : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 text-white md:grid-cols-4 gap-4">
               <Link to="/reacharge">
                 <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-blue-600 text-center bg-blue-200">
