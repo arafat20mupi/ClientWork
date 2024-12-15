@@ -10,6 +10,9 @@ import PriceList from "../components/PriceList/PriceList";
 // import NidCopy from "../components/NidCopy/NidCopy";
 import SignUp from "../components/Signup/Signup";
 import SignIn from "../components/SignIn/SignIn";
+import ServerCopy from "../components/ServerCopy/ServerCopy";
+import SignCopy from "../components/SignCopy/SignCopy";
+import NidUserPassSet from "../components/NidUserPassSet/NidUserPassSet";
 
 const router = createBrowserRouter([
   {
@@ -50,17 +53,28 @@ const router = createBrowserRouter([
       //   path: "/nid",
       //   element: <NidCopy />,
       // },
-     
+      {
+        path: "/servercopy",
+        element: <ServerCopy />,
+      },
+      {
+        path: "/signcopy",
+        element: <SignCopy />,
+      },
+      {
+        path: "/NidUserPassSet",
+        element: <NidUserPassSet />,
+      },
     ],
   },
   {
-    path: 'signUp',
-    element: <SignUp/>,
+    path: "signUp",
+    element: <SignUp />,
   },
   {
-    path: 'signIn',
-    element: <SignIn/>,
-  }
+    path: "signIn",
+    element: <SignIn />,
+  },
 ]);
 
 export default router;
