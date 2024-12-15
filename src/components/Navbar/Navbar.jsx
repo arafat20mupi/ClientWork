@@ -1,17 +1,27 @@
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { IoMdKey } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
+import useAuth from "../../Hook/useAuth";
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+  const { logout } = useAuth();
   const { OpenSide, setOpenSide } = useContext(SidebarContext);
   const [UserDorpDpwn, setUserDorpDpwn] = useState(false);
+
+  const navigate = useNavigate(); 
   const handleClick = () => {
     setUserDorpDpwn(!UserDorpDpwn);
   };
   const handleSidebar = () => {
     setOpenSide(!OpenSide);
+  };
+  const handleLogout = () => {
+    logout(); 
+    navigate("/signIn"); 
   };
   return (
     <div>
@@ -33,10 +43,10 @@ const Navbar = () => {
                   <IoMdKey className="text-xl" />
                   <div>Change Password</div>
                 </li>
-                <li className="hover:bg-blue-500 flex items-center space-x-1 hover:text-white py-2 px-3">
+                <button onClick={handleLogout} className="hover:bg-blue-500 w-full flex items-center space-x-1 hover:text-white py-2 px-3">
                   <MdLogout className="text-xl" />
                   <div>Log out</div>
-                </li>
+                </button>
               </ul>
             </div>
           )}

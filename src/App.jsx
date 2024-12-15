@@ -1,47 +1,48 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
 import SidebarContext from "./Context/SidebarConext/SidebarContext";
-import useAxiosPublic from "./Hook/useAxiosPublic";
 import SignIn from "./components/SignIn/SignIn";
+import useAuth from "./Hook/useAuth";
 
 const App = () => {
-  const axios = useAxiosPublic();
   const { OpenSide } = useContext(SidebarContext);
-  const [user, setUser] = useState(null);  
-  const token = localStorage.getItem("token"); 
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const authenticateUser = async () => {
-      if (token) {
-       setUser(token);
-      }
-    };
-    
-    authenticateUser();
-  }, [token, axios]);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-  };
+  const isAdmin = user?.user?.role === "admin"; 
 
   return (
     <>
-      {
-        user ? (
+
+     
+      {user ? (
+        isAdmin ? (
           <div className="py-10 overflow-x-hidden">
-            <Navbar onLogout={logout} />
+            <Navbar />
             <Sidebar />
-            <div className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"}`}>
+            <div
+              className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"}`}
+            >
               <Outlet />
             </div>
           </div>
         ) : (
-          <SignIn />
+          // Show normal user content
+          <div className="py-10 overflow-x-hidden">
+            <Navbar />
+            <Sidebar />
+            <div
+              className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"}`}
+            >
+              <Outlet />
+            </div>
+          </div>
         )
-      }
+      ) : (
+        // If user is not authenticated, show the SignIn page
+        <SignIn />
+      )}
     </>
   );
 };
