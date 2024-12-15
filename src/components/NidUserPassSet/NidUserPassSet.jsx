@@ -2,7 +2,7 @@ import React from "react";
 import { IoIosAlert } from "react-icons/io";
 import { useForm } from "react-hook-form";
 
-const ServerCopy = () => {
+const NidUserPassSet = () => {
   const {
     register,
     handleSubmit,
@@ -15,8 +15,8 @@ const ServerCopy = () => {
     <div className="px-5 md:px-20">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-black dark:bg-white px-5 md:px-10 py-4 rounded-md space-y-3">
-          <h1 className="text-green-600 font-bold text-center my-3 text-2xl">
-            সার্ভার কপি
+          <h1 className="text-blue-600 font-bold text-center my-3 text-2xl">
+            এনআইডি ইউজার পাসওয়ার্ড সেট
           </h1>
           <h1 className="text-white dark:text-black font-bold text-center my-3 text-3xl">
             নিম্নক্ত ফোর্মটি পূরণ করুন।
@@ -67,66 +67,39 @@ const ServerCopy = () => {
           </div>
 
           {/* Info Message */}
-          <h1 className="flex items-center space-x-2 text-green-800 md:bg-green-200 ring-green-700 ring md:ring-2 p-1 md:p-2 rounded-md md:text-xl">
+          <h1 className="flex items-center space-x-2 text-blue-800 md:bg-blue-200 ring-blue-700 ring md:ring-2 p-1 md:p-2 rounded-md md:text-xl">
             <IoIosAlert className="text-6xl md:text-4xl" />
-            <span>
-              ভুল না হওয়ার জন্য চাইলে নাম বা অন্য কোনো তথ্য জানা থাকলে
-              দিতে পারেন.
-            </span>
+            <span>আডমিন যোগাযোগের জন্য আপনার WhatsApp নাম্বার দিন।</span>
           </h1>
 
-          {/* Optional Fields */}
-          <div className="flex flex-col md:flex-row items-center gap-3">
-            <div>
-              <label htmlFor="name" className="text-white dark:text-black">
-                নাম দিন (optional):
-              </label>
-              <input
-                id="name"
-                placeholder="নাম (অপশনাল)"
-                type="text"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                {...register("name")}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <div>
-                <label htmlFor="day" className="text-white dark:text-black">
-                  জন্মদিন দিন (optional):
-                </label>
-                <input
-                  id="day"
-                  placeholder="দিন (অপশনাল)"
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  {...register("day")}
-                />
-              </div>
-              <div>
-                <label htmlFor="month" className="text-white dark:text-black">
-                  জন্ম মাস দিন (optional):
-                </label>
-                <input
-                  id="month"
-                  placeholder="মাস (অপশনাল)"
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  {...register("month")}
-                />
-              </div>
-              <div>
-                <label htmlFor="year" className="text-white dark:text-black">
-                  বছর দিন (optional):
-                </label>
-                <input
-                  id="year"
-                  placeholder="বছর (অপশনাল)"
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  {...register("year")}
-                />
-              </div>
-            </div>
+          {/* WhatsApp Number Field with validation */}
+          <div>
+            <label
+              htmlFor="whatsAppNumber"
+              className="text-white dark:text-black"
+            >
+              {"WhatsApp নাম্বার"} দিন:
+            </label>
+            <input
+              id="whatsAppNumber"
+              placeholder="WhatsApp নাম্বার"
+              type="number"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register("whatsAppNumber", {
+                required: "WhatsApp নাম্বার ফিল্ডটি আবশ্যক",
+                minLength: {
+                  value: 10,
+                  message: "WhatsApp নাম্বার কমপক্ষে 10 অক্ষর হতে হবে",
+                },
+                maxLength: {
+                  value: 15,
+                  message: "WhatsApp নাম্বার সর্বাধিক 15 অক্ষর হতে হবে",
+                },
+              })}
+            />
+            {errors.whatsAppNumber && (
+              <p className="text-red-500">{errors.whatsAppNumber.message}</p>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -144,4 +117,4 @@ const ServerCopy = () => {
   );
 };
 
-export default ServerCopy;
+export default NidUserPassSet;

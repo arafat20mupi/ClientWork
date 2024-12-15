@@ -18,7 +18,6 @@ const PendingOrders = () => {
         <thead>
           <tr>
             <th className="border px-4 py-2 text-left">Order</th>
-            <th className="border px-4 py-2 text-left">Details</th>
             <th className="border px-4 py-2 text-left">Price</th>
             <th className="border px-4 py-2 text-left">Action</th>
           </tr>
@@ -27,7 +26,6 @@ const PendingOrders = () => {
           {orders.map((order) => (
             <tr key={order.id} className="">
               <td className="border px-4 py-2">{order.order}</td>
-              <td className="border px-4 py-2">{order.details}</td>
               <td className="border px-4 py-2">{order.price}</td>
               <td className="border px-4 py-2">
                 <button className="px-4 py-2 bg-blue-500 text-white rounded">

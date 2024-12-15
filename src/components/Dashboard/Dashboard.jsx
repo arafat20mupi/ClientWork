@@ -7,6 +7,7 @@ import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
+import { TbPasswordUser } from "react-icons/tb";
 
 const Dashboard = () => {
   return (
@@ -23,15 +24,17 @@ const Dashboard = () => {
             <h1 className="md:text-xl">Recharge</h1>
           </div>
         </Link>
-        <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
-          <div className="text-2xl p-3 w-[50px] rounded-md text-pink-600 text-center bg-pink-200">
-            <h2 className="">
-              <FaServer />
-            </h2>
+        <Link to="/servercopy">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+            <div className="text-2xl p-3 w-[50px] rounded-md text-pink-600 text-center bg-pink-200">
+              <h2 className="">
+                <FaServer />
+              </h2>
+            </div>
+            <br />
+            <h1 className="md:text-xl">Server copy</h1>
           </div>
-          <br />
-          <h1 className="md:text-xl">Server copy</h1>
-        </div>
+        </Link>
         {/* <Link to="/sign-copy-to-nid-pdf">
           <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
             <div className="text-2xl p-3 w-[50px] rounded-md text-yellow-600 text-center bg-yellow-200">
@@ -43,6 +46,17 @@ const Dashboard = () => {
             <h1 className="md:text-xl">Sign copy to NID</h1>
           </div>
         </Link> */}
+          <Link to="/NidUserPassSet">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+            <div className="text-2xl p-3 w-[50px] rounded-md text-yellow-600 text-center bg-yellow-200">
+              <h2 className="">
+                <TbPasswordUser  />
+              </h2>
+            </div>
+            <br />
+            <h1 className="md:text-xl">NID User Password Set</h1>
+          </div>
+        </Link>
         <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
           <div className="text-2xl p-3 w-[50px] rounded-md text-red-600 text-center bg-red-200">
             <h2 className="">
@@ -63,15 +77,17 @@ const Dashboard = () => {
             <h1 className="md:text-xl">Price List</h1>
           </div>
         </Link>
-        <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
-          <div className="text-2xl p-3 w-[50px] rounded-md text-purple-600 text-center bg-purple-200">
-            <h2 className="">
-              <FaServer />
-            </h2>
+        <Link to="/signcopy">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+            <div className="text-2xl p-3 w-[50px] rounded-md text-purple-600 text-center bg-purple-200">
+              <h2 className="">
+                <FaServer />
+              </h2>
+            </div>
+            <br />
+            <h1 className="md:text-xl">Sign copy</h1>
           </div>
-          <br />
-          <h1 className="md:text-xl">Sign copy</h1>
-        </div>
+        </Link>
         <Link to="/order/pending">
           <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
             <div className="text-2xl p-3 w-[50px] rounded-md text-orange-600 text-center bg-orange-200">

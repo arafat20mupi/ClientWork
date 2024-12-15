@@ -5,17 +5,20 @@ import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { FaServer } from "react-icons/fa";
 import { IoMdKey } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
+import { TbPasswordUser } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
 import { Link } from "react-router-dom";
 const Sidebar = () => {
+  
   const [isOrder, setisOrder] = useState(false);
   const { OpenSide } = useContext(SidebarContext);
 
   return (
     <div
-      className={`overflow-y-scroll pb-28 duration-300 fixed z-30 top-20 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
-        }`}
+      className={`overflow-y-scroll pb-28 duration-300 fixed z-30 top-20 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${
+        OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
+      }`}
     >
       <div>
         <ul className="space-y-1">
@@ -75,30 +78,42 @@ const Sidebar = () => {
               </li>
             </ul>
           )}
-          <Link to={'/reacharge'} className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
+          <Link
+            to={"/reacharge"}
+            className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+          >
             <div className="p-2 bg-yellow-200 rounded-full">
               <RiMoneyDollarCircleFill className="text-xl text-yellow-600" />
             </div>
             <div>Recharge</div>
           </Link>
-          <Link to={'/PriceList'} className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
+          <Link
+            to={"/PriceList"}
+            className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+          >
             <div className="p-2 bg-lime-200 rounded-full">
               <RiMoneyDollarCircleFill className="text-xl text-lime-600" />
             </div>
             <div>Price List</div>
           </Link>
-          <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
+          <Link
+            to="/servercopy"
+            className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+          >
             <div className="p-2 bg-red-200 rounded-full">
               <FaServer className="text-xl text-red-600" />
             </div>
             <div>Server Copy</div>
-          </li>
-          <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
+          </Link>
+          <Link
+            to="/signcopy"
+            className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+          >
             <div className="p-2 bg-slate-200 rounded-full">
               <FaServer className="text-xl text-slate-600" />
             </div>
             <div>Sign Copy</div>
-          </li>
+          </Link>
           {/* <Link
             to="/sign-copy-to-nid-pdf"
             className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
@@ -108,6 +123,15 @@ const Sidebar = () => {
             </div>
             <div>Sign copy to NID PDF</div>
           </Link> */}
+         <Link
+            to="/NidUserPassSet"
+            className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+          >
+            <div className="p-2 bg-purple-200 rounded-full">
+              <TbPasswordUser  className="text-xl text-purple-600" />
+            </div>
+            <div>NID User Password Set</div>
+          </Link> 
           <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
             <div className="p-2 bg-pink-200 rounded-full">
               <IoMdKey className="text-xl text-pink-600" />
