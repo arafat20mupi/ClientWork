@@ -13,6 +13,7 @@ import SignIn from "../components/SignIn/SignIn";
 import ServerCopy from "../components/ServerCopy/ServerCopy";
 import SignCopy from "../components/SignCopy/SignCopy";
 import NidUserPassSet from "../components/NidUserPassSet/NidUserPassSet";
+import NidCopy from "../components/NidCopy/NidCopy";
 
 const router = createBrowserRouter([
   {
@@ -45,14 +46,6 @@ const router = createBrowserRouter([
         path: "/PriceList",
         element: <PriceList />,
       },
-      // {
-      //   path: "/sign-copy-to-nid-pdf",
-      //   element: <SignCopyToNidPdf />,
-      // },
-      // {
-      //   path: "/nid",
-      //   element: <NidCopy />,
-      // },
       {
         path: "/servercopy",
         element: <ServerCopy />,

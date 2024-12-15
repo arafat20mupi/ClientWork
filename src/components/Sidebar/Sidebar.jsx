@@ -33,7 +33,7 @@ const Sidebar = () => {
         }`}
     >
       <div>
-        <ul className="space-y-1">
+        <ul className="space-y-1 text-white">
           {isAdmin ? (
             <li>
               <Link
@@ -130,13 +130,13 @@ const Sidebar = () => {
                 <div>Sign Copy</div>
               </li>
               <Link
-                to="/sign-copy-to-nid-pdf"
+                to="/NidUserPassSet"
                 className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
               >
                 <div className="p-2 bg-purple-200 rounded-full">
                   <FaServer className="text-xl text-purple-600" />
                 </div>
-                <div>Sign copy to NID PDF</div>
+                <div>Nid User Password Set</div>
               </Link>
             </>
           }
