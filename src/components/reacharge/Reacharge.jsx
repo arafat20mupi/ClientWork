@@ -1,33 +1,29 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useState } from "react";
 
 const Recharge = () => {
-  const [formData, setFormData] = useState({
-    paymentMethod: "",
-    number: "",
-    amount: "",
-    trxId: "",
-    name: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const [message, setMessage] = useState("");
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
+  const onSubmit = async (data) => {
+    const uid = "1"; // Example ID, replace as needed
+    const name = "Al"; // Example Name, replace as needed
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/recharge",
-        formData
-      );
+      const response = await axios.post("http://localhost:5000/api/recharge", {
+        ...data,
+        uid,
+        name,
+      });
       setMessage(response.data.message);
+      reset(); // Reset form fields after successful submission
     } catch (error) {
       setMessage(error.response?.data?.message || "An error occurred");
     }
@@ -35,30 +31,31 @@ const Recharge = () => {
 
   return (
     <div className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">
-        Recharge
-      </h1>
-      <div className="m-4 font-semibold text-pink-600">
-        <h2>নিচের দেওয়া নাম্বার গুলোতে রিচারজ করুন-</h2>
+      <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Recharge</h1>
+      <div className="m-3 font-semibold text-pink-600">
+        <h2>নিচের দেওয়া নাম্বার গুলোতে রিচারজ করুন-</h2>
         <h3>বিকাশ ঃ ০১৮১৭৮৭১২৭৩</h3>
         <h3>নগদ ঃ ০১৮১৭৮৭১২৭৩</h3>
       </div>
+
       {message && (
         <div className="mb-4 text-center text-green-600">{message}</div>
       )}
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/* Payment Method Dropdown */}
         <div className="mb-4">
           <select
-            id="paymentMethod"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.paymentMethod}
-            onChange={handleInputChange}
+            {...register("paymentMethod", { required: "Payment method is required" })}
           >
             <option value="">Select Payment Method</option>
             <option value="bkash">Bkash</option>
             <option value="nogod">Nogod</option>
           </select>
+          {errors.paymentMethod && (
+            <p className="text-red-500 text-sm mt-1">{errors.paymentMethod.message}</p>
+          )}
         </div>
 
         {/* Payment Number */}
@@ -68,12 +65,13 @@ const Recharge = () => {
           </label>
           <input
             type="text"
-            id="number"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter payment number"
-            value={formData.number}
-            onChange={handleInputChange}
+            {...register("number", { required: "Payment number is required" })}
           />
+          {errors.number && (
+            <p className="text-red-500 text-sm mt-1">{errors.number.message}</p>
+          )}
         </div>
 
         {/* Amount */}
@@ -83,12 +81,19 @@ const Recharge = () => {
           </label>
           <input
             type="number"
-            id="amount"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter amount"
-            value={formData.amount}
-            onChange={handleInputChange}
+            {...register("amount", {
+              required: "Amount is required",
+              min: {
+                value: 1,
+                message: "Amount must be greater than 0",
+              },
+            })}
           />
+          {errors.amount && (
+            <p className="text-red-500 text-sm mt-1">{errors.amount.message}</p>
+          )}
         </div>
 
         {/* TrxId */}
@@ -98,28 +103,15 @@ const Recharge = () => {
           </label>
           <input
             type="text"
-            id="trxId"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter TrxId"
-            value={formData.trxId}
-            onChange={handleInputChange}
+            {...register("trxId", { required: "Transaction ID is required" })}
           />
+          {errors.trxId && (
+            <p className="text-red-500 text-sm mt-1">{errors.trxId.message}</p>
+          )}
         </div>
 
-        {/* Name */}
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-600 mb-1">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-        </div>
 
         {/* Submit Button */}
         <div className="mt-4">
