@@ -1,12 +1,16 @@
 import { FaArrowTrendUp, FaFilePdf } from "react-icons/fa6";
 import { FaServer } from "react-icons/fa";
-import { RiFileDownloadFill } from "react-icons/ri";
+// import { RiFileDownloadFill } from "react-icons/ri";
 import { IoPricetags } from "react-icons/io5";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
+
+import { TbPasswordUser } from "react-icons/tb";
+
 import useAuth from "../../Hook/useAuth";
+
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -15,7 +19,6 @@ const Dashboard = () => {
   const isAdmin = user?.user?.role === "admin"; // Assuming user has a direct role field.
   return (
     <div className="px-5">
-      {
         // If user is authenticated and has admin role, render dashboard content
         isAdmin ? (
           <div className="">
@@ -121,6 +124,7 @@ const Dashboard = () => {
                   <h1 className="md:text-xl">Cancel Order</h1>
                 </div>
               </Link>
+
             </div>
           )
       }
