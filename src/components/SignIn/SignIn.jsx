@@ -32,7 +32,7 @@ const SignIn = () => {
                 navigate("/");
             }
         } catch (error) {
-            console.error("Login failed:", error.response?.data);
+            console.error("Login failed:", error?.response?.data);
             toast.error("Login failed. Please check your credentials.");
         } finally {
             setIsLoading(false);
