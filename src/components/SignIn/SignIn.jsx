@@ -13,23 +13,26 @@ const SignIn = () => {
     
     const { control, register, handleSubmit, formState: { errors }, setFocus } = useForm();
 
+    // Check if token exists in localStorage on initial render to navigate to dashboard
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            navigate("/");
+        }
+    }, [navigate]);
+
     const handleLogin = async (data) => {
         setIsLoading(true);
       
         const { phone, password } = data;
-        
         try {
             const response = await axios.post("/api/login", { phone, password });
-            if (response?.data?.success) {
-                
-                console.log("Login successful:", response.data);
+            if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
-                
                 toast.success("Login successful.");
                 navigate("/");
             }
         } catch (error) {
-            console.error("Login failed:", error.response?.data);
+            console.error("Login failed:", error?.response?.data);
             toast.error("Login failed. Please check your credentials.");
         } finally {
             setIsLoading(false);
@@ -39,7 +42,7 @@ const SignIn = () => {
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
             const firstErrorField = Object.keys(errors)[0];
-            setFocus(firstErrorField); // Set focus to the first error field
+            setFocus(firstErrorField);
         }
     }, [errors, setFocus]);
 
