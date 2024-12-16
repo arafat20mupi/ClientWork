@@ -111,6 +111,18 @@ const Dashboard = () => {
                   <h1 className="md:text-xl">Cancel Order</h1>
                 </div>
               </Link>
+
+              <Link to="/addressToNid">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                  <div className="text-2xl p-3 w-[50px] rounded-md text-orange-600 text-center bg-orange-200">
+                    <h2 className="">
+                      <MdOutlineAccessTimeFilled />
+                    </h2>
+                  </div>
+                  <br />
+                  <h1 className="md:text-xl">Address To Nid</h1>
+                </div>
+              </Link>
             </div>
           )
       }
