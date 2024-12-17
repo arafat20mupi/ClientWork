@@ -13,7 +13,6 @@ import SignIn from "../components/SignIn/SignIn";
 import ServerCopy from "../components/ServerCopy/ServerCopy";
 import SignCopy from "../components/SignCopy/SignCopy";
 import NidUserPassSet from "../components/NidUserPassSet/NidUserPassSet";
-import NidCopy from "../components/NidCopy/NidCopy";
 import AddressToNid from "../components/AddressToNid/AddressToNid";
 import AllUsers from "../components/Admin/AllUsers/AllUsers";
 import AdminServerCopy from "../components/Admin/AdminServerCopy/AdminServerCopy";
@@ -22,6 +21,7 @@ import AdminPriceList from "../components/Admin/AdminPriceList/AdminPriceList";
 import AdminRecharge from "../components/Admin/AdminRecharge/AdminRecharge";
 import AdminSignCopy from "../components/Admin/AdminSignCopy/AdminSignCopy";
 import IdPdf from "../components/IdPdf/IdPdf";
+import NidUserPasswordSet from "../components/Admin/NidUserPasswordSet/NidUserPasswordSet";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "/Admin/dashboard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "/Admin/NidUserPasswordSet",
+        element: <NidUserPasswordSet />,
       },
 
       {

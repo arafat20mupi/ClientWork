@@ -9,6 +9,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
 import { Link, useNavigate } from "react-router-dom";
 import { SiLeaderprice } from "react-icons/si";
+import { LuServerCog } from "react-icons/lu";
 import useAuth from "../../Hook/useAuth";
 const Sidebar = () => {
   const [isOrder, setisOrder] = useState(false);
@@ -77,7 +78,7 @@ const Sidebar = () => {
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
                   <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                    <LuServerCog className="text-xl text-teal-600" />
                   </div>
                   <div>Server Copy</div>
                 </Link>
@@ -92,6 +93,17 @@ const Sidebar = () => {
                     <SiLeaderprice className="text-xl text-teal-600" />
                   </div>
                   <div>Sign Copy</div>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/admin/NidUserPasswordSet"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <SiLeaderprice className="text-xl text-teal-600" />
+                  </div>
+                  <div>Nid User Password Set</div>
                 </Link>
               </li>
 
