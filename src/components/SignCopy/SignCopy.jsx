@@ -1,4 +1,4 @@
-import React from "react";
+
 import { IoIosAlert } from "react-icons/io";
 import { useForm } from "react-hook-form";
 
@@ -115,7 +115,7 @@ const SignCopy = () => {
               </div>
               <div>
                 <label htmlFor="year" className="text-white dark:text-black">
-                  বছর দিন (optional):
+                  বছর (optional):
                 </label>
                 <input
                   id="year"

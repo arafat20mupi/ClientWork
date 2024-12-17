@@ -15,6 +15,12 @@ import SignCopy from "../components/SignCopy/SignCopy";
 import NidUserPassSet from "../components/NidUserPassSet/NidUserPassSet";
 import NidCopy from "../components/NidCopy/NidCopy";
 import AddressToNid from "../components/AddressToNid/AddressToNid";
+import AllUsers from "../components/Admin/AllUsers/AllUsers";
+import AdminServerCopy from "../components/Admin/AdminServerCopy/AdminServerCopy";
+import AdminDashboard from "../components/Admin/AdminDashboard/AdminDashboard";
+import AdminPriceList from "../components/Admin/AdminPriceList/AdminPriceList";
+import AdminRecharge from "../components/Admin/AdminRecharge/AdminRecharge";
+import AdminSignCopy from "../components/Admin/AdminSignCopy/AdminSignCopy";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +74,37 @@ const router = createBrowserRouter([
         path: "/NidUserPassSet",
         element: <NidUserPassSet />,
       },
+      {
+        path: "/Admin/dashboard",
+        element: <AdminDashboard />,
+      },
+
+      {
+        path: "/Admin/AllUsers",
+        element: <AllUsers />,
+      },
+
+      {
+        path: "/Admin/recharge",
+        element: <AdminRecharge />,
+      },
+
+      {
+        path: "/Admin/serverCopy",
+        element: <AdminServerCopy />,
+      },
+
+      {
+        path: "/Admin/signCopy",
+        element: <AdminSignCopy />,
+      },
+
+      {
+        path: "/Admin/priceList",
+        element: <AdminPriceList />,
+      },
+
+      
     ],
   },
   {
