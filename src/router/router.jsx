@@ -13,7 +13,6 @@ import SignIn from "../components/SignIn/SignIn";
 import ServerCopy from "../components/ServerCopy/ServerCopy";
 import SignCopy from "../components/SignCopy/SignCopy";
 import NidUserPassSet from "../components/NidUserPassSet/NidUserPassSet";
-import NidCopy from "../components/NidCopy/NidCopy";
 import AddressToNid from "../components/AddressToNid/AddressToNid";
 import AllUsers from "../components/Admin/AllUsers/AllUsers";
 import AdminServerCopy from "../components/Admin/AdminServerCopy/AdminServerCopy";

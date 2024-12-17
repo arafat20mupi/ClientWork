@@ -39,7 +39,7 @@ const PriceList = () => {
         </thead>
         <tbody>
         {prices && prices.map((price, index) => (
-            <tr key={price.id} className="">
+            <tr key={price._id} className="">
               {/* Order Column */}
               <td className="border border-gray-300 px-4 py-2">
                 <p>{index + 1}</p>
