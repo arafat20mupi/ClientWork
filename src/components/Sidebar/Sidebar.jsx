@@ -8,6 +8,7 @@ import { MdLogout } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
 import { Link, useNavigate } from "react-router-dom";
+import { SiLeaderprice } from "react-icons/si";
 import useAuth from "../../Hook/useAuth";
 const Sidebar = () => {
   const [isOrder, setisOrder] = useState(false);
@@ -33,17 +34,80 @@ const Sidebar = () => {
       <div>
         <ul className="space-y-1 text-white">
           {isAdmin ? (
-            <li>
-              <Link
-                to="/admin/users"
-                className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
-              >
-                <div className="p-2 bg-blue-200 rounded-full">
-                  <MdDashboard className="text-xl text-blue-600" />
-                </div>
-                <div>Admin Login</div>
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  to="/admin/dashboard"
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-blue-200 rounded-full">
+                    <MdDashboard className="text-xl text-blue-600" />
+                  </div>
+                  <div>Admin Dashboard</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/admin/AllUsers"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <SiLeaderprice className="text-xl text-teal-600" />
+                  </div>
+                  <div>All Users</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/admin/recharge"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <SiLeaderprice className="text-xl text-teal-600" />
+                  </div>
+                  <div>Recharge</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/admin/serverCopy"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <SiLeaderprice className="text-xl text-teal-600" />
+                  </div>
+                  <div>Server Copy</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/admin/signCopy"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <SiLeaderprice className="text-xl text-teal-600" />
+                  </div>
+                  <div>Sign Copy</div>
+                </Link>
+              </li>
+
+
+              <li>
+                <Link
+                  to={"/admin/priceList"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <SiLeaderprice className="text-xl text-teal-600" />
+                  </div>
+                  <div>Price List</div>
+                </Link>
+              </li>
+            </>
           ) : (
             <>
               <li>
