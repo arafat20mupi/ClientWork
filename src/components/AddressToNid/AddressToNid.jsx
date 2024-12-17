@@ -573,7 +573,6 @@ const AddressToNid = () => {
   };
 
   const handleDivisionChange = (e) => {
-    e.preventDefault();
     setSelectedDivision(e.target.value);
     setSelectedDistrict("");
     setSelectedUpazila("");
@@ -581,20 +580,17 @@ const AddressToNid = () => {
   };
 
   const handleDistrictChange = (e) => {
-    e.preventDefault();
     setSelectedDistrict(e.target.value);
     setSelectedUpazila("");
     setSelectedUnion(""); // Reset Union on District change
   };
 
   const handleUpazilaChange = (e) => {
-    e.preventDefault();
     setSelectedUpazila(e.target.value);
     setSelectedUnion(""); // Reset Union on Upazila change
   };
 
   const handleUnionChange = (e) => {
-    e.preventDefault();
     setSelectedUnion(e.target.value);
   };
 
@@ -603,7 +599,7 @@ const AddressToNid = () => {
       ...formData,
       // selectedDivision,
       // selectedDistrict,
-      selectedUpazila,
+      // selectedUpazila,
       // selectedUnion,
     });
     alert("Form submitted successfully!");
@@ -615,7 +611,8 @@ const AddressToNid = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="px-5">
+      <div className="max-w-md md:max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-2xl font-semibold leading-tight bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 text-transparent bg-clip-text">
         নাম ঠিকানা দিয়ে এন আইডি অর্ডার করুন
       </h2>
@@ -692,7 +689,10 @@ const AddressToNid = () => {
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">উপজেলা</label>
             <select
-              className="border rounded-md p-2 w-full"
+              className={`border rounded-md p-2 w-full ${
+                errors.upazila ? "border-red-500" : "border-gray-300"
+              }`}
+              {...register("upazila", { required: "উপজেলা নির্বাচন আবশ্যক।" })}
               value={selectedUpazila}
               onChange={handleUpazilaChange}
             >
@@ -703,31 +703,49 @@ const AddressToNid = () => {
                 </option>
               ))}
             </select>
-          </div>
-        )}
-
-        {selectedUpazila && (
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">ইউনিয়ন</label>
-            <input
-              type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter Union"
-              value={selectedUnion}
-              onChange={handleUnionChange}
-            />
+            {errors.upazila && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.upazila.message}
+              </p>
+            )}
           </div>
         )}
         {selectedUpazila && (
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">ওয়ার্ড</label>
+            <label className="block text-gray-700 font-bold mb-2">
+              ইউনিয়ন
+            </label>
             <input
               type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter Word"
-              // value={}
-              // onChange={handleUnionChange}
+              className={`border rounded-md p-2 w-full ${
+                errors.union ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="ইউনিয়ন লিখুন।"
+              {...register("union", { required: "ইউনিয়ন লিখুন।" })}
             />
+            {errors.union && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.union.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              ওয়ার্ড
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.ward ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="ওয়ার্ড লিখুন"
+              {...register("ward", { required: "ওয়ার্ড লিখুন।" })}
+            />
+            {errors.ward && (
+              <p className="text-red-500 text-sm mt-1">{errors.ward.message}</p>
+            )}
           </div>
         )}
         {selectedUpazila && (
@@ -735,11 +753,17 @@ const AddressToNid = () => {
             <label className="block text-gray-700 font-bold mb-2">গ্রামঃ</label>
             <input
               type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter Village"
-              // value={}
-              // onChange={handleUnionChange}
+              className={`border rounded-md p-2 w-full ${
+                errors.village ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="গ্রাম লিখুন।"
+              {...register("village", { required: "গ্রাম লিখুন।" })}
             />
+            {errors.village && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.village.message}
+              </p>
+            )}
           </div>
         )}
         {selectedUpazila && (
@@ -749,11 +773,17 @@ const AddressToNid = () => {
             </label>
             <input
               type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter Area name"
-              // value={}
-              // onChange={handleUnionChange}
+              className={`border rounded-md p-2 w-full ${
+                errors.areaName ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="ভোটার এলাকার নাম লিখুন।"
+              {...register("areaName", { required: "ভোটার এলাকার নাম লিখুন।" })}
             />
+            {errors.areaName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.areaName.message}
+              </p>
+            )}
           </div>
         )}
         {selectedUpazila && (
@@ -763,11 +793,17 @@ const AddressToNid = () => {
             </label>
             <input
               type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter your father's name"
-              // value={}
-              // onChange={handleUnionChange}
+              className={`border rounded-md p-2 w-full ${
+                errors.fatherName ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="পিতার নাম লিখুন।"
+              {...register("fatherName", { required: "পিতার নাম লিখুন।" })}
             />
+            {errors.fatherName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.fatherName.message}
+              </p>
+            )}
           </div>
         )}
         {selectedUpazila && (
@@ -777,24 +813,29 @@ const AddressToNid = () => {
             </label>
             <input
               type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter your mother's name"
-              // value={}
-              // onChange={handleUnionChange}
+              className={`border rounded-md p-2 w-full ${
+                errors.motherName ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="মাতার নাম লিখুন।"
+              {...register("motherName", { required: "মাতার নাম লিখুন।" })}
             />
+            {errors.motherName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.motherName.message}
+              </p>
+            )}
           </div>
         )}
         {selectedUpazila && (
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
-              স্বামী/স্ত্রীর নাম
+              স্বামী/স্ত্রীর নাম (Optional)
             </label>
             <input
               type="text"
-              className="border rounded-md p-2 w-full"
-              placeholder="Enter your spouse's name"
-              // value={}
-              // onChange={handleUnionChange}
+              className={`border rounded-md p-2 w-full`}
+              placeholder="স্বামী/স্ত্রীর নাম (Optional)"
+              {...register("spouseName")}
             />
           </div>
         )}
@@ -804,10 +845,21 @@ const AddressToNid = () => {
           </label>
           <input
             type="text"
-            className="border rounded-md p-2 w-full"
-            placeholder=" Enter your WhatsApp number"
-            {...register("phone", { required: true })}
+            className={`border rounded-md p-2 w-full ${
+              errors.phone ? "border-red-500" : "border-gray-300"
+            }`}
+            placeholder="WhatsApp নাম্বার লিখুন।"
+            {...register("phone", {
+              required: "WhatsApp নাম্বার লিখুন।",
+              pattern: {
+                value: /^\d{11}$/,
+                message: "Please enter a valid 11-digit WhatsApp number.",
+              },
+            })}
           />
+          {errors.phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -816,10 +868,21 @@ const AddressToNid = () => {
           </label>
           <input
             type="text"
-            className="border rounded-md p-2 w-full"
+            className={`border rounded-md p-2 w-full ${
+              errors.nid ? "border-red-500" : "border-gray-300"
+            }`}
             placeholder="Enter your NID number"
-            {...register("nid", { required: true })}
+            {...register("nid", {
+              required: "NID Number is required.",
+              pattern: {
+                value: /^\d{10}$/,
+                message: "Please enter a valid 10-digit NID number.",
+              },
+            })}
           />
+          {errors.nid && (
+            <p className="text-red-500 text-sm mt-1">{errors.nid.message}</p>
+          )}
         </div>
 
         <button
@@ -829,6 +892,7 @@ const AddressToNid = () => {
           Submit
         </button>
       </form>
+    </div>
     </div>
   );
 };

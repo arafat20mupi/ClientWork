@@ -21,6 +21,7 @@ import AdminDashboard from "../components/Admin/AdminDashboard/AdminDashboard";
 import AdminPriceList from "../components/Admin/AdminPriceList/AdminPriceList";
 import AdminRecharge from "../components/Admin/AdminRecharge/AdminRecharge";
 import AdminSignCopy from "../components/Admin/AdminSignCopy/AdminSignCopy";
+import IdPdf from "../components/IdPdf/IdPdf";
 
 const router = createBrowserRouter([
   {
@@ -67,8 +68,8 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/signcopy",
-        element: <NidCopy />,
+        path: "/idpdf",
+        element: <IdPdf />,
       },
       {
         path: "/NidUserPassSet",
@@ -103,8 +104,6 @@ const router = createBrowserRouter([
         path: "/Admin/priceList",
         element: <AdminPriceList />,
       },
-
-      
     ],
   },
   {

@@ -30,6 +30,7 @@ const Recharge = () => {
   };
 
   return (
+    <div className="px-5">
     <div className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Recharge</h1>
       <div className="m-3 font-semibold text-pink-600">
@@ -123,6 +124,7 @@ const Recharge = () => {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 };

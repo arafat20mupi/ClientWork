@@ -95,7 +95,6 @@ const Sidebar = () => {
                 </Link>
               </li>
 
-
               <li>
                 <Link
                   to={"/admin/priceList"}
@@ -184,18 +183,33 @@ const Sidebar = () => {
                 </div>
                 <div>Price List</div>
               </Link>
-              <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
+              <Link
+                to={"/servercopy"}
+                className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+              >
                 <div className="p-2 bg-red-200 rounded-full">
                   <FaServer className="text-xl text-red-600" />
                 </div>
                 <div>Server Copy</div>
-              </li>
-              <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
+              </Link>
+              <Link
+                to={"/signcopy"}
+                className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+              >
                 <div className="p-2 bg-slate-200 rounded-full">
                   <FaServer className="text-xl text-slate-600" />
                 </div>
                 <div>Sign Copy</div>
-              </li>
+              </Link>
+              <Link
+                to={"/idpdf"}
+                className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+              >
+                <div className="p-2 bg-blue-200 rounded-full">
+                  <FaServer className="text-xl text-blue-600" />
+                </div>
+                <div>ID Pdf</div>
+              </Link>
               <Link
                 to="/NidUserPassSet"
                 className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
