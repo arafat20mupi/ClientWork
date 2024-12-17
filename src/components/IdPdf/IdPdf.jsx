@@ -1,8 +1,7 @@
-
 import { IoIosAlert } from "react-icons/io";
 import { useForm } from "react-hook-form";
 
-const ServerCopy = () => {
+const IdPdf = () => {
   const {
     register,
     handleSubmit,
@@ -15,8 +14,8 @@ const ServerCopy = () => {
     <div className="px-5 md:px-20">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-black dark:bg-white px-5 md:px-10 py-4 rounded-md space-y-3">
-          <h1 className="text-green-600 font-bold text-center my-3 text-2xl">
-            সার্ভার কপি
+          <h1 className="text-purple-600 font-bold text-center my-3 text-2xl">
+            এনআইডি পিডিএফ
           </h1>
           <h1 className="text-white dark:text-black font-bold text-center my-3 text-3xl">
             নিম্নক্ত ফোর্মটি পূরণ করুন।
@@ -67,11 +66,11 @@ const ServerCopy = () => {
           </div>
 
           {/* Info Message */}
-          <h1 className="flex items-center space-x-2 text-green-800 md:bg-green-200 ring-green-700 ring md:ring-2 p-1 md:p-2 rounded-md md:text-xl">
+          <h1 className="flex items-center space-x-2 text-purple-800 md:bg-purple-200 ring-purple-700 ring md:ring-2 p-1 md:p-2 rounded-md md:text-xl">
             <IoIosAlert className="text-6xl md:text-4xl" />
             <span>
-              ভুল না হওয়ার জন্য চাইলে নাম বা অন্য কোনো তথ্য জানা থাকলে
-              দিতে পারেন.
+              ভুল না হওয়ার জন্য চাইলে নাম বা অন্য কোনো তথ্য জানা থাকলে দিতে
+              পারেন.
             </span>
           </h1>
 
@@ -144,4 +143,4 @@ const ServerCopy = () => {
   );
 };
 
-export default ServerCopy;
+export default IdPdf;

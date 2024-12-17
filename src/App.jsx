@@ -18,7 +18,7 @@ const App = () => {
      
       {user ? (
         isAdmin ? (
-          <div className="py-10 overflow-x-hidden">
+          <div className="py-10 text-white overflow-x-hidden">
             <Navbar />
             <Sidebar />
             <div
@@ -29,7 +29,7 @@ const App = () => {
           </div>
         ) : (
           // Show normal user content
-          <div className="py-10 overflow-x-hidden">
+          <div className="py-10 text-white overflow-x-hidden">
             <Navbar />
             <Sidebar />
             <div
