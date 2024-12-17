@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AddressToNid = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }, // errors এখানে destructure করা হয়েছে
+  } = useForm();
 
   const [selectedDivision, setSelectedDivision] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -10,90 +15,565 @@ const AddressToNid = () => {
   const [selectedUnion, setSelectedUnion] = useState("");
 
   const data = {
-    "Dhaka Division": {
-      Dhaka: ["Dhamrai", "Dhanmondi", "Dohar", "Keraniganj", "Nawabganj", "Savar"],
-      Faridpur: ["Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan", "Faridpur Sadar", "Madhukhali", "Nagarkanda", "Sadarpur", "Saltha"],
-      Gazipur: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur"],
-      Gopalganj: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Muksudpur", "Tungipara"],
-      Kishoreganj: ["Austagram", "Bajitpur", "Bhairab", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kishoreganj Sadar", "Kuliarchar", "Mithamain", "Nikli", "Pakundia", "Tarail"],
-      Madaripur: ["Kalkini", "Madaripur Sadar", "Rajoir", "Shibchar"],
-      Manikganj: ["Daulatpur", "Ghior", "Harirampur", "Manikganj Sadar", "Saturia", "Shivalaya", "Singair"],
-      Munshiganj: ["Gazaria", "Lohajang", "Munshiganj Sadar", "Sirajdikhan", "Sreenagar", "Tongibari"],
-      Narayanganj: ["Araihazar", "Bandar", "Narayanganj Sadar", "Rupganj", "Sonargaon"],
-      Narsingdi: ["Belabo", "Monohardi", "Narsingdi Sadar", "Palash", "Raipura", "Shibpur"],
-      Rajbari: ["Baliakandi", "Goalanda", "Pangsha", "Rajbari Sadar", "Kalukhali"],
-      Shariatpur: ["Bhedarganj", "Damudya", "Gosairhat", "Naria", "Shariatpur Sadar", "Zajira"],
-      Tangail: ["Basail", "Bhuapur", "Delduar", "Dhanbari", "Ghatail", "Gopalpur", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Sakhipur", "Tangail Sadar"]
+    "ঢাকা বিভাগ": {
+      ঢাকা: ["ধামরাই", "ধানমন্ডি", "দোহার", "কেরানীগঞ্জ", "নবাবগঞ্জ", "সাভার"],
+      ফরিদপুর: [
+        "আলফাডাঙ্গা",
+        "ভাঙ্গা",
+        "বোয়ালমারী",
+        "চরভদ্রাসন",
+        "ফরিদপুর সদর",
+        "মধুখালী",
+        "নগরকান্দা",
+        "সদরপুর",
+        "সালথা",
+      ],
+      গাজীপুর: [
+        "গাজীপুর সদর",
+        "কালিয়াকৈর",
+        "কালীগঞ্জ",
+        "কাপাসিয়া",
+        "শ্রীপুর",
+      ],
+      গোপালগঞ্জ: [
+        "গোপালগঞ্জ সদর",
+        "কাশিয়ানী",
+        "কোটালীপাড়া",
+        "মুকসুদপুর",
+        "টুঙ্গিপাড়া",
+      ],
+      কিশোরগঞ্জ: [
+        "অষ্টগ্রাম",
+        "বাজিতপুর",
+        "ভৈরব",
+        "হোসেনপুর",
+        "ইটনা",
+        "করিমগঞ্জ",
+        "কটিয়াদী",
+        "কিশোরগঞ্জ সদর",
+        "কুলিয়ারচর",
+        "মিঠামইন",
+        "নিকলী",
+        "পাকুন্দিয়া",
+        "তাড়াইল",
+      ],
+      মাদারীপুর: ["কালকিনি", "মাদারীপুর সদর", "রাজৈর", "শিবচর"],
+      মানিকগঞ্জ: [
+        "দৌলতপুর",
+        "ঘিওর",
+        "হরিরামপুর",
+        "মানিকগঞ্জ সদর",
+        "সাটুরিয়া",
+        "শিবালয়",
+        "সিংগাইর",
+      ],
+      মুন্সিগঞ্জ: [
+        "গজারিয়া",
+        "লৌহজং",
+        "মুন্সিগঞ্জ সদর",
+        "সিরাজদিখান",
+        "শ্রীনগর",
+        "টঙ্গীবাড়ী",
+      ],
+      নারায়ণগঞ্জ: [
+        "আড়াইহাজার",
+        "বন্দর",
+        "নারায়ণগঞ্জ সদর",
+        "রূপগঞ্জ",
+        "সোনারগাঁও",
+      ],
+      নরসিংদী: [
+        "বেলাবো",
+        "মনোহরদী",
+        "নরসিংদী সদর",
+        "পলাশ",
+        "রায়পুরা",
+        "শিবপুর",
+      ],
+      রাজবাড়ী: [
+        "বালিয়াকান্দি",
+        "গোয়ালন্দ",
+        "পাংশা",
+        "রাজবাড়ী সদর",
+        "কালুখালী",
+      ],
+      শরীয়তপুর: [
+        "ভেদরগঞ্জ",
+        "ডামুড্যা",
+        "গোসাইরহাট",
+        "নড়িয়া",
+        "শরীয়তপুর সদর",
+        "জাজিরা",
+      ],
+      টাঙ্গাইল: [
+        "বাসাইল",
+        "ভূয়াপুর",
+        "দেলদুয়ার",
+        "ধনবাড়ী",
+        "ঘাটাইল",
+        "গোপালপুর",
+        "কালিহাতী",
+        "মধুপুর",
+        "মির্জাপুর",
+        "নাগরপুর",
+        "সখিপুর",
+        "টাঙ্গাইল সদর",
+      ],
     },
-    "Chattogram Division": {
-      Bandarban: ["Bandarban Sadar", "Rowangchhari", "Ruma", "Thanchi", "Lama", "Alikadam", "Naikhongchhari"],
-      Brahmanbaria: ["Bancharampur", "Bijoynagar", "Brahmanbaria Sadar", "Kasba", "Nabinagar", "Nasirnagar", "Sarail"],
-      Chandpur: ["Chandpur Sadar", "Faridganj", "Haimchar", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"],
-      Chattogram: ["Anwara", "Banshkhali", "Boalkhali", "Chandanaish", "Fatikchhari", "Lohagara", "Mirsharai", "Patiya", "Rangunia", "Raozan", "Sandwip", "Satkania", "Sitakunda"],
-      "Cox's Bazar": ["Chakaria", "Cox's Bazar Sadar", "Kutubdia", "Maheshkhali", "Ramu", "Teknaf", "Ukhiya", "Pekua"],
-      Cumilla: ["Barura", "Brahmanpara", "Burichang", "Chandina", "Cumilla Sadar Dakshin", "Cumilla Adarsha Sadar", "Daudkandi", "Debidwar", "Homna", "Laksham", "Meghna", "Monohorgonj", "Muradnagar", "Nangalkot", "Titas"],
-      Feni: ["Chhagalnaiya", "Daganbhuiyan", "Feni Sadar", "Parshuram", "Sonagazi", "Fulgazi"],
-      Khagrachari: ["Dighinala", "Guimara", "Khagrachari Sadar", "Lakshmichhari", "Mahalchhari", "Matiranga", "Panchhari", "Ramgarh"],
-      Lakshmipur: ["Kamalnagar", "Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati"],
-      Noakhali: ["Begumganj", "Companiganj", "Hatiya", "Noakhali Sadar", "Subarnachar", "Senbagh", "Chatkhil"],
-      Rangamati: ["Baghaichhari", "Barkal", "Belaichhari", "Juraichhari", "Kaptai", "Langadu", "Naniarchar", "Rajasthali", "Rangamati Sadar"]
+    "চট্টগ্রাম বিভাগ": {
+      বান্দরবান: [
+        "বান্দরবান সদর",
+        "রোয়াংছড়ি",
+        "রুমা",
+        "থানচি",
+        "লামা",
+        "আলীকদম",
+        "নাইক্ষ্যংছড়ি",
+      ],
+      ব্রাহ্মণবাড়িয়া: [
+        "বাঞ্ছারামপুর",
+        "বিজয় নগর",
+        "ব্রাহ্মণবাড়িয়া সদর",
+        "কসবা",
+        "নবীনগর",
+        "নাসিরনগর",
+        "সরাইল",
+      ],
+      চাঁদপুর: [
+        "চাঁদপুর সদর",
+        "ফরিদগঞ্জ",
+        "হাইমচর",
+        "কচুয়া",
+        "মতলব দক্ষিণ",
+        "মতলব উত্তর",
+        "শাহরাস্তি",
+      ],
+      চট্টগ্রাম: [
+        "আনোয়ারা",
+        "বাঁশখালী",
+        "বোয়ালখালী",
+        "চন্দনাইশ",
+        "ফটিকছড়ি",
+        "লোহাগাড়া",
+        "মিরসরাই",
+        "পটিয়া",
+        "রাঙ্গুনিয়া",
+        "রাউজান",
+        "সন্দ্বীপ",
+        "সাতকানিয়া",
+        "সীতাকুণ্ড",
+      ],
+      কক্সবাজার: [
+        "চকোরিয়া",
+        "কক্সবাজার সদর",
+        "কুতুবদিয়া",
+        "মহেশখালী",
+        "রামু",
+        "টেকনাফ",
+        "উখিয়া",
+        "পেকুয়া",
+      ],
+      কুমিল্লা: [
+        "বরুড়া",
+        "ব্রাহ্মণপাড়া",
+        "বুরিচং",
+        "চান্দিনা",
+        "কুমিল্লা সদর দক্ষিণ",
+        "কুমিল্লা আদর্শ সদর",
+        "দাউদকান্দি",
+        "দেবিদ্বার",
+        "হোমনা",
+        "লাকসাম",
+        "মেঘনা",
+        "মনোহরগঞ্জ",
+        "মুরাদনগর",
+        "নাঙ্গলকোট",
+        "তিতাস",
+      ],
+      ফেনী: [
+        "ছাগলনাইয়া",
+        "দাগনভূইয়া",
+        "ফেনী সদর",
+        "পরশুরাম",
+        "সোনাগাজী",
+        "ফুলগাজী",
+      ],
+      খাগড়াছড়ি: [
+        "দীঘিনালা",
+        "গুইমারা",
+        "খাগড়াছড়ি সদর",
+        "লক্ষ্মীছড়ি",
+        "মহালছড়ি",
+        "মাটিরাঙ্গা",
+        "পানছড়ি",
+        "রামগড়",
+      ],
+      লক্ষ্মীপুর: ["কমলনগর", "লক্ষ্মীপুর সদর", "রায়পুর", "রামগঞ্জ", "রামগতি"],
+      নোয়াখালী: [
+        "বেগমগঞ্জ",
+        "কোম্পানীগঞ্জ",
+        "হাতিয়া",
+        "নোয়াখালী সদর",
+        "সুবর্ণচর",
+        "সেনবাগ",
+        "চাটখিল",
+      ],
+      রাঙ্গামাটি: [
+        "বাঘাইছড়ি",
+        "বরকল",
+        "বেলাইছড়ি",
+        "জুরাইছড়ি",
+        "কাপ্তাই",
+        "লংগদু",
+        "নানিয়ারচর",
+        "রাজস্থলী",
+        "রাঙ্গামাটি সদর",
+      ],
     },
-    "Khulna Division": {
-      Bagerhat: ["Bagerhat Sadar", "Chitalmari", "Fakirhat", "Kachua", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola"],
-      Chuadanga: ["Alamdanga", "Chuadanga Sadar", "Damurhuda", "Jibannagar"],
-      Jashore: ["Abhaynagar", "Bagherpara", "Chaugachha", "Jashore Sadar", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"],
-      Jhenaidah: ["Harinakunda", "Jhenaidah Sadar", "Kaliganj", "Kotchandpur", "Maheshpur", "Shailkupa"],
-      Khulna: ["Batiaghata", "Dacope", "Dighalia", "Dumuria", "Koyra", "Paikgachha", "Phultala", "Rupsa", "Terokhada"],
-      Kushtia: ["Bheramara", "Daulatpur", "Khoksa", "Kumarkhali", "Kushtia Sadar", "Mirpur"],
-      Magura: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"],
-      Meherpur: ["Gangni", "Meherpur Sadar", "Mujibnagar"],
-      Narail: ["Kalia", "Lohagara", "Narail Sadar"],
-      Satkhira: ["Assasuni", "Debhata", "Kaliganj", "Kalaroa", "Satkhira Sadar", "Shyamnagar", "Tala"]
+    "খুলনা বিভাগ": {
+      বাগেরহাট: [
+        "বাগেরহাট সদর",
+        "চিতলমারী",
+        "ফকিরহাট",
+        "কচুয়া",
+        "মোল্লাহাট",
+        "মোংলা",
+        "মোড়েলগঞ্জ",
+        "রামপাল",
+        "শরণখোলা",
+      ],
+      চুয়াডাঙ্গা: ["আলমডাঙ্গা", "চুয়াডাঙ্গা সদর", "দামুড়হুদা", "জীবননগর"],
+      যশোর: [
+        "অভয়নগর",
+        "বাঘেরপাড়া",
+        "চৌগাছা",
+        "যশোর সদর",
+        "ঝিকরগাছা",
+        "কেশবপুর",
+        "মনিরামপুর",
+        "শার্শা",
+      ],
+      ঝিনাইদহ: [
+        "হরিণাকুণ্ডু",
+        "ঝিনাইদহ সদর",
+        "কালীগঞ্জ",
+        "কোটচাঁদপুর",
+        "মহেশপুর",
+        "শৈলকুপা",
+      ],
+      খুলনা: [
+        "বটিয়াঘাটা",
+        "ডুমুরিয়া",
+        "দিঘলিয়া",
+        "ডুমুরিয়া",
+        "কয়রা",
+        "পাইকগাছা",
+        "ফুলতলা",
+        "রূপসা",
+        "তেরখাদা",
+      ],
+      কুষ্টিয়া: [
+        "ভেরামারা",
+        "দৌলতপুর",
+        "খোকসা",
+        "কুমারখালী",
+        "কুষ্টিয়া সদর",
+        "মিরপুর",
+      ],
+      মাগুরা: ["মাগুরা সদর", "মহম্মদপুর", "শালিখা", "শ্রীপুর"],
+      মেহেরপুর: ["গাংনী", "মেহেরপুর সদর", "মুজিবনগর"],
+      নড়াইল: ["কালিয়া", "লোহাগড়া", "নড়াইল সদর"],
+      সাতক্ষীরা: [
+        "আশাশুনি",
+        "দেবহাটা",
+        "কালীগঞ্জ",
+        "কলারোয়া",
+        "সাতক্ষীরা সদর",
+        "শ্যামনগর",
+        "তালা",
+      ],
     },
-    "Barisal Division": {
-      Barisal: ["Agailjhara", "Babuganj", "Bakerganj", "Banaripara", "Barisal Sadar", "Gournadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur"],
-      Barguna: ["Amtali", "Bamna", "Barguna Sadar", "Betagi", "Patharghata", "Taltali"],
-      Bhola: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Manpura", "Tazumuddin"],
-      Jhalokati: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"],
-      Patuakhali: ["Bauphal", "Dashmina", "Galachipa", "Kalapara", "Mirzaganj", "Patuakhali Sadar", "Rangabali"],
-      Pirojpur: ["Bhandaria", "Kaukhali", "Mathbaria", "Nazirpur", "Nesarabad", "Pirojpur Sadar", "Zianagar"]
+    "বরিশাল বিভাগ": {
+      বরিশাল: [
+        "আগৈলঝাড়া",
+        "বাবুগঞ্জ",
+        "বাকেরগঞ্জ",
+        "বানারীপাড়া",
+        "বরিশাল সদর",
+        "গৌরনদী",
+        "হিজলা",
+        "মেহেন্দিগঞ্জ",
+        "মুলাদী",
+        "ওয়াজিরপুর",
+      ],
+      বরগুনা: ["আমতলী", "বামনা", "বরগুনা সদর", "বেতাগী", "পাথরঘাটা", "তালতলী"],
+      ভোলা: [
+        "ভোলা সদর",
+        "বোরহানউদ্দিন",
+        "চরফ্যাশন",
+        "দৌলতখান",
+        "লালমোহন",
+        "মনপুরা",
+        "তজুমুদ্দিন",
+      ],
+      ঝালকাঠি: ["ঝালকাঠি সদর", "কাঠালিয়া", "নলছিটি", "রাজাপুর"],
+      পটুয়াখালী: [
+        "বাউফল",
+        "দশমিনা",
+        "গলাচিপা",
+        "কলাপাড়া",
+        "মির্জাগঞ্জ",
+        "পটুয়াখালী সদর",
+        "রাঙ্গাবালী",
+      ],
+      পিরোজপুর: [
+        "ভাণ্ডারিয়া",
+        "কাউখালী",
+        "মঠবাড়িয়া",
+        "নাজিরপুর",
+        "নেছারাবাদ",
+        "পিরোজপুর সদর",
+        "জিয়ানগর",
+      ],
     },
-    "Mymensingh Division": {
-      Jamalpur: ["Bakshiganj", "Dewanganj", "Islampur", "Jamalpur Sadar", "Madarganj", "Melandaha", "Sarishabari"],
-      Mymensingh: ["Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gouripur", "Haluaghat", "Ishwarganj", "Mymensingh Sadar", "Nandail", "Phulpur", "Trishal"],
-      Netrokona: ["Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Madan", "Mohanganj", "Netrokona Sadar", "Purbadhala"],
-      Sherpur: ["Jhenaigati", "Nakla", "Nalitabari", "Sherpur Sadar", "Sreebardi"]
+    "ময়মনসিংহ বিভাগ": {
+      জামালপুর: [
+        "বক্সীগঞ্জ",
+        "দেওয়ানগঞ্জ",
+        "ইসলামপুর",
+        "জামালপুর সদর",
+        "মাদারগঞ্জ",
+        "মেলান্দহ",
+        "সরিষাবাড়ী",
+      ],
+      ময়মনসিংহ: [
+        "ভালুকা",
+        "ধোবাউড়া",
+        "ফুলবাড়ীয়া",
+        "গফরগাঁও",
+        "গৌরীপুর",
+        "হালুয়াঘাট",
+        "ঈশ্বরগঞ্জ",
+        "ময়মনসিংহ সদর",
+        "নান্দাইল",
+        "ফুলপুর",
+        "ত্রিশাল",
+      ],
+      নেত্রকোণা: [
+        "আটপাড়া",
+        "বারহাট্টা",
+        "দুর্গাপুর",
+        "কলমাকান্দা",
+        "কেন্দুয়া",
+        "মদন",
+        "মোহনগঞ্জ",
+        "নেত্রকোণা সদর",
+        "পূর্বধলা",
+      ],
+      শেরপুর: ["ঝিনাইগাতী", "নকলা", "নালিতাবাড়ী", "শেরপুর সদর", "শ্রীবর্দী"],
     },
-    "Rajshahi Division": {
-      Bogura: ["Adamdighi", "Bogura Sadar", "Dhunat", "Dupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Sherpur", "Shibganj", "Sonatala"],
-      Joypurhat: ["Akkelpur", "Joypurhat Sadar", "Kalai", "Khetlal", "Panchbibi"],
-      Naogaon: ["Atrai", "Badalgachhi", "Dhamoirhat", "Mahadebpur", "Manda", "Naogaon Sadar", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar"],
-      Natore: ["Bagatipara", "Baraigram", "Gurudaspur", "Lalpur", "Natore Sadar", "Singra"],
-      Chapainawabganj: ["Bholahat", "Gomostapur", "Nachole", "Nawabganj Sadar", "Shibganj"],
-      Pabna: ["Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Ishwardi", "Pabna Sadar", "Santhia", "Sujanagar"],
-      Rajshahi: ["Bagha", "Bagmara", "Charghat", "Durgapur", "Godagari", "Mohanpur", "Paba", "Puthia", "Rajshahi Sadar", "Tanore"],
-      Sirajganj: ["Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Raiganj", "Shahjadpur", "Sirajganj Sadar", "Tarash", "Ullahpara"]
+    "রাজশাহী বিভাগ": {
+      বগুড়া: [
+        "আদমদীঘি",
+        "বগুড়া সদর",
+        "ধুনট",
+        "দুপচাঁচিয়া",
+        "গাবতলী",
+        "কাহালু",
+        "নন্দীগ্রাম",
+        "সারিয়াকান্দি",
+        "শেরপুর",
+        "শিবগঞ্জ",
+        "সোনাতলা",
+      ],
+      জয়পুরহাট: [
+        "আক্কেলপুর",
+        "জয়পুরহাট সদর",
+        "কালাই",
+        "ক্ষেতলাল",
+        "পাঁচবিবি",
+      ],
+      নওগাঁ: [
+        "আত্রাই",
+        "বদলগাছী",
+        "ধামইরহাট",
+        "মহাদেবপুর",
+        "মান্দা",
+        "নওগাঁ সদর",
+        "নিয়ামতপুর",
+        "পত্নীতলা",
+        "পোরশা",
+        "রাণীনগর",
+        "সাপাহার",
+      ],
+      নাটোর: [
+        "বাগাতিপাড়া",
+        "বড়াইগ্রাম",
+        "গুরুদাসপুর",
+        "লালপুর",
+        "নাটোর সদর",
+        "সিংড়া",
+      ],
+      চাঁপাইনবাবগঞ্জ: [
+        "ভোলাহাট",
+        "গোমস্তাপুর",
+        "নাচোল",
+        "নবাবগঞ্জ সদর",
+        "শিবগঞ্জ",
+      ],
+      পাবনা: [
+        "আটঘরিয়া",
+        "বেড়া",
+        "ভাঙ্গুড়া",
+        "চাটমোহর",
+        "ফরিদপুর",
+        "ঈশ্বরদী",
+        "পাবনা সদর",
+        "সাঁথিয়া",
+        "সুজানগর",
+      ],
+      রাজশাহী: [
+        "বাঘা",
+        "বাগমারা",
+        "চারঘাট",
+        "দুর্গাপুর",
+        "গোদাগাড়ী",
+        "মোহনপুর",
+        "পবা",
+        "পুঠিয়া",
+        "রাজশাহী সদর",
+        "তানোর",
+      ],
+      সিরাজগঞ্জ: [
+        "বেলকুচি",
+        "চৌহালী",
+        "কামারখন্দ",
+        "কাজিপুর",
+        "রায়গঞ্জ",
+        "শাহজাদপুর",
+        "সিরাজগঞ্জ সদর",
+        "তাড়াশ",
+        "উল্লাপাড়া",
+      ],
     },
-    "Rangpur Division": {
-      Dinajpur: ["Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Dinajpur Sadar", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur" , "Fulbari"],
-      Gaibandha: ["Fulchhari", "Gaibandha Sadar", "Gobindaganj", "Palashbari", "Sadullapur", "Sughatta", "Sundarganj"],
-      Kurigram: ["Bhurungamari", "Chilmari", "Kurigram Sadar", "Nageshwari", "Phulbari", "Rajarhat", "Raumari", "Ulipur"],
-      Lalmonirhat: ["Aditmari", "Hatibandha", "Kaliganj", "Lalmonirhat Sadar", "Patgram"],
-      Nilphamari: ["Dimla", "Domar", "Jaldhaka", "Kishoreganj", "Nilphamari Sadar", "Saidpur"],
-      Panchagarh: ["Atwari", "Boda", "Debiganj", "Panchagarh Sadar", "Tetulia"],
-      Rangpur: ["Badarganj", "Gangachhara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Rangpur Sadar", "Taraganj"],
-      Thakurgaon: ["Baliadangi", "Haripur", "Pirganj", "Ranishankail", "Thakurgaon Sadar"]
+    "রংপুর বিভাগ": {
+      দিনাজপুর: [
+        "বিরামপুর",
+        "বীরগঞ্জ",
+        "বিরাম",
+        "বোচাগঞ্জ",
+        "চিরিরবন্দর",
+        "দিনাজপুর সদর",
+        "ঘোড়াঘাট",
+        "হাকিমপুর",
+        "কাহারোল",
+        "খানসামা",
+        "নবাবগঞ্জ",
+        "পার্বতীপুর",
+        "ফুলবাড়ী",
+      ],
+      গাইবান্ধা: [
+        "ফুলছড়ি",
+        "গাইবান্ধা সদর",
+        "গোবিন্দগঞ্জ",
+        "পলাশবাড়ী",
+        "সাদুল্লাপুর",
+        "সুঘাটা",
+        "সুন্দরগঞ্জ",
+      ],
+      কুড়িগ্রাম: [
+        "ভুরুঙ্গামারী",
+        "চিলমারী",
+        "কুড়িগ্রাম সদর",
+        "নাগেশ্বরী",
+        "ফুলবাড়ী",
+        "রাজারহাট",
+        "রৌমারী",
+        "উলিপুর",
+      ],
+      লালমনিরহাট: [
+        "আদিতমারী",
+        "হাতীবান্ধা",
+        "কালীগঞ্জ",
+        "লালমনিরহাট সদর",
+        "পাটগ্রাম",
+      ],
+      নীলফামারী: [
+        "ডিমলা",
+        "ডোমার",
+        "জলঢাকা",
+        "কিশোরগঞ্জ",
+        "নীলফামারী সদর",
+        "সৈয়দপুর",
+      ],
+      পঞ্চগড়: ["আটোয়ারী", "বোদা", "দেবীগঞ্জ", "পঞ্চগড় সদর", "তেঁতুলিয়া"],
+      রংপুর: [
+        "বদরগঞ্জ",
+        "গঙ্গাচড়া",
+        "কাউনিয়া",
+        "মিঠাপুকুর",
+        "পীরগাছা",
+        "পীরগঞ্জ",
+        "রংপুর সদর",
+        "তারাগঞ্জ",
+      ],
+      ঠাকুরগাঁও: [
+        "বালিয়াডাঙ্গী",
+        "হরিপুর",
+        "পীরগঞ্জ",
+        "রাণীশংকৈল",
+        "ঠাকুরগাঁও সদর",
+      ],
     },
-    "Sylhet Division": {
-      Habiganj: ["Bahubal", "Baniachong", "Chunarughat", "Habiganj Sadar", "Lakhai", "Madhabpur", "Nabiganj", "Shayestaganj"],
-      Moulvibazar: ["Barlekha", "Kamalganj", "Kulaura", "Moulvibazar Sadar", "Rajnagar", "Sreemangal"],
-      Sunamganj: ["Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Sunamganj Sadar", "Tahirpur"],
-      Sylhet: ["Balaganj", "Beanibazar", "Bishwanath", "Companiganj", "Dakshin Surma", "Fenchuganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Sylhet Sadar", "Zakiganj"]
-    }
+    "সিলেট বিভাগ": {
+      হবিগঞ্জ: [
+        "বাহুবল",
+        "বানিয়াচং",
+        "চুনারুঘাট",
+        "হবিগঞ্জ সদর",
+        "লাখাই",
+        "মাধবপুর",
+        "নবীগঞ্জ",
+        "শায়েস্তাগঞ্জ",
+      ],
+      মৌলভীবাজার: [
+        "বড়লেখা",
+        "কমলগঞ্জ",
+        "কুলাউড়া",
+        "মৌলভীবাজার সদর",
+        "রাজনগর",
+        "শ্রীমঙ্গল",
+      ],
+      সুনামগঞ্জ: [
+        "বিশ্বম্ভরপুর",
+        "ছাতক",
+        "দেরাই",
+        "ধর্মপাশা",
+        "দোয়ারাবাজার",
+        "জগন্নাথপুর",
+        "জামালগঞ্জ",
+        "শাল্লা",
+        "সুনামগঞ্জ সদর",
+        "তাহিরপুর",
+      ],
+      সিলেট: [
+        "বালাগঞ্জ",
+        "বিয়ানীবাজার",
+        "বিশ্বনাথ",
+        "কোম্পানীগঞ্জ",
+        "দক্ষিণ সুরমা",
+        "ফেঞ্চুগঞ্জ",
+        "গোয়াইনঘাট",
+        "জৈন্তাপুর",
+        "কানাইঘাট",
+        "সিলেট সদর",
+        "জকিগঞ্জ",
+      ],
+    },
   };
-  
 
   const handleDivisionChange = (e) => {
+    e.preventDefault();
     setSelectedDivision(e.target.value);
     setSelectedDistrict("");
     setSelectedUpazila("");
@@ -101,30 +581,33 @@ const AddressToNid = () => {
   };
 
   const handleDistrictChange = (e) => {
+    e.preventDefault();
     setSelectedDistrict(e.target.value);
     setSelectedUpazila("");
     setSelectedUnion(""); // Reset Union on District change
   };
 
   const handleUpazilaChange = (e) => {
+    e.preventDefault();
     setSelectedUpazila(e.target.value);
     setSelectedUnion(""); // Reset Union on Upazila change
   };
 
   const handleUnionChange = (e) => {
+    e.preventDefault();
     setSelectedUnion(e.target.value);
   };
 
   const onSubmit = (formData) => {
     console.log({
       ...formData,
-      selectedDivision,
-      selectedDistrict,
+      // selectedDivision,
+      // selectedDistrict,
       selectedUpazila,
-      selectedUnion,
+      // selectedUnion,
     });
     alert("Form submitted successfully!");
-    reset();
+    // reset();
     setSelectedDivision("");
     setSelectedDistrict("");
     setSelectedUpazila("");
@@ -132,55 +615,79 @@ const AddressToNid = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-2xl font-semibold leading-tight bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 text-transparent bg-clip-text">
-        নাম ঠিকানা দিয়ে এন আই ডি অর্ডার করুন
+        নাম ঠিকানা দিয়ে এন আইডি অর্ডার করুন
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2">নাম</label>
           <input
             type="text"
-            className="border rounded-md p-2 w-full"
+            className={`border rounded-md p-2 w-full ${
+              errors.name ? "border-red-500" : "border-gray-300"
+            }`}
             placeholder="নাম ঠিকানা দিয়ে এন আই ডি 650 টাকা"
-            {...register("name", { required: true })}
+            {...register("name", { required: "নামটি দেওয়া আবশ্যক।" })}
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          )}
         </div>
 
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2">ডিভিশন</label>
           <select
-            className="border rounded-md p-2 w-full"
+            className={`border rounded-md p-2 w-full ${
+              errors.division ? "border-red-500" : "border-gray-300"
+            }`}
+            {...register("division", { required: "ডিভিশন নির্বাচন আবশ্যক।" })}
             value={selectedDivision}
             onChange={handleDivisionChange}
           >
-            <option disabled value="">Select Division</option>
+            <option disabled value="">
+              Select Division
+            </option>
             {Object.keys(data).map((division) => (
               <option key={division} value={division}>
                 {division}
               </option>
             ))}
           </select>
+          {errors.division && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.division.message}
+            </p>
+          )}
         </div>
 
         {selectedDivision && (
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">জেলা</label>
             <select
-              className="border rounded-md p-2 w-full"
+              className={`border rounded-md p-2 w-full ${
+                errors.district ? "border-red-500" : "border-gray-300"
+              }`}
+              {...register("district", { required: "জেলা নির্বাচন আবশ্যক।" })}
               value={selectedDistrict}
               onChange={handleDistrictChange}
             >
-              <option disabled value="">Select District</option>
+              <option disabled value="">
+                Select District
+              </option>
               {Object.keys(data[selectedDivision]).map((district) => (
                 <option key={district} value={district}>
                   {district}
                 </option>
               ))}
             </select>
+            {errors.district && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.district.message}
+              </p>
+            )}
           </div>
         )}
-
         {selectedDistrict && (
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">উপজেলা</label>
@@ -211,19 +718,102 @@ const AddressToNid = () => {
             />
           </div>
         )}
-
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">ওয়ার্ড</label>
+            <input
+              type="text"
+              className="border rounded-md p-2 w-full"
+              placeholder="Enter Word"
+              // value={}
+              // onChange={handleUnionChange}
+            />
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">গ্রামঃ</label>
+            <input
+              type="text"
+              className="border rounded-md p-2 w-full"
+              placeholder="Enter Village"
+              // value={}
+              // onChange={handleUnionChange}
+            />
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              ভোটার এলাকার নাম
+            </label>
+            <input
+              type="text"
+              className="border rounded-md p-2 w-full"
+              placeholder="Enter Area name"
+              // value={}
+              // onChange={handleUnionChange}
+            />
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              পিতার নাম
+            </label>
+            <input
+              type="text"
+              className="border rounded-md p-2 w-full"
+              placeholder="Enter your father's name"
+              // value={}
+              // onChange={handleUnionChange}
+            />
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              মাতার নাম
+            </label>
+            <input
+              type="text"
+              className="border rounded-md p-2 w-full"
+              placeholder="Enter your mother's name"
+              // value={}
+              // onChange={handleUnionChange}
+            />
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              স্বামী/স্ত্রীর নাম
+            </label>
+            <input
+              type="text"
+              className="border rounded-md p-2 w-full"
+              placeholder="Enter your spouse's name"
+              // value={}
+              // onChange={handleUnionChange}
+            />
+          </div>
+        )}
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">মোবাইল</label>
+          <label className="block text-gray-700 font-bold mb-2">
+            WhatsApp নাম্বার
+          </label>
           <input
             type="text"
             className="border rounded-md p-2 w-full"
-            placeholder="Enter your phone number"
+            placeholder=" Enter your WhatsApp number"
             {...register("phone", { required: true })}
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">NID Number</label>
+          <label className="block text-gray-700 font-bold mb-2">
+            NID Number
+          </label>
           <input
             type="text"
             className="border rounded-md p-2 w-full"

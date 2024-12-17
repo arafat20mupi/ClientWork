@@ -18,7 +18,7 @@ const AdminRecharge = () => {
             <th className="border border-gray-300 px-4 py-2 text-left">
               Amount
             </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Send</th>
+            {/* <th className="border border-gray-300 px-4 py-2 text-left">Send</th> */}
             <th className="border border-gray-300 px-4 py-2 text-left">
               Action
             </th>
@@ -34,18 +34,19 @@ const AdminRecharge = () => {
               <td className="border border-gray-300 px-4 py-2">
                 {user.amount}
               </td>
-              <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
+              {/* <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
                 <input
                   type="number"
                   className="bg-slate-100 px-3 py-1 rounded w-[100px] text-black"
                 />
                 <button className="btn btn-secondary">Send</button>
-              </td>
+              </td> */}
               <td className="border border-gray-300 px-4 py-2">
                 <div className="flex items-center space-x-2">
-                  <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                    Cancel
+                  <button className="text-white btn btn-success">
+                    Approve
                   </button>
+                  <button className="btn btn-error text-white">Cancel</button>
                 </div>
               </td>
             </tr>
