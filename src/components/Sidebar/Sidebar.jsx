@@ -9,7 +9,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
 import { Link, useNavigate } from "react-router-dom";
 import { SiLeaderprice } from "react-icons/si";
-import { LuServerCog } from "react-icons/lu";
 import useAuth from "../../Hook/useAuth";
 const Sidebar = () => {
   const [isOrder, setisOrder] = useState(false);
@@ -65,8 +64,8 @@ const Sidebar = () => {
                   to={"/admin/recharge"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                  <div className="p-2 bg-red-200 rounded-full">
+                    <RiMoneyDollarCircleFill className="text-xl text-teal-600" />
                   </div>
                   <div>Recharge</div>
                 </Link>
@@ -77,8 +76,8 @@ const Sidebar = () => {
                   to={"/admin/serverCopy"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <LuServerCog className="text-xl text-teal-600" />
+                  <div className="p-2 bg-green-500 rounded-full">
+                    <FaServer className="text-xl text-red-600" />
                   </div>
                   <div>Server Copy</div>
                 </Link>
@@ -89,8 +88,8 @@ const Sidebar = () => {
                   to={"/admin/idPdf"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <LuServerCog className="text-xl text-teal-600" />
+                  <div className="p-2 bg-yellow-600 rounded-full">
+                    <FaServer className="text-xl text-emerald-400" />
                   </div>
                   <div>Admin Id Pdf</div>
                 </Link>
@@ -101,8 +100,8 @@ const Sidebar = () => {
                   to={"/Admin/AddressToNid"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <LuServerCog className="text-xl text-teal-600" />
+                  <div className="p-2 bg-red-600 rounded-full">
+                    <RiMoneyDollarCircleFill className="text-xl text-lime-500" />
                   </div>
                   <div> Admin Address To Nid</div>
                 </Link>
@@ -113,8 +112,8 @@ const Sidebar = () => {
                   to={"/admin/signCopy"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                  <div className="p-2 bg-teal-500 rounded-full">
+                    <FaServer className="text-xl text-slate-200" />
                   </div>
                   <div>Sign Copy</div>
                 </Link>
@@ -124,8 +123,8 @@ const Sidebar = () => {
                   to={"/admin/NidUserPasswordSet"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                  <div className="p-2 bg-red-600 rounded-full">
+                    <FaServer className="text-xl bg-yellow-400" />
                   </div>
                   <div>Nid User Password Set</div>
                 </Link>
@@ -137,7 +136,7 @@ const Sidebar = () => {
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
                   <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                    <RiMoneyDollarCircleFill className="text-xl text-teal-600" />
                   </div>
                   <div>Price List</div>
                 </Link>
