@@ -22,6 +22,8 @@ import AdminRecharge from "../components/Admin/AdminRecharge/AdminRecharge";
 import AdminSignCopy from "../components/Admin/AdminSignCopy/AdminSignCopy";
 import IdPdf from "../components/IdPdf/IdPdf";
 import NidUserPasswordSet from "../components/Admin/NidUserPasswordSet/NidUserPasswordSet";
+import AdminAddressToNid from "../components/Admin/AdminAddressToNid/AddressToNid";
+import AdminIdPdf from "../components/Admin/AdminIdPdf/AdminIdPdf";
 
 const router = createBrowserRouter([
   {
@@ -85,8 +87,18 @@ const router = createBrowserRouter([
       },
 
       {
+        path: "/Admin/adminAddressToNid",
+        element: <AdminAddressToNid />,
+      },
+
+      {
         path: "/Admin/AllUsers",
         element: <AllUsers />,
+      },
+
+      {
+        path: "/Admin/idPdf",
+        element: <AdminIdPdf />,
       },
 
       {
