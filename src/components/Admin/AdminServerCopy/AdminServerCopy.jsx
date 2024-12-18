@@ -1,21 +1,22 @@
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+
 const AdminServerCopy = () => {
-  // Sample user data
-  const users = [
-    {
-      id: 1,
-      name: "Server Copy",
-      number: "1234567890",
-      amount: "$100",
-      date: "12-12-24",
-    },
-    {
-      id: 2,
-      name: "NID Copy",
-      number: "0987654321",
-      amount: "$150",
-      date: "12-12-24",
-    },
-  ];
+  const [users, setUsers] = useState()
+  const axios = useAxiosPublic()
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("/api/serverCopy")
+        setUsers(response.data.servers)
+        console.log(response.data.servers);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchUsers()
+  }, [axios])
 
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
@@ -44,15 +45,15 @@ const AdminServerCopy = () => {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
-              <td className="border border-gray-300 px-4 py-2">{user.name}</td>
+            <tr key={user._id}>
+              <td className="border border-gray-300 px-4 py-2">{user.method} Number</td>
               <td className="border border-gray-300 px-4 py-2">
-                {user.number}
+                {user.idNumber}
               </td>
               <td className="border border-gray-300 px-4 py-2">
-                {user.amount}
+                {user.name}
               </td>
-              <td className="border border-gray-300 px-4 py-2">{user.date}</td>
+              <td className="border border-gray-300 px-4 py-2">{user.birthday}</td>
 
               <td className=" flex items-center space-x-1 border border-gray-300 px-4 py-2">
                 <input type="file" />

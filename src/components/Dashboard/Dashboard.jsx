@@ -6,23 +6,18 @@ import { TiTick } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hook/useAuth";
+import AdminDashboard from "../Admin/AdminDashboard/AdminDashboard";
 
 const Dashboard = () => {
   const { user } = useAuth();
-
-  // Check if user is authenticated and if their role is 'admin'
-  const isAdmin = user?.user?.role === "admin"; // Assuming user has a direct role field.
+  const isAdmin = user?.user?.role === "admin"; 
   return (
     <div className="px-5">
       {
-        // If user is authenticated and has admin role, render dashboard content
         isAdmin ? (
-          <div className="">
-            <h1 className="">Dashboard</h1>
-            <p>Welcome, {user.user.name}!</p>
-          </div>
+          <AdminDashboard/>
         ) : (
-          // If user is not authenticated or does not have admin role, render login link
+        
           <div className="grid grid-cols-2 text-white md:grid-cols-4 gap-4">
             <Link to="/reacharge">
               <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">

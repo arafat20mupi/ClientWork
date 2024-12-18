@@ -1,4 +1,3 @@
-import React from "react";
 import Chart from "../Chart/Chart";
 import { FaArrowTrendUp, FaUser } from "react-icons/fa6";
 import { FaAddressCard, FaFilePdf, FaServer } from "react-icons/fa";
