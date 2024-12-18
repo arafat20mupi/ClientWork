@@ -86,6 +86,30 @@ const Sidebar = () => {
 
               <li>
                 <Link
+                  to={"/admin/idPdf"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <LuServerCog className="text-xl text-teal-600" />
+                  </div>
+                  <div>Admin Id Pdf</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/admin/adminAddressToNid"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-teal-200 rounded-full">
+                    <LuServerCog className="text-xl text-teal-600" />
+                  </div>
+                  <div> Admin Address To Nid</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
                   to={"/admin/signCopy"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
