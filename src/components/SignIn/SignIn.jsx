@@ -10,10 +10,9 @@ const SignIn = () => {
     const [isLoading, setIsLoading] = useState(false);
     const axios = useAxiosPublic();
     const navigate = useNavigate();
-    
+
     const { control, register, handleSubmit, formState: { errors }, setFocus } = useForm();
 
-    // Check if token exists in localStorage on initial render to navigate to dashboard
     useEffect(() => {
         if (localStorage.getItem("token")) {
             navigate("/");
@@ -22,14 +21,14 @@ const SignIn = () => {
 
     const handleLogin = async (data) => {
         setIsLoading(true);
-      
         const { phone, password } = data;
+
         try {
             const response = await axios.post("/api/login", { phone, password });
             if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
                 toast.success("Login successful.");
-                navigate("/");
+                navigate("/", { replace: true });
             }
         } catch (error) {
             console.error("Login failed:", error?.response?.data);
@@ -44,14 +43,13 @@ const SignIn = () => {
             const firstErrorField = Object.keys(errors)[0];
             setFocus(firstErrorField);
         }
-    }, [errors, setFocus]);
-
+    }, [errors, setFocus])
     return (
         <div className="flex justify-center items-center min-h-screen bg-emerald-500">
             <Toaster toastOptions={{ duration: 4000 }} />
             <div className="w-80 p-4 bg-white rounded-lg shadow-md">
                 <h2 className="text-center text-emerald-500 font-medium text-2xl mb-4">Phone and Password Authentication</h2>
-                
+
                 <form onSubmit={handleSubmit(handleLogin)} noValidate>
                     <Controller
                         name="phone"
@@ -67,7 +65,7 @@ const SignIn = () => {
                         )}
                     />
                     {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
-                    
+
                     <input
                         type="password"
                         placeholder="Password"
@@ -75,7 +73,7 @@ const SignIn = () => {
                         {...register("password", { required: "Password is required" })}
                     />
                     {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
-                    
+
                     <button
                         type="submit"
                         disabled={isLoading}
@@ -84,9 +82,9 @@ const SignIn = () => {
                         {isLoading ? <CgSpinner size={20} className="animate-spin" /> : "Sign In"}
                     </button>
                 </form>
-                
+
                 <p className="text-center mt-4">
-                    Don't have an account? <Link to={'/signUp'} className="font-bold">Register here</Link>
+                    Don&apos;t have an account? <Link to={'/signUp'} className="font-bold">Register here</Link>
                 </p>
             </div>
         </div>
