@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/Admin/adminAddressToNid",
+        path: "/Admin/AddressToNid",
         element: <AdminAddressToNid />,
       },
 

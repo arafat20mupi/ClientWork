@@ -94,7 +94,7 @@ const Dashboard = () => {
               <br />
               <h1 className="md:text-xl">Nid User Password Set</h1>
             </Link>
-            <Link to="/addressToNid">
+            <Link to="/idpdf">
                 <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-lime-600 text-center bg-lime-200">
                     <h2 className="">
