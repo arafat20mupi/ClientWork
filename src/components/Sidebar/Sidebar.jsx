@@ -98,7 +98,7 @@ const Sidebar = () => {
 
               <li>
                 <Link
-                  to={"/admin/adminAddressToNid"}
+                  to={"/Admin/AddressToNid"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
                   <div className="p-2 bg-teal-200 rounded-full">

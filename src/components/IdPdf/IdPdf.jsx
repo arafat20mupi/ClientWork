@@ -15,7 +15,7 @@ const IdPdf = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-black dark:bg-white px-5 md:px-10 py-4 rounded-md space-y-3">
           <h1 className="text-purple-600 font-bold text-center my-3 text-2xl">
-            এনআইডি পিডিএফ
+            আইডি পিডিএফ
           </h1>
           <h1 className="text-white dark:text-black font-bold text-center my-3 text-3xl">
             নিম্নক্ত ফোর্মটি পূরণ করুন।
