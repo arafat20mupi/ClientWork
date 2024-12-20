@@ -59,7 +59,43 @@ const AdminSignCopy = () => {
               </td>
 
               <td className="border border-gray-300 px-4 py-2">
-                <button className="btn btn-error">Cancel</button>
+                <button
+                  className="btn"
+                  onClick={() =>
+                    document.getElementById("my_modal_3").showModal()
+                  }
+                >
+                  Cancel
+                </button>
+                <dialog id="my_modal_3" className="modal">
+                  <div className="modal-box">
+                    <form method="dialog">
+                      {/* if there is a button in form, it will close the modal */}
+                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                        ✕
+                      </button>
+
+                      <label
+                        htmlFor="feedback"
+                        className="block text-lg font-bold mb-2"
+                      >
+                        Admin Feedback:
+                      </label>
+                      <textarea
+                        id="feedback"
+                        rows="5"
+                        className="border rounded w-full p-2"
+                        placeholder="Write your feedback here..."
+                      />
+                      <button
+                        type="submit"
+                        className="mt-3 bg-blue-500 text-white py-2 px-4 rounded"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </dialog>
               </td>
             </tr>
           ))}
