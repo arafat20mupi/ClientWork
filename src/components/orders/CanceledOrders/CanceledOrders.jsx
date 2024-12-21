@@ -1,16 +1,25 @@
+import { useEffect, useState } from "react";
+import useAuth from "../../../Hook/useAuth";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+
 const CanceledOrders = () => {
-  const orders = [
-    {
-      id: 1,
-      order: "Auto Server ",
-      details: "2x T-Shirts",
-      price: "Admin text",
-    },
+  const [orders, setOrders] = useState([])
+  const axios = useAxiosPublic();
+  const { user } = useAuth();
+  const id = user?.user?._id;
 
-    { id: 2, order: "Order #102", details: "1x Jacket", price: "Admin text" },
-    { id: 3, order: "Order #103", details: "3x Shoes", price: "Admin text" },
-  ];
-
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`/api/getOrder/${id}/Cancelled`);
+        setOrders(response?.data);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchOrders();
+  }, [axios, id]);
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Cancel Orders</h1>
@@ -24,9 +33,9 @@ const CanceledOrders = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
-            <tr key={order.id} className="">
-              <td className="border px-4 py-2">{order.order}</td>
+          {orders && orders.map((order) => (
+            <tr key={order._id} className="">
+              <td className="border px-4 py-2">{order.serviceType}</td>
               <td className="border px-4 py-2">{order.details}</td>
               <td className="border px-4 py-2">{order.price}</td>
               <td className="border px-4 py-2">

@@ -13,7 +13,7 @@ const SuccessTable = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`/api/getOrder/${id}`);
+        const response = await axios.get(`/api/getOrder/${id}/Approved`);
         setOrders(response?.data);
         console.log(response);
       } catch (error) {
