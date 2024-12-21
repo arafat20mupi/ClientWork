@@ -1,73 +1,56 @@
+import { useEffect, useState } from "react";
 import { IoMdDownload } from "react-icons/io";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAuth from "../../../Hook/useAuth";
 
 const SuccessTable = () => {
-  const orders = [
-    {
-      id: 1,
-      order: "Auto Server Copy Type 1",
-      orderTime: "08-12-2024 ; 12:04 pm",
-      downloadDeadline: "09-12-2024 ; 12:00 pm",
-      details: {
-        phone: "9164709595",
-        date: "18-12-2002",
-      },
-      price: "8 BDT",
-    },
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
-    {
-      id: 3,
-      order: "Auto Server Copy Type 1",
-      orderTime: "03-12-2024 ; 1:07 pm",
-      downloadDeadline: "04-12-2024 ; 1:04 pm",
-      details: {
-        phone: "9164709595",
-        date: "18-12-2002",
-      },
-      price: "8 BDT",
-    },
+  const [orders, setOrders] = useState([])
+  const axios = useAxiosPublic();
+  const { user } = useAuth();
+  const id = user?.user?._id;
+  const [disabledButtons, setDisabledButtons] = useState({});
 
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`/api/getOrder/${id}`);
+        setOrders(response?.data);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchOrders();
+  }, [axios, id]);
 
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
+  useEffect(() => {
+    const disabled = {};
+    orders.forEach(order => {
+      const orderTime = new Date(order.createdAt).getTime();
+      const currentTime = new Date().getTime();
+      if (currentTime - orderTime > 24 * 60 * 60 * 1000) {
+        disabled[order.id] = true;
+      }
+    });
+    setDisabledButtons(disabled);
+  }, [orders]);
 
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
-  ];
+  const handleDownload = async (fileUrl) => {
+    try {
+      const response = await fetch(fileUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileUrl.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed', error);
+    }
+  }
 
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
@@ -82,37 +65,31 @@ const SuccessTable = () => {
               Details
             </th>
             <th className="border border-gray-300 px-4 py-2 text-left">
-              Price
-            </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          { orders && orders.map((order) => (
             <tr key={order.id} className="">
               {/* Order Column */}
               <td className="border border-gray-300 px-4 py-2">
-                <p>{order.order}</p>
-                <p>অর্ডারের সময়: {order.orderTime}</p>
-                <p>ডাউনলোডের সর্বশেষ সময়: {order.downloadDeadline}</p>
+                {order.serviceType}
               </td>
 
               {/* Details Column */}
               <td className="border border-gray-300 px-4 py-2">
-                <p>Phone: {order.details.phone}</p>
-                {order.details.date && <p>Date: {order.details.date}</p>}
+                {order.fileName}
               </td>
 
-              {/* Price Column */}
-              <td className="border border-gray-300 px-4 py-2">
-                {order.price}
-              </td>
 
               {/* Action Column */}
               <td className="border border-gray-300 px-4 py-2">
-                <button className="flex items-center space-x-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 mr-2">
+                <button 
+                  onClick={() => handleDownload(order.fileUrl)}  
+                  className="flex items-center space-x-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+                  disabled={disabledButtons[order.id]}
+                >
                   <div>Download</div>
                   <div>
                     <IoMdDownload />
