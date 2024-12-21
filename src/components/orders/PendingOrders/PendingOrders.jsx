@@ -1,16 +1,25 @@
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAuth from "../../../Hook/useAuth";
+
 const PendingOrders = () => {
-  const orders = [
-    {
-      id: 1,
-      order: "Auto Server ",
-      details: "2x T-Shirts",
-      price: "$40",
-    },
+  const [orders, setOrders] = useState([])
+  const axios = useAxiosPublic();
+  const { user } = useAuth();
+  const id = user?.user?._id;
 
-    { id: 2, order: "Order #102", details: "1x Jacket", price: "$60" },
-    { id: 3, order: "Order #103", details: "3x Shoes", price: "$90" },
-  ];
-
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`/api/getOrder/${id}/Pending`);
+        setOrders(response?.data);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchOrders();
+  }, [axios, id]);
   return (
     <div className="px-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Pending Orders</h1>
@@ -23,7 +32,7 @@ const PendingOrders = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {orders &&  orders.map((order) => (
             <tr key={order.id} className="">
               <td className="border px-4 py-2">{order.order}</td>
               <td className="border px-4 py-2">{order.price}</td>
