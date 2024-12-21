@@ -1,8 +1,15 @@
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import useAuth from "../../Hook/useAuth";
+import {toast} from 'react-hot-toast';
+import useAxiosPublic from "../../Hook/useAxiosPublic";
 const Recharge = () => {
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const axios = useAxiosPublic();
+  const [userId, setUserId] = useState();
+  const [name, setName] = useState();
+
   const {
     register,
     handleSubmit,
@@ -10,121 +17,122 @@ const Recharge = () => {
     reset,
   } = useForm();
 
-  const [message, setMessage] = useState("");
+  useEffect(() => {
+    if (user) {
+      setUserId(user.user._id);
+      setName(user.user.name);
+    }
+  }, [user]);
 
   const onSubmit = async (data) => {
-    const uid = "1"; // Example ID, replace as needed
-    const name = "Al"; // Example Name, replace as needed
-
     try {
-      const response = await axios.post("http://localhost:5000/api/recharge", {
+      setLoading(true); // Start loading
+      await axios.post("/api/recharge", {
         ...data,
-        uid,
-        name,
+        userId,
+        name
       });
-      setMessage(response.data.message);
-      reset(); // Reset form fields after successful submission
+      toast.success('Recharge successful!');
+      setLoading(false);
+      reset();
     } catch (error) {
-      setMessage(error.response?.data?.message || "An error occurred");
-    }
+      setLoading(false);
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(errorMessage);
+    };
   };
 
   return (
     <div className="px-5">
-    <div className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Recharge</h1>
-      <div className="m-3 font-semibold text-pink-600">
-        <h2>নিচের দেওয়া নাম্বার গুলোতে রিচারজ করুন-</h2>
-        <h3>বিকাশ ঃ ০১৮১৭৮৭১২৭৩</h3>
-        <h3>নগদ ঃ ০১৮১৭৮৭১২৭৩</h3>
+      <div className="max-w-lg mx-auto mt-10 p-8 bg-white rounded-xl shadow-xl">
+        <h1 className="text-3xl font-semibold text-gray-700 mb-6 text-center">রিচার্জ</h1>
+        <div className="mb-6 text-center font-semibold text-blue-600">
+          <h2>নিচের নাম্বার গুলোতে Send Money করেন:</h2>
+          <h3 >bKash: 01817871273</h3>
+          <h3>Nagad: 01817871273</h3>
+        </div>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Payment Method */}
+          <div className="mb-4">
+            <label htmlFor="paymentMethod" className="block text-gray-600 mb-2 font-medium">
+              পেমেন্ট মেথড
+            </label>
+            <select
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register("paymentMethod", { required: "Payment method is required" })}
+            >
+              <option value="">পেমেন্ট মেথড সিলেক্ট করুন</option>
+              <option value="bkash">bKash</option>
+              <option value="nogod">Nagad</option>
+            </select>
+            {errors.paymentMethod && <p className="text-red-500 text-sm mt-1">{errors.paymentMethod.message}</p>}
+          </div>
+
+          {/* Payment Number */}
+          <div className="mb-4">
+            <label htmlFor="number" className="block text-gray-600 mb-2 font-medium">
+              পেমেন্ট নাম্বার
+            </label>
+            <input
+              type="text"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="পেমেন্ট নাম্বার লিখুন"
+              {...register("number", { required: "Payment number is required" })}
+            />
+            {errors.number && <p className="text-red-500 text-sm mt-1">{errors.number.message}</p>}
+          </div>
+
+          {/* Amount */}
+          <div className="mb-4">
+            <label htmlFor="amount" className="block text-gray-600 mb-2 font-medium">
+              পরিমাণ
+            </label>
+            <input
+              type="number"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="পরিমাণ লিখুন"
+              {...register("amount", {
+                required: "Amount is required",
+                min: {
+                  value: 20,
+                  message: "কমপক্ষে ২০ টাকা রিচার্জ করতে হবে",
+                },
+              })}
+            />
+            {errors.amount && <p className="text-red-500 text-sm mt-1">{errors.amount.message}</p>}
+          </div>
+
+          {/* Transaction ID */}
+          <div className="mb-4">
+            <label htmlFor="trxId" className="block text-gray-600 mb-2 font-medium">
+              লেনদেন আইডি (TrxId)
+            </label>
+            <input
+              type="text"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="লেনদেন আইডি (TrxId) লিখুন"
+              {...register("trxId", { required: "Transaction ID is required" })}
+            />
+            {errors.trxId && <p className="text-red-500 text-sm mt-1">{errors.trxId.message}</p>}
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-6">
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="loader spinner-border text-white" role="status" aria-hidden="true"></span>
+              ) : (
+                "পেমেন্ট প্রক্রিয়া করুন"
+              )}
+            </button>
+          </div>
+        </form>
       </div>
-
-      {message && (
-        <div className="mb-4 text-center text-green-600">{message}</div>
-      )}
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Payment Method Dropdown */}
-        <div className="mb-4">
-          <select
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("paymentMethod", { required: "Payment method is required" })}
-          >
-            <option value="">Select Payment Method</option>
-            <option value="bkash">Bkash</option>
-            <option value="nogod">Nogod</option>
-          </select>
-          {errors.paymentMethod && (
-            <p className="text-red-500 text-sm mt-1">{errors.paymentMethod.message}</p>
-          )}
-        </div>
-
-        {/* Payment Number */}
-        <div className="mb-4">
-          <label htmlFor="number" className="block text-gray-600 mb-1">
-            Payment Number
-          </label>
-          <input
-            type="text"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter payment number"
-            {...register("number", { required: "Payment number is required" })}
-          />
-          {errors.number && (
-            <p className="text-red-500 text-sm mt-1">{errors.number.message}</p>
-          )}
-        </div>
-
-        {/* Amount */}
-        <div className="mb-4">
-          <label htmlFor="amount" className="block text-gray-600 mb-1">
-            Amount
-          </label>
-          <input
-            type="number"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter amount"
-            {...register("amount", {
-              required: "Amount is required",
-              min: {
-                value: 1,
-                message: "Amount must be greater than 0",
-              },
-            })}
-          />
-          {errors.amount && (
-            <p className="text-red-500 text-sm mt-1">{errors.amount.message}</p>
-          )}
-        </div>
-
-        {/* TrxId */}
-        <div className="mb-4">
-          <label htmlFor="trxId" className="block text-gray-600 mb-1">
-            Transaction ID (TrxId)
-          </label>
-          <input
-            type="text"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter TrxId"
-            {...register("trxId", { required: "Transaction ID is required" })}
-          />
-          {errors.trxId && (
-            <p className="text-red-500 text-sm mt-1">{errors.trxId.message}</p>
-          )}
-        </div>
-
-
-        {/* Submit Button */}
-        <div className="mt-4">
-          <button
-            type="submit"
-            className="w-full px-6 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition"
-          >
-            Proceed to Payment
-          </button>
-        </div>
-      </form>
-    </div>
     </div>
   );
 };

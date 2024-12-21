@@ -1,9 +1,19 @@
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+
 const AllUsers = () => {
-  // Sample user data
-  const users = [
-    { id: 1, name: "John Doe", number: "1234567890" },
-    { id: 2, name: "Jane Smith", number: "0987654321" },
-  ];
+  const axios  = useAxiosPublic();
+  const [users , setUsers] = useState([])
+
+  useEffect(() => {
+    axios.get("/users")
+     .then((response) => {
+        setUsers(response.data);
+      })
+     .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
+  } , [axios] );
 
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">

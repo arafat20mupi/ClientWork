@@ -64,8 +64,8 @@ const Sidebar = () => {
                   to={"/admin/recharge"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                  <div className="p-2 bg-red-200 rounded-full">
+                    <RiMoneyDollarCircleFill className="text-xl text-teal-600" />
                   </div>
                   <div>Recharge</div>
                 </Link>
@@ -76,10 +76,34 @@ const Sidebar = () => {
                   to={"/admin/serverCopy"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                  <div className="p-2 bg-green-500 rounded-full">
+                    <FaServer className="text-xl text-red-600" />
                   </div>
                   <div>Server Copy</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/admin/idPdf"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-yellow-600 rounded-full">
+                    <FaServer className="text-xl text-emerald-400" />
+                  </div>
+                  <div>Admin Id Pdf</div>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to={"/Admin/AddressToNid"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-red-600 rounded-full">
+                    <RiMoneyDollarCircleFill className="text-xl text-lime-500" />
+                  </div>
+                  <div> Admin Address To Nid</div>
                 </Link>
               </li>
 
@@ -88,10 +112,21 @@ const Sidebar = () => {
                   to={"/admin/signCopy"}
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
-                  <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                  <div className="p-2 bg-teal-500 rounded-full">
+                    <FaServer className="text-xl text-slate-200" />
                   </div>
                   <div>Sign Copy</div>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/admin/NidUserPasswordSet"}
+                  className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+                >
+                  <div className="p-2 bg-red-600 rounded-full">
+                    <FaServer className="text-xl bg-yellow-400" />
+                  </div>
+                  <div>Nid User Password Set</div>
                 </Link>
               </li>
 
@@ -101,7 +136,7 @@ const Sidebar = () => {
                   className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
                 >
                   <div className="p-2 bg-teal-200 rounded-full">
-                    <SiLeaderprice className="text-xl text-teal-600" />
+                    <RiMoneyDollarCircleFill className="text-xl text-teal-600" />
                   </div>
                   <div>Price List</div>
                 </Link>

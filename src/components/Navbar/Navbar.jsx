@@ -8,9 +8,10 @@ import useAuth from "../../Hook/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { logout } = useAuth();
+  const {user, logout } = useAuth();
   const { OpenSide, setOpenSide } = useContext(SidebarContext);
   const [UserDorpDpwn, setUserDorpDpwn] = useState(false);
+
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -52,7 +53,7 @@ const Navbar = () => {
           )}
         </div>
         <div className="flex items-center space-x-6">
-          <h1 className=" dark:text-white">Balace :{20} BDT</h1>
+          <h1 className=" dark:text-white">Balace : {user?.user?.balance} BDT</h1>
           <div className="w-20 h-20">
             <img src={`logo.png`} alt="" />
           </div>

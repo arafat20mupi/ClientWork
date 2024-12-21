@@ -10,26 +10,30 @@ const SignIn = () => {
     const [isLoading, setIsLoading] = useState(false);
     const axios = useAxiosPublic();
     const navigate = useNavigate();
-    
+
     const { control, register, handleSubmit, formState: { errors }, setFocus } = useForm();
 
-    // Check if token exists in localStorage on initial render to navigate to dashboard
     useEffect(() => {
         if (localStorage.getItem("token")) {
             navigate("/");
         }
     }, [navigate]);
 
-    const handleLogin = async (data) => {
+    // Handle login submission
+    const handleLogin = async (data, event) => {
+        event?.preventDefault(); // Prevent form default behavior
         setIsLoading(true);
-      
         const { phone, password } = data;
+
         try {
             const response = await axios.post("/api/login", { phone, password });
             if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
                 toast.success("Login successful.");
-                navigate("/");
+                navigate("/", { replace: true });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             }
         } catch (error) {
             console.error("Login failed:", error?.response?.data);
@@ -39,6 +43,7 @@ const SignIn = () => {
         }
     };
 
+    // Auto-focus on first error field
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
             const firstErrorField = Object.keys(errors)[0];
@@ -51,8 +56,9 @@ const SignIn = () => {
             <Toaster toastOptions={{ duration: 4000 }} />
             <div className="w-80 p-4 bg-white rounded-lg shadow-md">
                 <h2 className="text-center text-emerald-500 font-medium text-2xl mb-4">Phone and Password Authentication</h2>
-                
+
                 <form onSubmit={handleSubmit(handleLogin)} noValidate>
+                    {/* Phone Number Input */}
                     <Controller
                         name="phone"
                         control={control}
@@ -67,7 +73,8 @@ const SignIn = () => {
                         )}
                     />
                     {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
-                    
+
+                    {/* Password Input */}
                     <input
                         type="password"
                         placeholder="Password"
@@ -75,7 +82,8 @@ const SignIn = () => {
                         {...register("password", { required: "Password is required" })}
                     />
                     {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
-                    
+
+                    {/* Submit Button */}
                     <button
                         type="submit"
                         disabled={isLoading}
@@ -84,9 +92,10 @@ const SignIn = () => {
                         {isLoading ? <CgSpinner size={20} className="animate-spin" /> : "Sign In"}
                     </button>
                 </form>
-                
+
+                {/* Register Link */}
                 <p className="text-center mt-4">
-                    Don't have an account? <Link to={'/signUp'} className="font-bold">Register here</Link>
+                    Don&apos;t have an account? <Link to={'/signUp'} className="font-bold">Register here</Link>
                 </p>
             </div>
         </div>
