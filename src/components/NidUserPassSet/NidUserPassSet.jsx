@@ -1,15 +1,47 @@
 
 import { IoIosAlert } from "react-icons/io";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
+import useAuth from "../../Hook/useAuth";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const NidUserPassSet = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => console.log(data);
+    reset,
+  } = useForm({
+    defaultValues: {
+      name: '',
+      birthday: '',
+    },
+  });
+  const axios = useAxiosPublic();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  console.log(user && user);
+  const onSubmit = (data) => {
+    console.log(data);
+    setLoading(true);
+    axios
+      .post("/api/nidUserPassSet", { ...data, userId: user && user.user._id })
+      .then((response) => {
+        console.log(response.data);
+        toast.success("Form submitted successfully");
+        reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error.response?.data || error.message);
+        toast.error(
+          error.response?.data?.error || "An error occurred while submitting the form"
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   return (
     <div className="px-5 md:px-20">
@@ -102,13 +134,13 @@ const NidUserPassSet = () => {
             )}
           </div>
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
               className="text-md bg-green-500 hover:bg-green-600 duration-200 text-white px-7 py-2 rounded"
+              disabled={loading}
             >
-              Submit
+              {loading ? "Submitting..." : "Submit"}
             </button>
           </div>
         </div>

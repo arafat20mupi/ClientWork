@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const AdminIdPdf = () => {
   const [idPdf, setIdPdf] = useState([]);
@@ -23,16 +24,10 @@ const AdminIdPdf = () => {
   // Handle file submission with PUT request
   const handleFileSubmit = async (id) => {
     const fileInput = document.querySelector(`#file-input-${id}`);
-    const feedbackInput = document.querySelector(`#feedback-${id}`);
     if (fileInput && fileInput.files.length > 0) {
       const formData = new FormData();
       formData.append("file", fileInput.files[0]);
       formData.append("id", id);
-
-      // Append feedback if provided
-      if (feedbackInput && feedbackInput.value) {
-        formData.append("feedback", feedbackInput.value);
-      }
 
       try {
         const response = await axios.put(`/api/IdPdf/${id}`, formData, {
@@ -41,12 +36,38 @@ const AdminIdPdf = () => {
           },
         });
         console.log("Update success:", response.data);
-        // Optionally refresh the data or update the UI here
+        toast.success("ID PDF uploaded successfully");
       } catch (error) {
         console.error("Update failed:", error);
+        toast.error("Failed to upload ID PDF.");
       }
     } else {
-      console.warn("No file selected for upload.");
+      toast.error("No file selected for upload.");
+    }
+  };
+
+  const handleCancel = async (id) => {
+    const feedbackInput = document.querySelector(`#feedback-${id}`);
+    const feedback = feedbackInput ? feedbackInput.value.trim() : "";
+
+    if (!feedback) {
+      toast.error("Feedback is required to cancel!");
+      return;
+    }
+
+    try {
+      const response = await axios.put(`/api/IdPdfCancel/${id}`, { feedback });
+      console.log("Cancel success:", response.data);
+
+      // Clear the feedback field and close the modal
+      feedbackInput.value = "";
+      const modal = document.getElementById(`cancel-modal-${id}`);
+      if (modal) modal.close();
+
+      toast.success("ID PDF cancelled successfully");
+    } catch (error) {
+      console.error("Cancel failed:", error.response?.data || error);
+      toast.error("Failed to cancel ID PDF");
     }
   };
 
@@ -94,6 +115,7 @@ const AdminIdPdf = () => {
                 <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
                   <input type="file" id={`file-input-${user.userId}`} />
                   <button
+                    disabled={user.status === "Cancel" || user.status === "Approved"}
                     className="btn btn-success"
                     onClick={() => handleFileSubmit(user.userId)}
                   >
@@ -102,34 +124,36 @@ const AdminIdPdf = () => {
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button
-                    className="btn"
+                    disabled={user.status === "Cancel" || user.status === "Approved"}
+                    className="btn btn-warning"
                     onClick={() =>
-                      document.getElementById(`cancel-modal-${user.id}`).showModal()
+                      document.getElementById(`cancel-modal-${user.userId}`).showModal()
                     }
                   >
                     Cancel
                   </button>
-                  <dialog id={`cancel-modal-${user.id}`} className="modal">
+                  <dialog id={`cancel-modal-${user.userId}`} className="modal">
                     <div className="modal-box">
                       <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                           ✕
                         </button>
                         <label
-                          htmlFor={`feedback-${user.id}`}
+                          htmlFor={`feedback-${user.userId}`}
                           className="block text-lg font-bold mb-2"
                         >
                           Admin Feedback:
                         </label>
                         <textarea
-                          id={`feedback-${user.id}`}
+                          id={`feedback-${user.userId}`}
                           rows="5"
                           className="border rounded w-full p-2"
                           placeholder="Write your feedback here..."
-                        />
+                        ></textarea>
                         <button
-                          type="submit"
+                          type="button"
                           className="mt-3 bg-blue-500 text-white py-2 px-4 rounded"
+                          onClick={() => handleCancel(user.userId)}
                         >
                           Submit
                         </button>
