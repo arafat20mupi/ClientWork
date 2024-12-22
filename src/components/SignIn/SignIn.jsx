@@ -19,7 +19,9 @@ const SignIn = () => {
         }
     }, [navigate]);
 
-    const handleLogin = async (data) => {
+    // Handle login submission
+    const handleLogin = async (data, event) => {
+        event?.preventDefault(); // Prevent form default behavior
         setIsLoading(true);
         const { phone, password } = data;
 
@@ -29,6 +31,9 @@ const SignIn = () => {
                 localStorage.setItem("token", response.data.token);
                 toast.success("Login successful.");
                 navigate("/", { replace: true });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             }
         } catch (error) {
             console.error("Login failed:", error?.response?.data);
@@ -38,12 +43,14 @@ const SignIn = () => {
         }
     };
 
+    // Auto-focus on first error field
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
             const firstErrorField = Object.keys(errors)[0];
             setFocus(firstErrorField);
         }
-    }, [errors, setFocus])
+    }, [errors, setFocus]);
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-emerald-500">
             <Toaster toastOptions={{ duration: 4000 }} />
@@ -51,6 +58,7 @@ const SignIn = () => {
                 <h2 className="text-center text-emerald-500 font-medium text-2xl mb-4">Phone and Password Authentication</h2>
 
                 <form onSubmit={handleSubmit(handleLogin)} noValidate>
+                    {/* Phone Number Input */}
                     <Controller
                         name="phone"
                         control={control}
@@ -66,6 +74,7 @@ const SignIn = () => {
                     />
                     {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
 
+                    {/* Password Input */}
                     <input
                         type="password"
                         placeholder="Password"
@@ -74,6 +83,7 @@ const SignIn = () => {
                     />
                     {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
 
+                    {/* Submit Button */}
                     <button
                         type="submit"
                         disabled={isLoading}
@@ -83,6 +93,7 @@ const SignIn = () => {
                     </button>
                 </form>
 
+                {/* Register Link */}
                 <p className="text-center mt-4">
                     Don&apos;t have an account? <Link to={'/signUp'} className="font-bold">Register here</Link>
                 </p>

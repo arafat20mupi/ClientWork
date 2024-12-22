@@ -1,73 +1,25 @@
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAuth from "../../../Hook/useAuth";
 
 const PendingOrders = () => {
-  const orders = [
-    {
-      id: 1,
-      order: "Auto Server Copy Type 1",
-      orderTime: "08-12-2024 ; 12:04 pm",
-      downloadDeadline: "09-12-2024 ; 12:00 pm",
-      details: {
-        phone: "9164709595",
-        date: "18-12-2002",
-      },
-      price: "8 BDT",
-    },
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
-    {
-      id: 3,
-      order: "Auto Server Copy Type 1",
-      orderTime: "03-12-2024 ; 1:07 pm",
-      downloadDeadline: "04-12-2024 ; 1:04 pm",
-      details: {
-        phone: "9164709595",
-        date: "18-12-2002",
-      },
-      price: "8 BDT",
-    },
+  const [orders, setOrders] = useState([])
+  const axios = useAxiosPublic();
+  const { user } = useAuth();
+  const id = user?.user?._id;
 
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
-
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
-
-    {
-      id: 2,
-      order: "Sign2NID",
-      orderTime: "07-12-2024 ; 8:25 pm",
-      downloadDeadline: "08-12-2024 ; 8:21 pm",
-      details: {
-        phone: "7774287127",
-      },
-      price: "4 BDT",
-    },
-  ];
-
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`/api/getOrder/${id}/Pending`);
+        setOrders(response?.data);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchOrders();
+  }, [axios, id]);
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Panding Order</h1>
@@ -89,7 +41,7 @@ const PendingOrders = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {orders &&  orders.map((order) => (
             <tr key={order.id} className="">
               {/* Order Column */}
               <td className="border border-gray-300 px-4 py-2">
