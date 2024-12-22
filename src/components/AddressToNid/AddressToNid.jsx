@@ -590,9 +590,6 @@ const AddressToNid = () => {
     setSelectedUnion(""); // Reset Union on Upazila change
   };
 
-  const handleUnionChange = (e) => {
-    setSelectedUnion(e.target.value);
-  };
 
   const onSubmit = (formData) => {
     console.log({
@@ -862,28 +859,7 @@ const AddressToNid = () => {
           )}
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
-            NID Number
-          </label>
-          <input
-            type="text"
-            className={`border rounded-md p-2 w-full ${
-              errors.nid ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Enter your NID number"
-            {...register("nid", {
-              required: "NID Number is required.",
-              pattern: {
-                value: /^\d{10}$/,
-                message: "Please enter a valid 10-digit NID number.",
-              },
-            })}
-          />
-          {errors.nid && (
-            <p className="text-red-500 text-sm mt-1">{errors.nid.message}</p>
-          )}
-        </div>
+       
 
         <button
           type="submit"
