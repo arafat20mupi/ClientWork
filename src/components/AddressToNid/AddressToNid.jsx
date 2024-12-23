@@ -5,14 +5,13 @@ const AddressToNid = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors }, // errors এখানে destructure করা হয়েছে
   } = useForm();
 
   const [selectedDivision, setSelectedDivision] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedUpazila, setSelectedUpazila] = useState("");
-  const [selectedUnion, setSelectedUnion] = useState("");
+  const [, setSelectedUnion] = useState("");
 
   const data = {
     "ঢাকা বিভাগ": {
