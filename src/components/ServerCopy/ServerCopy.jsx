@@ -23,8 +23,9 @@ const ServerCopy = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
+    console.log(data);
     axios
-      .post("/api/serverCopy", { ...data, userId: user?.user._id })
+      .post("/api/ServerCopy", { ...data, userId: user?.user._id })
       .then((response) => {
         console.log(response.data);
         toast.success("Form submitted successfully");
