@@ -5,17 +5,18 @@ import { Outlet } from "react-router-dom";
 import SidebarContext from "./Context/SidebarConext/SidebarContext";
 import SignIn from "./components/SignIn/SignIn";
 import useAuth from "./Hook/useAuth";
+import StickyIcon from "./StricyIcons/StricyIcons";
 
 const App = () => {
   const { OpenSide } = useContext(SidebarContext);
   const { user } = useAuth();
 
-  const isAdmin = user?.user?.role === "admin"; 
+  const isAdmin = user?.user?.role === "admin";
 
   return (
     <>
 
-     
+
       {user ? (
         isAdmin ? (
           <div className="py-10 text-white overflow-x-hidden">
@@ -43,6 +44,7 @@ const App = () => {
         // If user is not authenticated, show the SignIn page
         <SignIn />
       )}
+      <StickyIcon />
     </>
   );
 };
