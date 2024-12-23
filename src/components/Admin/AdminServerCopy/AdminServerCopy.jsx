@@ -43,15 +43,7 @@ const AdminServerCopy = () => {
     }
   };
 
-  const handleStatusCencel = async (id) => {
-    try {
-      const response = await axios.patch(`/api/cancel/${id}`);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to cancel');
-    };
-  }
+
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Server Copy</h1>
@@ -63,7 +55,6 @@ const AdminServerCopy = () => {
             <th className="border border-gray-300 px-4 py-2 text-left">Name</th>
             <th className="border border-gray-300 px-4 py-2 text-left">Date of Birth</th>
             <th className="border border-gray-300 px-4 py-2 text-left">Upload</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Cancel</th>
           </tr>
         </thead>
         <tbody>
@@ -82,9 +73,6 @@ const AdminServerCopy = () => {
                     accept="application/pdf"
                     onChange={(e) => handleFileSubmit(e.target.files[0], user.userId, 'Approved', user.method)}
                   />
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <button onClick={handleStatusCencel(user._id)} className="btn btn-error">Cancel</button>
                 </td>
               </tr>
             ))}

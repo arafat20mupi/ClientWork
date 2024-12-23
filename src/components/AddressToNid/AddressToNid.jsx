@@ -870,6 +870,211 @@ const AddressToNid = () => {
               </p>
             )}
           </div> 
+        {selectedDivision && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">জেলা</label>
+            <select
+              className={`border rounded-md p-2 w-full ${
+                errors.district ? "border-red-500" : "border-gray-300"
+              }`}
+              {...register("district", { required: "জেলা নির্বাচন আবশ্যক।" })}
+              value={selectedDistrict}
+              onChange={handleDistrictChange}
+            >
+              <option disabled value="">
+                Select District
+              </option>
+              {Object.keys(data[selectedDivision]).map((district) => (
+                <option key={district} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
+            {errors.district && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.district.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedDistrict && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">উপজেলা</label>
+            <select
+              className={`border rounded-md p-2 w-full ${
+                errors.upazila ? "border-red-500" : "border-gray-300"
+              }`}
+              {...register("upazila", { required: "উপজেলা নির্বাচন আবশ্যক।" })}
+              value={selectedUpazila}
+              onChange={handleUpazilaChange}
+            >
+              <option value="">Select Upazila</option>
+              {data[selectedDivision][selectedDistrict].map((upazila) => (
+                <option key={upazila} value={upazila}>
+                  {upazila}
+                </option>
+              ))}
+            </select>
+            {errors.upazila && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.upazila.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              ইউনিয়ন
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.union ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="ইউনিয়ন লিখুন।"
+              {...register("union", { required: "ইউনিয়ন লিখুন।" })}
+            />
+            {errors.union && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.union.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              ওয়ার্ড
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.ward ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="ওয়ার্ড লিখুন"
+              {...register("ward", { required: "ওয়ার্ড লিখুন।" })}
+            />
+            {errors.ward && (
+              <p className="text-red-500 text-sm mt-1">{errors.ward.message}</p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">গ্রামঃ</label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.village ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="গ্রাম লিখুন।"
+              {...register("village", { required: "গ্রাম লিখুন।" })}
+            />
+            {errors.village && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.village.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              ভোটার এলাকার নাম
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.areaName ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="ভোটার এলাকার নাম লিখুন।"
+              {...register("areaName", { required: "ভোটার এলাকার নাম লিখুন।" })}
+            />
+            {errors.areaName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.areaName.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              পিতার নাম
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.fatherName ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="পিতার নাম লিখুন।"
+              {...register("fatherName", { required: "পিতার নাম লিখুন।" })}
+            />
+            {errors.fatherName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.fatherName.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              মাতার নাম
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full ${
+                errors.motherName ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="মাতার নাম লিখুন।"
+              {...register("motherName", { required: "মাতার নাম লিখুন।" })}
+            />
+            {errors.motherName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.motherName.message}
+              </p>
+            )}
+          </div>
+        )}
+        {selectedUpazila && (
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              স্বামী/স্ত্রীর নাম (Optional)
+            </label>
+            <input
+              type="text"
+              className={`border rounded-md p-2 w-full`}
+              placeholder="স্বামী/স্ত্রীর নাম (Optional)"
+              {...register("spouseName")}
+            />
+          </div>
+        )}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2">
+            WhatsApp নাম্বার
+          </label>
+          <input
+            type="text"
+            className={`border rounded-md p-2 w-full ${
+              errors.phone ? "border-red-500" : "border-gray-300"
+            }`}
+            placeholder="WhatsApp নাম্বার লিখুন।"
+            {...register("phone", {
+              required: "WhatsApp নাম্বার লিখুন।",
+              pattern: {
+                value: /^\d{11}$/,
+                message: "Please enter a valid 11-digit WhatsApp number.",
+              },
+            })}
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+          )}
+        </div>
+
+       
 
           <button
             type="submit"
