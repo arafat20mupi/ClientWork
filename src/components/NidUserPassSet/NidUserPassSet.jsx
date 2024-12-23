@@ -21,12 +21,11 @@ const NidUserPassSet = () => {
   const axios = useAxiosPublic();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  console.log(user && user);
   const onSubmit = (data) => {
     console.log(data);
     setLoading(true);
     axios
-      .post("/api/nidUserPassSet", { ...data, userId: user && user.user._id })
+      .post("/api/UserPassSet", { ...data, userId: user && user.user._id })
       .then((response) => {
         console.log(response.data);
         toast.success("Form submitted successfully");
@@ -58,17 +57,17 @@ const NidUserPassSet = () => {
           <select
             id="paymentMethod"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("SelectMethod", {
+            {...register("method", {
               required: "এই ফিল্ডটি অবশ্যই পূরণ করতে হবে",
             })}
           >
             <option value="">আপনার মেথড সিলেক্ট করুন</option>
-            <option value="Form number">Form number</option>
-            <option value="Nid number">NID number</option>
-            <option value="Voter number">Voter number</option>
+            <option value="Form">Form number</option>
+            <option value="Nid">NID number</option>
+            <option value="Voter">Voter number</option>
           </select>
-          {errors.SelectMethod && (
-            <p className="text-red-500">{errors.SelectMethod.message}</p>
+          {errors.method && (
+            <p className="text-red-500">{errors.method.message}</p>
           )}
 
           {/* ID Number Field with min and max length validation */}
@@ -107,17 +106,17 @@ const NidUserPassSet = () => {
           {/* WhatsApp Number Field with validation */}
           <div>
             <label
-              htmlFor="whatsAppNumber"
+              htmlFor="whatsApp"
               className="text-white dark:text-black"
             >
               {"WhatsApp নাম্বার"} দিন:
             </label>
             <input
-              id="whatsAppNumber"
+              id="whatsApp"
               placeholder="WhatsApp নাম্বার"
               type="number"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              {...register("whatsAppNumber", {
+              {...register("whatsApp", {
                 required: "WhatsApp নাম্বার ফিল্ডটি আবশ্যক",
                 minLength: {
                   value: 10,
@@ -129,8 +128,8 @@ const NidUserPassSet = () => {
                 },
               })}
             />
-            {errors.whatsAppNumber && (
-              <p className="text-red-500">{errors.whatsAppNumber.message}</p>
+            {errors.whatsApp && (
+              <p className="text-red-500">{errors.whatsApp.message}</p>
             )}
           </div>
 
