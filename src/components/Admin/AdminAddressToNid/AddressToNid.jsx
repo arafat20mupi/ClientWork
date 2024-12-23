@@ -1,51 +1,78 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const AdminAddressToNid = () => {
-  const users = [
-    {
-      id: 1,
-      name: "Server Copy",
-      number: "1234567890",
-      whatsapp: "01817871273",
-      details: {
-        division: "Rangpur",
-        upazila: "Baliadangi",
-        union: "Vanor",
-        ward: "4 No.",
-        village: "Bishrampur",
-        voterArea: "Munsipara",
-        fatherName: "Md Samsul Haque",
-        motherName: "Hazera Khatun",
-        spouseName: "N/A",
-        nidNumber: "5223453435",
-      },
-    },
-    {
-      id: 2,
-      name: "NID Copy",
-      number: "0987654321",
-      whatsapp: "01817871273",
-      details: {
-        division: "Dhaka",
-        upazila: "Mirpur",
-        union: "Gulshan",
-        ward: "3 No.",
-        village: "Kalyanpur",
-        voterArea: "Sector 10",
-        fatherName: "Md Shah Alam",
-        motherName: "Fatema Begum",
-        spouseName: "N/A",
-        nidNumber: "7896543210",
-      },
-    },
-  ];
-
   const [selectedUser, setSelectedUser] = useState(null);
+  const [addressToNID, setaddressToNID] = useState([]);
+  const axios = useAxiosPublic();
+  // Fetch the list of users on component mount
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("/api/AddressToNID");
+        setaddressToNID(response.data.servers);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsers();
+  }, [axios]);
+
+  // Handle file submission with PUT request
+  const handleFileSubmit = async (id) => {
+    const fileInput = document.querySelector(`#file-input-${id}`);
+    if (fileInput && fileInput.files.length > 0) {
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      formData.append("id", id);
+
+      try {
+        const response = await axios.put(`/api/AddressToNID/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Update success:", response.data);
+        toast.success(" Address To NID uploaded successfully");
+      } catch (error) {
+        console.error("Update failed:", error);
+        toast.error("Failed to upload Address To NID");
+      }
+    } else {
+      toast.error("No file selected for upload.");
+    }
+  };
+
+  const handleCancel = async (id) => {
+    const feedbackInput = document.querySelector(`#feedback-${id}`);
+    const feedback = feedbackInput ? feedbackInput.value.trim() : "";
+
+    if (!feedback) {
+      toast.error("Feedback is required to cancel!");
+      return;
+    }
+
+    try {
+      const response = await axios.put(`/api/AddressToNIDCancel/${id}`, { feedback });
+      console.log("Cancel success:", response.data);
+
+      // Clear the feedback field and close the modal
+      feedbackInput.value = "";
+      const modal = document.getElementById(`cancel-modal-${id}`);
+      if (modal) modal.close();
+
+      toast.success("User Pass Set cancelled successfully");
+    } catch (error) {
+      console.error("Cancel failed:", error.response?.data || error);
+      toast.error("Failed to cancel User Pass Set");
+    }
+  };
 
   return (
     <div>
       <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
-        <h1 className="text-2xl font-bold mb-4">Admin Address To Nid Number</h1>
+        <h1 className="text-2xl font-bold mb-4">Address To Nid Number</h1>
         <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
           <thead className="font-extrabold">
             <tr>
@@ -53,25 +80,31 @@ const AdminAddressToNid = () => {
                 Name
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
-                NID Number
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
                 WhatsApp Number
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
+                Division
+              </th>
+
+              <th className="border border-gray-300 px-4 py-2 text-left">
                 Details
+              </th>
+              <th className="border border-gray-300 px-4 py-2 text-left">
+                Cencal
               </th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {addressToNID && addressToNID.map((user) => (
               <tr key={user.id}>
-                <td className="border border-gray-300 px-4 py-2">{user.name}</td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {user.number}
+                  {user.name}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {user.whatsapp}
+                  {user.whatsApp}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {user.selectedDivision}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button
@@ -80,6 +113,45 @@ const AdminAddressToNid = () => {
                   >
                     See More
                   </button>
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <button
+                    disabled={user.status === "Cancel" || user.status === "Approved"}
+                    className="btn btn-error"
+                    onClick={() =>
+                      document.getElementById(`cancel-modal-${user._id}`).showModal()
+                    }
+                  >
+                    Cancel
+                  </button>
+                  <dialog id={`cancel-modal-${user._id}`} className="modal">
+                    <div className="modal-box">
+                      <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                          ✕
+                        </button>
+                        <label
+                          htmlFor={`feedback-${user._id}`}
+                          className="block text-lg font-bold mb-2"
+                        >
+                          Admin Feedback:
+                        </label>
+                        <textarea
+                          id={`feedback-${user._id}`}
+                          rows="5"
+                          className="border rounded w-full p-2"
+                          placeholder="Write your feedback here..."
+                        ></textarea>
+                        <button
+                          type="button"
+                          className="mt-3 bg-blue-500 text-white py-2 px-4 rounded"
+                          onClick={() => handleCancel(user._id)}
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </dialog>
                 </td>
               </tr>
             ))}
@@ -94,38 +166,37 @@ const AdminAddressToNid = () => {
           onClose={() => setSelectedUser(null)}
         >
           <div className="modal-box">
-            <h3 className="font-bold text-lg text-red-600">
-              Details Information
+            <h3 className="font-bold text-3xl text-green-600">
+              <u>Details Information</u>
             </h3>
-            <ul className="font-semibold text-green-400 gap-2">
-              <li>Name: {selectedUser.name}</li>
-              <li>Division: {selectedUser.details.division}</li>
-              <li>Upazila: {selectedUser.details.upazila}</li>
-              <li>Union: {selectedUser.details.union}</li>
-              <li>Ward: {selectedUser.details.ward}</li>
-              <li>Village: {selectedUser.details.village}</li>
-              <li>Voter Area Name: {selectedUser.details.voterArea}</li>
-              <li>Fathers Name: {selectedUser.details.fatherName}</li>
-              <li>Mothers Name: {selectedUser.details.motherName}</li>
+            <ul className="font-semibold  gap-2 space-y-1">
+              <li>নাম: {selectedUser.name}</li>
+              <li>বিভাগ: {selectedUser.selectedDivision}</li>
+              <li>জেলা: {selectedUser.selectedDistrict}</li>
+              <li>উপজেলা: {selectedUser.selectedUpazila}</li>
+              <li>ইউনিয়ন: {selectedUser.union}</li>
+              <li>ওয়ার্ড: {selectedUser.ward}</li>
+              <li>গ্রাম: {selectedUser.village}</li>
+              <li>ভোটার এলাকা নাম: {selectedUser.areaName}</li>
+              <li>পিতার নাম: {selectedUser.fatherName}</li>
+              <li>মাতার নাম: {selectedUser.motherName}</li>
               <li>
-                Spouse (Optional):{" "}
-                {selectedUser.details.spouseName || "Not Available"}
+                স্বামী/স্ত্রী (ঐচ্ছিক):{" "}
+                {selectedUser.spouseName || "প্রাপ্য নয়"}
               </li>
-              <li>WhatsApp Number: {selectedUser.whatsapp}</li>
-              <li>NID Number: {selectedUser.details.nidNumber}</li>
-              <li className="flex items-center gap-4 mt-4">
-                <label className="block">
-                  <span className="text-gray-700">Upload Document:</span>
-                  <input type="file" className="block w-full mt-1" />
-                </label>
-                
-              </li>
+              <li>হোয়াটসঅ্যাপ নম্বর: {selectedUser.whatsApp}</li>
+
+              <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
+                <input type="file" id={`file-input-${selectedUser._id}`} />
+                <button
+                  disabled={selectedUser.status === "Cancel" || selectedUser.status === "Approved"}
+                  className="btn btn-success"
+                  onClick={() => handleFileSubmit(selectedUser._id)}
+                >
+                  Confirm
+                </button>
+              </td>
             </ul>
-            <div className="flex items-center gap-3 my-2">
-            <button className="btn btn-success">Confirm</button>
-            <button className="btn btn-error">Cancel</button>
-            </div>
-            
             <div className="modal-action">
               <button
                 className="btn btn-error"
