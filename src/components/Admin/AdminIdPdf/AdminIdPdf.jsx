@@ -113,11 +113,11 @@ const AdminIdPdf = () => {
                   {user.birthday}
                 </td>
                 <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
-                  <input type="file" id={`file-input-${user.userId}`} />
+                  <input type="file" id={`file-input-${user._id}`} />
                   <button
                     disabled={user.status === "Cancel" || user.status === "Approved"}
                     className="btn btn-success"
-                    onClick={() => handleFileSubmit(user.userId)}
+                    onClick={() => handleFileSubmit(user._id)}
                   >
                     Confirm
                   </button>
@@ -127,25 +127,25 @@ const AdminIdPdf = () => {
                     disabled={user.status === "Cancel" || user.status === "Approved"}
                     className="btn btn-warning"
                     onClick={() =>
-                      document.getElementById(`cancel-modal-${user.userId}`).showModal()
+                      document.getElementById(`cancel-modal-${user._id}`).showModal()
                     }
                   >
                     Cancel
                   </button>
-                  <dialog id={`cancel-modal-${user.userId}`} className="modal">
+                  <dialog id={`cancel-modal-${user._id}`} className="modal">
                     <div className="modal-box">
                       <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                           ✕
                         </button>
                         <label
-                          htmlFor={`feedback-${user.userId}`}
+                          htmlFor={`feedback-${user._id}`}
                           className="block text-lg font-bold mb-2"
                         >
                           Admin Feedback:
                         </label>
                         <textarea
-                          id={`feedback-${user.userId}`}
+                          id={`feedback-${user._id}`}
                           rows="5"
                           className="border rounded w-full p-2"
                           placeholder="Write your feedback here..."
@@ -153,7 +153,7 @@ const AdminIdPdf = () => {
                         <button
                           type="button"
                           className="mt-3 bg-blue-500 text-white py-2 px-4 rounded"
-                          onClick={() => handleCancel(user.userId)}
+                          onClick={() => handleCancel(user._id)}
                         >
                           Submit
                         </button>
