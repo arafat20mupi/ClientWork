@@ -1,50 +1,73 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const AdminAddressToNid = () => {
-  const handleFeedback = () => {
-    alert("Feedback Send Successfully");
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [addressToNID, setaddressToNID] = useState([]);
+  const axios = useAxiosPublic();
+  // Fetch the list of users on component mount
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("/api/AddressToNID");
+        setaddressToNID(response.data.servers);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsers();
+  }, [axios]);
+
+  // Handle file submission with PUT request
+  const handleFileSubmit = async (id) => {
+    const fileInput = document.querySelector(`#file-input-${id}`);
+    if (fileInput && fileInput.files.length > 0) {
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      formData.append("id", id);
+
+      try {
+        const response = await axios.put(`/api/AddressToNID/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Update success:", response.data);
+        toast.success(" Address To NID uploaded successfully");
+      } catch (error) {
+        console.error("Update failed:", error);
+        toast.error("Failed to upload Address To NID");
+      }
+    } else {
+      toast.error("No file selected for upload.");
+    }
   };
 
-  const users = [
-    {
-      id: 1,
-      name: "সার্ভার কপি",
-      number: "১২৩৪৫৬৭৮৯০",
-      whatsapp: "০১৮১৭৮৭১২৭৩",
-      details: {
-        division: "রংপুর",
-        upazila: "বালিয়াডাঙ্গী",
-        union: "ভানোর",
-        ward: "৪ নম্বর",
-        village: "বিশ্রামপুর",
-        voterArea: "মুনসীপাড়া",
-        fatherName: "মোঃ সামসুল হক",
-        motherName: "হাজেরা খাতুন",
-        spouseName: "প্রযোজ্য নয়",
-        nidNumber: "৫২২৩৪৫৩৪৩৫",
-      },
-    },
-    {
-      id: 2,
-      name: "এনআইডি কপি",
-      number: "০৯৮৭৬৫৪৩২১",
-      whatsapp: "০১৮১৭৮৭১২৭৩",
-      details: {
-        division: "ঢাকা",
-        upazila: "মিরপুর",
-        union: "গুলশান",
-        ward: "৩ নম্বর",
-        village: "কল্যাণপুর",
-        voterArea: "সেক্টর ১০",
-        fatherName: "মোঃ শাহ আলম",
-        motherName: "ফাতেমা বেগম",
-        spouseName: "প্রযোজ্য নয়",
-        nidNumber: "৭৮৯৬৫৪৩২১০",
-      },
-    },
-  ];
+  const handleCancel = async (id) => {
+    const feedbackInput = document.querySelector(`#feedback-${id}`);
+    const feedback = feedbackInput ? feedbackInput.value.trim() : "";
 
-  const [selectedUser, setSelectedUser] = useState(null);
+    if (!feedback) {
+      toast.error("Feedback is required to cancel!");
+      return;
+    }
+
+    try {
+      const response = await axios.put(`/api/AddressToNIDCancel/${id}`, { feedback });
+      console.log("Cancel success:", response.data);
+
+      // Clear the feedback field and close the modal
+      feedbackInput.value = "";
+      const modal = document.getElementById(`cancel-modal-${id}`);
+      if (modal) modal.close();
+
+      toast.success("User Pass Set cancelled successfully");
+    } catch (error) {
+      console.error("Cancel failed:", error.response?.data || error);
+      toast.error("Failed to cancel User Pass Set");
+    }
+  };
 
   return (
     <div>
@@ -57,27 +80,31 @@ const AdminAddressToNid = () => {
                 Name
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
-                NID Number
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
                 WhatsApp Number
               </th>
               <th className="border border-gray-300 px-4 py-2 text-left">
+                Division
+              </th>
+
+              <th className="border border-gray-300 px-4 py-2 text-left">
                 Details
+              </th>
+              <th className="border border-gray-300 px-4 py-2 text-left">
+                Cencal
               </th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {addressToNID && addressToNID.map((user) => (
               <tr key={user.id}>
                 <td className="border border-gray-300 px-4 py-2">
                   {user.name}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {user.number}
+                  {user.whatsApp}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {user.whatsapp}
+                  {user.selectedDivision}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button
@@ -86,6 +113,45 @@ const AdminAddressToNid = () => {
                   >
                     See More
                   </button>
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <button
+                    disabled={user.status === "Cancel" || user.status === "Approved"}
+                    className="btn btn-error"
+                    onClick={() =>
+                      document.getElementById(`cancel-modal-${user._id}`).showModal()
+                    }
+                  >
+                    Cancel
+                  </button>
+                  <dialog id={`cancel-modal-${user._id}`} className="modal">
+                    <div className="modal-box">
+                      <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                          ✕
+                        </button>
+                        <label
+                          htmlFor={`feedback-${user._id}`}
+                          className="block text-lg font-bold mb-2"
+                        >
+                          Admin Feedback:
+                        </label>
+                        <textarea
+                          id={`feedback-${user._id}`}
+                          rows="5"
+                          className="border rounded w-full p-2"
+                          placeholder="Write your feedback here..."
+                        ></textarea>
+                        <button
+                          type="button"
+                          className="mt-3 bg-blue-500 text-white py-2 px-4 rounded"
+                          onClick={() => handleCancel(user._id)}
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </dialog>
                 </td>
               </tr>
             ))}
@@ -105,62 +171,32 @@ const AdminAddressToNid = () => {
             </h3>
             <ul className="font-semibold  gap-2 space-y-1">
               <li>নাম: {selectedUser.name}</li>
-              <li>বিভাগ: {selectedUser.details.division}</li>
-              <li>উপজেলা: {selectedUser.details.upazila}</li>
-              <li>ইউনিয়ন: {selectedUser.details.union}</li>
-              <li>ওয়ার্ড: {selectedUser.details.ward}</li>
-              <li>গ্রাম: {selectedUser.details.village}</li>
-              <li>ভোটার এলাকা নাম: {selectedUser.details.voterArea}</li>
-              <li>পিতার নাম: {selectedUser.details.fatherName}</li>
-              <li>মাতার নাম: {selectedUser.details.motherName}</li>
+              <li>বিভাগ: {selectedUser.selectedDivision}</li>
+              <li>জেলা: {selectedUser.selectedDistrict}</li>
+              <li>উপজেলা: {selectedUser.selectedUpazila}</li>
+              <li>ইউনিয়ন: {selectedUser.union}</li>
+              <li>ওয়ার্ড: {selectedUser.ward}</li>
+              <li>গ্রাম: {selectedUser.village}</li>
+              <li>ভোটার এলাকা নাম: {selectedUser.areaName}</li>
+              <li>পিতার নাম: {selectedUser.fatherName}</li>
+              <li>মাতার নাম: {selectedUser.motherName}</li>
               <li>
                 স্বামী/স্ত্রী (ঐচ্ছিক):{" "}
-                {selectedUser.details.spouseName || "প্রাপ্য নয়"}
+                {selectedUser.spouseName || "প্রাপ্য নয়"}
               </li>
-              <li>হোয়াটসঅ্যাপ নম্বর: {selectedUser.whatsapp}</li>
-              <li>এনআইডি নম্বর: {selectedUser.details.nidNumber}</li>
+              <li>হোয়াটসঅ্যাপ নম্বর: {selectedUser.whatsApp}</li>
 
-              <li className="flex items-center gap-4 mt-4">
-                <label className="block">
-                  <span className="text-gray-700">Upload Document:</span>
-                  <input type="file" className="block w-full mt-1" />
-                </label>
-              </li>
+              <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
+                <input type="file" id={`file-input-${selectedUser._id}`} />
+                <button
+                  disabled={selectedUser.status === "Cancel" || selectedUser.status === "Approved"}
+                  className="btn btn-success"
+                  onClick={() => handleFileSubmit(selectedUser._id)}
+                >
+                  Confirm
+                </button>
+              </td>
             </ul>
-            <div className="flex items-center gap-4 my-4">
-              <button className="btn btn-success ">Confirm</button>
-              {/* Open the modal using document.getElementById('ID').showModal() method */}
-              <button
-                className="btn btn-error"
-                onClick={() =>
-                  document.getElementById("my_modal_2").showModal()
-                }
-              >
-                Cancel
-              </button>
-              <dialog id="my_modal_2" className="modal py-6">
-                <div className="modal-box">
-                  <input
-                    type="text"
-                    placeholder="Add Feedback here"
-                    className="input input-bordered w-full max-w-xs"
-                  />
-                  <div className="mt-5">
-                    <button
-                      className="btn btn-success"
-                      onClick={handleFeedback}
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-
-                <form method="dialog" className="modal-backdrop">
-                  <button>close</button>
-                </form>
-              </dialog>
-            </div>
-
             <div className="modal-action">
               <button
                 className="btn btn-error"
