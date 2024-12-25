@@ -21,31 +21,32 @@ const AdminIdPdf = () => {
     fetchUsers();
   }, [axios]);
 
-  // Handle file submission with PUT request
+  // Handle file submission with Base64 encoding
   const handleFileSubmit = async (id) => {
     const fileInput = document.querySelector(`#file-input-${id}`);
     if (fileInput && fileInput.files.length > 0) {
-      const formData = new FormData();
-      formData.append("file", fileInput.files[0]);
-      formData.append("id", id);
+      const reader = new FileReader();
 
-      try {
-        const response = await axios.put(`/api/IdPdf/${id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("Update success:", response.data);
-        toast.success("ID PDF uploaded successfully");
-      } catch (error) {
-        console.error("Update failed:", error);
-        toast.error("Failed to upload ID PDF.");
-      }
+      reader.onloadend = async () => {
+        const base64File = reader.result;
+
+        try {
+          const response = await axios.put(`/api/IdPdf/${id}`, { base64File });
+          console.log("Update success:", response.data);
+          toast.success("ID PDF uploaded successfully");
+        } catch (error) {
+          console.error("Update failed:", error);
+          toast.error(error.response?.data?.message || "Failed to upload ID PDF.");
+        }
+      };
+
+      reader.readAsDataURL(fileInput.files[0]);
     } else {
       toast.error("No file selected for upload.");
     }
   };
 
+  // Handle cancellation with feedback
   const handleCancel = async (id) => {
     const feedbackInput = document.querySelector(`#feedback-${id}`);
     const feedback = feedbackInput ? feedbackInput.value.trim() : "";

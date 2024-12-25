@@ -20,32 +20,40 @@ const AdminSignCopy = () => {
     };
     fetchUsers();
   }, [axios]);
-console.log(SignCopy);
-  // Handle file submission with PUT request
-  const handleFileSubmit = async (id) => {
-    const fileInput = document.querySelector(`#file-input-${id}`);
-    if (fileInput && fileInput.files.length > 0) {
-      const formData = new FormData();
-      formData.append("file", fileInput.files[0]);
-      formData.append("id", id);
 
-      try {
-        const response = await axios.put(`/api/SignCopy/${id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("Update success:", response.data);
-        toast.success("ID PDF uploaded successfully");
-      } catch (error) {
-        console.error("Update failed:", error);
-        toast.error("Failed to upload ID PDF.");
-      }
+  // Handle file submission with PUT request for "Sign Copy"
+  const handleSignCopySubmit = async (id) => {
+    const fileInput = document.querySelector(`#file-input-sign-copy-${id}`);
+
+    if (fileInput && fileInput.files.length > 0) {
+      const reader = new FileReader();
+
+      reader.onloadend = async () => {
+        const base64File = reader.result;
+
+        try {
+          const response = await axios.put(`/api/SignCopy/${id}`, {
+            base64File,
+          });
+
+          console.log("Sign Copy upload success:", response.data);
+          toast.success("Sign copy uploaded successfully");
+
+          // Clear the file input after a successful upload
+          fileInput.value = "";
+        } catch (error) {
+          console.error("Sign Copy upload failed:", error);
+          toast.error(error.response?.data?.message || "Failed to upload sign copy.");
+        }
+      };
+
+      reader.readAsDataURL(fileInput.files[0]);
     } else {
-      toast.error("No file selected for upload.");
+      toast.error("No sign copy file selected for upload.");
     }
   };
 
+  // Handle canceling a sign copy entry
   const handleCancel = async (id) => {
     const feedbackInput = document.querySelector(`#feedback-${id}`);
     const feedback = feedbackInput ? feedbackInput.value.trim() : "";
@@ -64,62 +72,44 @@ console.log(SignCopy);
       const modal = document.getElementById(`cancel-modal-${id}`);
       if (modal) modal.close();
 
-      toast.success("ID PDF cancelled successfully");
+      toast.success("Sign copy entry cancelled successfully");
     } catch (error) {
       console.error("Cancel failed:", error.response?.data || error);
-      toast.error("Failed to cancel ID PDF");
+      toast.error("Failed to cancel sign copy entry");
     }
   };
 
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
-      <h1 className="text-2xl font-bold mb-4">Id Pdf</h1>
+      <h1 className="text-2xl font-bold mb-4">Sign Copy Upload</h1>
       {error && <p className="text-red-500">{error}</p>}
       <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
         <thead className="font-extrabold">
           <tr>
-            <th className="border border-gray-300 px-4 py-2 text-left">
-              Select Method
-            </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
-              ID Number
-            </th>
+            <th className="border border-gray-300 px-4 py-2 text-left">Select Method</th>
+            <th className="border border-gray-300 px-4 py-2 text-left">ID Number</th>
             <th className="border border-gray-300 px-4 py-2 text-left">Name</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
-              Date of Birth
-            </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
-              Upload
-            </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
-              Cancel
-            </th>
+            <th className="border border-gray-300 px-4 py-2 text-left">Date of Birth</th>
+            <th className="border border-gray-300 px-4 py-2 text-left">Upload</th>
+            <th className="border border-gray-300 px-4 py-2 text-left">Cancel</th>
           </tr>
         </thead>
         <tbody>
           {SignCopy &&
             SignCopy.map((user) => (
-              <tr key={user.id}>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.method}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.idNumber}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.birthday}
-                </td>
+              <tr key={user._id}>
+                <td className="border border-gray-300 px-4 py-2">{user.method}</td>
+                <td className="border border-gray-300 px-4 py-2">{user.idNumber}</td>
+                <td className="border border-gray-300 px-4 py-2">{user.name}</td>
+                <td className="border border-gray-300 px-4 py-2">{user.birthday}</td>
                 <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
-                  <input type="file" id={`file-input-${user._id}`} />
+                  <input type="file" id={`file-input-sign-copy-${user._id}`} />
                   <button
                     disabled={user.status === "Cancel" || user.status === "Approved"}
                     className="btn btn-success"
-                    onClick={() => handleFileSubmit(user._id)}
+                    onClick={() => handleSignCopySubmit(user._id)}
                   >
-                    Confirm
+                    Confirm Sign Copy
                   </button>
                 </td>
                 <td className="border border-gray-300 px-4 py-2">

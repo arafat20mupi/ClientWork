@@ -4,14 +4,15 @@ import toast from "react-hot-toast";
 
 const AdminAddressToNid = () => {
   const [selectedUser, setSelectedUser] = useState(null);
-  const [addressToNID, setaddressToNID] = useState([]);
+  const [addressToNID, setAddressToNID] = useState([]);
   const axios = useAxiosPublic();
+
   // Fetch the list of users on component mount
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("/api/AddressToNID");
-        setaddressToNID(response.data.servers);
+        setAddressToNID(response.data.servers);
       } catch (error) {
         console.error(error);
       }
@@ -19,26 +20,26 @@ const AdminAddressToNid = () => {
     fetchUsers();
   }, [axios]);
 
-  // Handle file submission with PUT request
+  // Handle file submission with Base64 encoding
   const handleFileSubmit = async (id) => {
     const fileInput = document.querySelector(`#file-input-${id}`);
     if (fileInput && fileInput.files.length > 0) {
-      const formData = new FormData();
-      formData.append("file", fileInput.files[0]);
-      formData.append("id", id);
+      const reader = new FileReader();
 
-      try {
-        const response = await axios.put(`/api/AddressToNID/${id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("Update success:", response.data);
-        toast.success(" Address To NID uploaded successfully");
-      } catch (error) {
-        console.error("Update failed:", error);
-        toast.error("Failed to upload Address To NID");
-      }
+      reader.onloadend = async () => {
+        const base64File = reader.result;
+
+        try {
+          const response = await axios.put(`/api/AddressToNID/${id}`, { base64File });
+          console.log("Update success:", response.data);
+          toast.success("Address To NID uploaded successfully");
+        } catch (error) {
+          console.error("Update failed:", error);
+          toast.error("Failed to upload Address To NID");
+        }
+      };
+
+      reader.readAsDataURL(fileInput.files[0]);
     } else {
       toast.error("No file selected for upload.");
     }
@@ -76,41 +77,21 @@ const AdminAddressToNid = () => {
         <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
           <thead className="font-extrabold">
             <tr>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Name
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                WhatsApp Number
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Division
-              </th>
-
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Details
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                Cencal
-              </th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Name</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">WhatsApp Number</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Division</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Details</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Cancel</th>
             </tr>
           </thead>
           <tbody>
             {addressToNID && addressToNID.map((user) => (
               <tr key={user.id}>
+                <td className="border border-gray-300 px-4 py-2">{user.name}</td>
+                <td className="border border-gray-300 px-4 py-2">{user.whatsApp}</td>
+                <td className="border border-gray-300 px-4 py-2">{user.selectedDivision}</td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {user.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.whatsApp}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.selectedDivision}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setSelectedUser(user)}
-                  >
+                  <button className="btn btn-primary" onClick={() => setSelectedUser(user)}>
                     See More
                   </button>
                 </td>
@@ -130,10 +111,7 @@ const AdminAddressToNid = () => {
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                           ✕
                         </button>
-                        <label
-                          htmlFor={`feedback-${user._id}`}
-                          className="block text-lg font-bold mb-2"
-                        >
+                        <label htmlFor={`feedback-${user._id}`} className="block text-lg font-bold mb-2">
                           Admin Feedback:
                         </label>
                         <textarea
@@ -169,7 +147,7 @@ const AdminAddressToNid = () => {
             <h3 className="font-bold text-3xl text-green-600">
               <u>Details Information</u>
             </h3>
-            <ul className="font-semibold  gap-2 space-y-1">
+            <ul className="font-semibold gap-2 space-y-1">
               <li>নাম: {selectedUser.name}</li>
               <li>বিভাগ: {selectedUser.selectedDivision}</li>
               <li>জেলা: {selectedUser.selectedDistrict}</li>
@@ -181,11 +159,9 @@ const AdminAddressToNid = () => {
               <li>পিতার নাম: {selectedUser.fatherName}</li>
               <li>মাতার নাম: {selectedUser.motherName}</li>
               <li>
-                স্বামী/স্ত্রী (ঐচ্ছিক):{" "}
-                {selectedUser.spouseName || "প্রাপ্য নয়"}
+                স্বামী/স্ত্রী (ঐচ্ছিক): {selectedUser.spouseName || "প্রাপ্য নয়"}
               </li>
               <li>হোয়াটসঅ্যাপ নম্বর: {selectedUser.whatsApp}</li>
-
               <td className="flex items-center space-x-1 border border-gray-300 px-4 py-2">
                 <input type="file" id={`file-input-${selectedUser._id}`} />
                 <button
