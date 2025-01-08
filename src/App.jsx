@@ -23,7 +23,7 @@ const App = () => {
             <Navbar />
             <Sidebar />
             <div
-              className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"}`}
+              className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 2xl:pl-[400px] duration-300"}`}
             >
               <Outlet />
             </div>
@@ -34,7 +34,7 @@ const App = () => {
             <Navbar />
             <Sidebar />
             <div
-              className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 duration-300"}`}
+              className={`pt-16 ${OpenSide ? "md:pl-0 duration-300" : "md:pl-72 2xl:pl-[400px] duration-300"}`}
             >
               <Outlet />
             </div>

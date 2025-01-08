@@ -18,7 +18,7 @@ const Sidebar = () => {
 
   const isAdmin = user?.user?.role === "admin";
 
-  console.log(isAdmin);
+  // console.log(isAdmin);
 
   const handleLogout = () => {
     logout();
@@ -27,9 +27,8 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`overflow-y-scroll pb-28 duration-300 fixed z-30 top-20 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${
-        OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
-      }`}
+      className={`overflow-y-scroll pb-28 duration-300 fixed z-30 top-20 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
+        }`}
     >
       <div>
         <ul className="space-y-1 text-white">
@@ -267,22 +266,17 @@ const Sidebar = () => {
               </li>
             </>
           )}
-
-          <li className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1">
-            <div className="p-2 bg-pink-200 rounded-full">
-              <IoMdKey className="text-xl text-pink-600" />
-            </div>
-            <div>Change Password</div>
+          <li>
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
+            >
+              <div className="p-2 bg-orange-200 rounded-full">
+                <MdLogout className="text-xl text-orange-600" />
+              </div>
+              <div>Logout</div>
+            </button>
           </li>
-          <button
-            onClick={handleLogout}
-            className="flex items-center space-x-2 hover:bg-blue-500 hover:text-white cursor-pointer px-3 md:px-7 py-3 m-1"
-          >
-            <div className="p-2 bg-orange-200 rounded-full">
-              <MdLogout className="text-xl text-orange-600" />
-            </div>
-            <div>Logout</div>
-          </button>
         </ul>
       </div>
     </div>
