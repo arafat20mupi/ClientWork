@@ -26,7 +26,7 @@ const SignUp = () => {
         toast.error(response.data.message || "Registration failed. Please try again.");
       }
     } catch (error) {
-      toast.error("Server error. Please try again later.");
+      toast.error("Registration unsuccessful. Please try again.");
       console.log(error.message);
     } finally {
       setIsLoading(false);

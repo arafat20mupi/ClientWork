@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { IoMdKey } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -37,15 +36,11 @@ const Navbar = () => {
             <FaUserCircle className="md:text-2xl" />
           </div>
           {UserDorpDpwn && (
-            <div className={`fixed top-16  z-50`}>
+            <div className={`fixed top-16 left-60 z-50`}>
               <ul className="py-2 px-1 shadow-xl space-y-2 ring-1 dark:ring-gray-600 ring-gray-200 rounded dark:bg-slate-700 bg-white">
-                <li className="hover:bg-blue-500 flex items-center space-x-1 hover:text-white py-2 px-3">
-                  <IoMdKey className="text-xl" />
-                  <div>Change Password</div>
-                </li>
                 <button
                   onClick={handleLogout}
-                  className="hover:bg-blue-500 w-full flex items-center space-x-1 hover:text-white py-2 px-3"
+                  className="hover:bg-blue-500 w-full flex items-center space-x-1 hover:text-white py-2 px-8"
                 >
                   <MdLogout className="text-xl" />
                   <div>Log out</div>

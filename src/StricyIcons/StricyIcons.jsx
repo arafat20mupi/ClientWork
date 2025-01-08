@@ -15,18 +15,18 @@ const StickyIcon = () => {
                 {isHovered ? (
                     <>
                         <a
-                            href="https://wa.me/+8801722172906"
+                            href="https://wa.me/8801931732137"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mx-2 p-4 h-12 w-12 flex items-center justify-center bg-green-600 rounded-full hover:bg-green-800 transition-colors duration-300"
                         >
                             <i className="fab fa-whatsapp text-2xl hover:text-white"></i>
                         </a>
-                       
+
                     </>
                 ) : (
                     <i className="fa-sharp-duotone text-2xl fa-solid fa-phone"></i>
-                    )}
+                )}
             </div>
         </div>
     );
