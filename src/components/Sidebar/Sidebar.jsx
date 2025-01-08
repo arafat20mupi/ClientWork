@@ -3,7 +3,6 @@ import { MdDashboard } from "react-icons/md";
 import { BsFillBucketFill } from "react-icons/bs";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { FaServer } from "react-icons/fa";
-import { IoMdKey } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import SidebarContext from "../../Context/SidebarConext/SidebarContext";
@@ -90,7 +89,7 @@ const Sidebar = () => {
                   <div className="p-2 bg-yellow-600 rounded-full">
                     <FaServer className="text-xl text-emerald-400" />
                   </div>
-                  <div>Admin Id Pdf</div>
+                  <div>Id Pdf</div>
                 </Link>
               </li>
 
@@ -102,7 +101,7 @@ const Sidebar = () => {
                   <div className="p-2 bg-red-600 rounded-full">
                     <RiMoneyDollarCircleFill className="text-xl text-lime-500" />
                   </div>
-                  <div> Admin Address To Nid</div>
+                  <div> Address To Nid</div>
                 </Link>
               </li>
 
