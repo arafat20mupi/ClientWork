@@ -59,6 +59,7 @@ const PendingOrders = () => {
                 <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Price</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Action</th>
+
               </tr>
             </thead>
             <tbody>
