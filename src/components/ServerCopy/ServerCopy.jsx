@@ -81,13 +81,10 @@ const ServerCopy = () => {
               {...register("idNumber", {
                 required: "আইডি নাম্বার ফিল্ডটি আবশ্যক",
                 minLength: {
-                  value: 10,
-                  message: "আইডি নাম্বার কমপক্ষে 10 অক্ষর হতে হবে",
+                  value: 6,
+                  message: "আইডি নাম্বার কমপক্ষে 6 অক্ষর হতে হবে",
                 },
-                maxLength: {
-                  value: 15,
-                  message: "আইডি নাম্বার সর্বাধিক 15 অক্ষর হতে হবে",
-                },
+               
               })}
             />
             {errors.idNumber && (

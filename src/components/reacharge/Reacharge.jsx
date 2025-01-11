@@ -9,6 +9,7 @@ const Recharge = () => {
   const axios = useAxiosPublic();
   const [userId, setUserId] = useState();
   const [name, setName] = useState();
+  const [userNumber, setUserNumber] = useState()
 
   const {
     register,
@@ -21,16 +22,17 @@ const Recharge = () => {
     if (user) {
       setUserId(user.user._id);
       setName(user.user.name);
+      setUserNumber(user.user.phone)
     }
   }, [user]);
-
   const onSubmit = async (data) => {
     try {
       setLoading(true); // Start loading
       await axios.post("/api/recharge", {
         ...data,
         userId,
-        name
+        name,
+        userNumber
       });
       toast.success('Recharge successful!');
       setLoading(false);
@@ -48,8 +50,8 @@ const Recharge = () => {
         <h1 className="text-3xl font-semibold text-gray-700 mb-6 text-center">রিচার্জ</h1>
         <div className="mb-6 text-center font-semibold text-blue-600">
           <h2>নিচের নাম্বার গুলোতে Send Money করেন:</h2>
-          <h3 >bKash: 01817871273</h3>
-          <h3>Nagad: 01817871273</h3>
+          <h3 >bKash: 01738485576</h3>
+          <h3>Nagad: 01738485576</h3>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -95,8 +97,8 @@ const Recharge = () => {
               {...register("amount", {
                 required: "Amount is required",
                 min: {
-                  value: 20,
-                  message: "কমপক্ষে ২০ টাকা রিচার্জ করতে হবে",
+                  value: 50,
+                  message: "কমপক্ষে 50 টাকা রিচার্জ করতে হবে",
                 },
               })}
             />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
   const axios = useAxiosPublic();
@@ -15,6 +16,18 @@ const AllUsers = () => {
         console.error("Error fetching users:", error);
       });
   }, [axios]);
+
+  const handleDeleteUser = (id) => {
+    axios.delete(`/api/user/delete/${id}`)
+      .then((response) => {
+        console.log(response);
+        toast.success("User deleted successfully");
+        setUsers(users.filter(user => user._id !== id));
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
+  }
 
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
@@ -47,14 +60,15 @@ const AllUsers = () => {
 
               <td className="border border-gray-300 px-4 py-2">
                 <div className="flex items-center space-x-2">
-                  <button className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">
+                  {/* <button className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">
                     Approve
-                  </button>
+                  </button> */}
                   <button
+                    onClick={() => handleDeleteUser(user._id)}
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
 
                   >
-                    Remove
+                    Delete
                   </button>
                 </div>
               </td>

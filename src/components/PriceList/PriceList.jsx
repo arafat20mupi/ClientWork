@@ -32,9 +32,9 @@ const PriceList = () => {
             <th className="border border-gray-300 px-4 py-2 text-left">
               Price
             </th>
-            {/* <th className="border border-gray-300 px-4 py-2 text-left">
+            <th className="border border-gray-300 px-4 py-2 text-left">
               Status
-            </th> */}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -54,16 +54,10 @@ const PriceList = () => {
               <td className="border border-gray-300 px-4 py-2">
                 {price.price}
               </td>
-
-              {/* Action Column
               <td className="border border-gray-300 px-4 py-2">
-                <button >
-                  {
-                    price.status === 'Active' ? <div className="bg-green-500  text-white rounded hover:bg-green-700 px-3 py-1"><FaUnlock /></div> : <div className="px-3 py-1 bg-red-500 text-white hover:bg-red-700 rounded"> <FaLock/> </div>
-                  }
+                {price.status}
+              </td>
 
-                </button>
-              </td> */}
             </tr>
           ))}
         </tbody>
