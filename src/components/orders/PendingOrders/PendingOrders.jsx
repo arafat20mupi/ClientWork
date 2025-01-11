@@ -43,7 +43,6 @@ const PendingOrders = () => {
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Pending Orders</h1>
-
       {[
         { title: "Sign Copy", orders: SignCopy, price: "50 Tk" },
         { title: "Server Copy", orders: Servercopy, price: "35 Tk" },
@@ -59,6 +58,7 @@ const PendingOrders = () => {
                 <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Price</th>
                 <th className="border border-gray-300 px-4 py-2 text-left">Action</th>
+
               </tr>
             </thead>
             <tbody>

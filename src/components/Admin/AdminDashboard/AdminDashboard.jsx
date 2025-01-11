@@ -8,7 +8,7 @@ const AdminDashboard = () => {
     <div>
       <div className="px-5 grid grid-cols-2 text-white md:grid-cols-4 gap-4">
         <Link to="/admin/AllUsers">
-          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
             <div className="text-2xl p-3 w-[50px] rounded-md text-yellow-600 text-center bg-yellow-200">
               <h2 className="">
                 <FaUser />
@@ -19,7 +19,7 @@ const AdminDashboard = () => {
           </div>
         </Link>
         <Link to="/admin/recharge">
-          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
             <div className="text-2xl p-3 w-[50px] rounded-md text-blue-600 text-center bg-blue-200">
               <h2 className="">
                 <FaArrowTrendUp />
@@ -31,7 +31,7 @@ const AdminDashboard = () => {
         </Link>
         <Link
           to="/admin/serverCopy"
-          className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white"
+          className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700"
         >
           <div className="text-2xl p-3 w-[50px] rounded-md text-pink-600 text-center bg-pink-200">
             <h2 className="">
@@ -42,7 +42,7 @@ const AdminDashboard = () => {
           <h1 className="md:text-xl">Server copy</h1>
         </Link>
         <Link to="/admin/idPdf">
-          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
             <div className="text-2xl p-3 w-[50px] rounded-md text-lime-600 text-center bg-lime-200">
               <h2 className="">
                 <FaFilePdf />
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
 
 
         <Link to="/Admin/AddressToNid">
-          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
             <div className="text-2xl p-3 w-[50px] rounded-md text-red-600 text-center bg-red-200">
               <h2 className="">
                 <FaAddressCard />
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
         </Link>
         <Link
           to="/admin/signCopy"
-          className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white"
+          className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700"
         >
           <div className="text-2xl p-3 w-[50px] rounded-md text-purple-600 text-center bg-purple-200">
             <h2 className="">
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
         </Link>
         <Link
           to="/admin/NidUserPasswordSet"
-          className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white"
+          className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700"
         >
           <div className="text-2xl p-3 w-[50px] rounded-md text-purple-600 text-center bg-purple-200">
             <h2 className="">
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
         </Link>
 
         <Link to="/admin/priceList">
-          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+          <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
             <div className="text-2xl p-3 w-[50px] rounded-md text-slate-600 text-center bg-slate-200">
               <h2 className="">
                 <IoPricetags />

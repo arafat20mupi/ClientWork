@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import useAuth from "../../Hook/useAuth";
-import {toast} from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 const Recharge = () => {
   const { user } = useAuth();
@@ -46,9 +46,9 @@ const Recharge = () => {
 
   return (
     <div className="px-5">
-      <div className="max-w-lg mx-auto mt-10 p-8 bg-white rounded-xl shadow-xl">
-        <h1 className="text-3xl font-semibold text-gray-700 mb-6 text-center">রিচার্জ</h1>
-        <div className="mb-6 text-center font-semibold text-blue-600">
+      <div className="max-w-lg mx-auto mt-10 p-8 bg-slate-700 rounded-xl shadow-xl">
+        <h1 className="text-3xl font-semibold text-white mb-6 text-center">রিচার্জ</h1>
+        <div className="mb-6 text-center font-semibold text-blue-600 bg-white p-3 rounded-md">
           <h2>নিচের নাম্বার গুলোতে Send Money করেন:</h2>
           <h3 >bKash: 01738485576</h3>
           <h3>Nagad: 01738485576</h3>
@@ -57,7 +57,7 @@ const Recharge = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Payment Method */}
           <div className="mb-4">
-            <label htmlFor="paymentMethod" className="block text-gray-600 mb-2 font-medium">
+            <label htmlFor="paymentMethod" className="block text-white mb-2 font-medium">
               পেমেন্ট মেথড
             </label>
             <select
@@ -68,12 +68,12 @@ const Recharge = () => {
               <option value="bkash">bKash</option>
               <option value="nogod">Nagad</option>
             </select>
-            {errors.paymentMethod && <p className="text-red-500 text-sm mt-1">{errors.paymentMethod.message}</p>}
+            {errors.paymentMethod && <p className="text-red-400 text-sm mt-1">{errors.paymentMethod.message}</p>}
           </div>
 
           {/* Payment Number */}
           <div className="mb-4">
-            <label htmlFor="number" className="block text-gray-600 mb-2 font-medium">
+            <label htmlFor="number" className="block text-white mb-2 font-medium">
               পেমেন্ট নাম্বার
             </label>
             <input
@@ -82,13 +82,13 @@ const Recharge = () => {
               placeholder="পেমেন্ট নাম্বার লিখুন"
               {...register("number", { required: "Payment number is required" })}
             />
-            {errors.number && <p className="text-red-500 text-sm mt-1">{errors.number.message}</p>}
+            {errors.number && <p className="text-red-400 text-sm mt-1">{errors.number.message}</p>}
           </div>
 
           {/* Amount */}
           <div className="mb-4">
-            <label htmlFor="amount" className="block text-gray-600 mb-2 font-medium">
-              পরিমাণ
+            <label htmlFor="amount" className="block text-white mb-2 font-medium">
+              পরিমাণ (সর্বনিম্ন ৫০ টাকা)
             </label>
             <input
               type="number"
@@ -102,12 +102,12 @@ const Recharge = () => {
                 },
               })}
             />
-            {errors.amount && <p className="text-red-500 text-sm mt-1">{errors.amount.message}</p>}
+            {errors.amount && <p className="text-red-400 text-sm mt-1">{errors.amount.message}</p>}
           </div>
 
           {/* Transaction ID */}
           <div className="mb-4">
-            <label htmlFor="trxId" className="block text-gray-600 mb-2 font-medium">
+            <label htmlFor="trxId" className="block text-white mb-2 font-medium">
               লেনদেন আইডি (TrxId)
             </label>
             <input
@@ -116,7 +116,7 @@ const Recharge = () => {
               placeholder="লেনদেন আইডি (TrxId) লিখুন"
               {...register("trxId", { required: "Transaction ID is required" })}
             />
-            {errors.trxId && <p className="text-red-500 text-sm mt-1">{errors.trxId.message}</p>}
+            {errors.trxId && <p className="text-red-400 text-sm mt-1">{errors.trxId.message}</p>}
           </div>
 
           {/* Submit Button */}
@@ -135,6 +135,50 @@ const Recharge = () => {
           </div>
         </form>
       </div>
+      <table className="min-w-full mt-20 border-collapse shadow-md text-white bg-slate-700">
+        <thead className=" font-extrabold">
+          <tr>
+            <th className="border border-gray-300 px-6 py-6 text-left">
+              পেমেন্ট মেথড
+            </th>
+            <th className="border border-gray-300 px-6 py-6 text-left">
+              পেমেন্ট নাম্বার
+            </th>
+            <th className="border border-gray-300 px-6 py-6 text-left">
+              পরিমাণ
+            </th>
+            <th className="border border-gray-300 px-6 py-6 text-left">
+              লেনদেন আইডি
+            </th>
+            <th className="border border-gray-300 px-6 py-6 text-left">
+              তারিখ
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="">
+            {/* Order Column */}
+            <td className="border border-gray-300 px-6 py-6">
+              বিকাশ
+            </td>
+            {/* Details Column */}
+            <td className="border border-gray-300 px-6 py-6">
+              ০১২৩৪৫৬৭৮৯০১
+            </td>
+
+            {/* Price Column */}
+            <td className="border border-gray-300 px-6 py-6">
+              100 Taka
+            </td>
+            <td className="border border-gray-300 px-6 py-6">
+              ufjek4jo99ejrkr
+            </td>
+            <td className="border border-gray-300 px-6 py-6">
+              01-11-25
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
