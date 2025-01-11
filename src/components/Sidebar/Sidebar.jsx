@@ -26,7 +26,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`overflow-y-scroll pb-16 duration-300 fixed z-30 top-10 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
+      className={`overflow-y-scroll pb-16 duration-300 fixed z-30 top-10 py-10 px-1 h-screen bg-slate-700 shadow-lg w-1/2 md:w-1/5 ${OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
         }`}
     >
       <div>
@@ -174,7 +174,8 @@ const Sidebar = () => {
                   <li>
                     <Link
                       to="/order/pending"
-                      className="pl-10 md:pl-16 cursor-pointer dark:hover:text-white hover:text-black"
+                      className="pl-10 md:pl-16 cursor-pointer hover:text-slate-400"
+
                     >
                       Pending
                     </Link>
@@ -182,7 +183,8 @@ const Sidebar = () => {
                   <li>
                     <Link
                       to="/order/success"
-                      className="pl-10 md:pl-16 cursor-pointer dark:hover:text-white hover:text-black"
+                      className="pl-10 md:pl-16 cursor-pointer hover:text-slate-400"
+
                     >
                       Success
                     </Link>
@@ -191,7 +193,8 @@ const Sidebar = () => {
                   <li>
                     <Link
                       to="/order/cancel"
-                      className="pl-10 md:pl-16 cursor-pointer dark:hover:text-white hover:text-black"
+                      className="pl-10 md:pl-16 cursor-pointer hover:text-slate-400"
+
                     >
                       Cancel
                     </Link>

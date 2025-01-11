@@ -57,12 +57,12 @@ const AdminRecharge = () => {
   return (
     <div className="p-4 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-3xl font-semibold mb-6 text-center">Recharge Management</h1>
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4">
+      <div className="overflow-x-auto bg-slate-700 shadow-md rounded-lg p-4">
         {loading ? (
           <div className="text-center text-lg">Loading...</div>
         ) : (
-          <table className="min-w-full border-collapse text-gray-700">
-            <thead className="bg-gray-200">
+          <table className="min-w-full border-collapse text-white">
+            <thead className="bg-slate-700">
               <tr>
                 <th className="border border-gray-300 px-6 py-3 text-left">Name</th>
                 <th className="border border-gray-300 px-6 py-3 text-left">Number</th>
@@ -73,7 +73,7 @@ const AdminRecharge = () => {
             </thead>
             <tbody>
               {recharges.map((recharge) => (
-                <tr key={recharge.trxId} className="hover:bg-gray-100">
+                <tr key={recharge.trxId} className="hover:bg-slate-600">
                   <td className="border border-gray-300 px-6 py-4">{recharge.name} ({recharge.userNumber})</td>
                   <td className="border border-gray-300 px-6 py-4">{recharge.number}</td>
                   <td className="border border-gray-300 px-6 py-4">৳ {recharge.amount} tk</td>
