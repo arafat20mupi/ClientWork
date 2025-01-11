@@ -23,7 +23,7 @@ const CanceledOrders = () => {
         const response = await axios.get(`/api/${endpoint}/${id}`);
         console.log(response);
         const orders = response.data?.server || [];
-        const filteredOrders = orders.filter(order => order.status === "Canceled");
+        const filteredOrders = orders.filter(order => order.status === "Cancel");
         setState(filteredOrders);
         console.log(filteredOrders);
       } catch (error) {
