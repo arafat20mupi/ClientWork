@@ -6,11 +6,13 @@ import { useForm, Controller } from "react-hook-form";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/style.css';
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const SignUp = () => {
   const axios = useAxiosPublic();
   const { register, handleSubmit, formState: { errors }, control } = useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   // Handle registration form submission
   const handleRegister = async (data) => {
@@ -65,12 +67,20 @@ const SignUp = () => {
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
 
           {/* Password Field */}
-          <input
-            type="password"
-            placeholder="Your Password"
-            className="w-full p-2 my-4 bg-white text-gray-400 border"
-            {...register("password", { required: "Password is required" })}
-          />
+          <div className="relative w-full">
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              placeholder="Your Password"
+              className="w-full p-2 my-4 bg-white text-gray-400 border"
+              {...register("password", { required: "Password is required" })}
+            />
+            <div
+              className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+              {isPasswordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </div>
+          </div>
           {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
 
           {/* Submit Button */}

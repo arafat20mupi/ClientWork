@@ -5,9 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import PhoneInput from "react-phone-input-2";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const SignIn = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const axios = useAxiosPublic();
     const navigate = useNavigate();
 
@@ -75,12 +77,20 @@ const SignIn = () => {
                     {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
 
                     {/* Password Input */}
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full p-2 my-4 bg-white text-gray-400 border"
-                        {...register("password", { required: "Password is required" })}
-                    />
+                    <div className="relative w-full">
+                        <input
+                            type={isPasswordVisible ? "text" : "password"}
+                            placeholder="Password"
+                            className="w-full p-2 my-4 bg-white text-gray-400 border"
+                            {...register("password", { required: "Password is required" })}
+                        />
+                        <div
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                        >
+                            {isPasswordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+                        </div>
+                    </div>
                     {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
 
                     {/* Submit Button */}

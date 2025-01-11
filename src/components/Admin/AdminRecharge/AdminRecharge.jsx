@@ -37,14 +37,17 @@ const AdminRecharge = () => {
     }
   };
 
+
   const handleCancelRecharge = async (trxId) => {
     try {
-      await axios.post('/api/recharge/cancel', { trxId });
-      // Remove the canceled recharge from the state
+      await axios.put(`/api/recharge/cancel/${trxId}`)
+      // Update the recharges state
       setRecharge((prevRecharges) =>
-        prevRecharges.filter((recharge) => recharge.trxId !== trxId)
+        prevRecharges.map((recharge) =>
+          recharge.trxId === trxId ? {...recharge, status: 'cancelled' } : recharge
+        )
       );
-      toast.success('Recharge canceled');
+      toast.success('Recharge Cancelled');
     } catch (error) {
       console.error('Error canceling recharge:', error);
       toast.error('Error canceling recharge');
@@ -71,19 +74,19 @@ const AdminRecharge = () => {
             <tbody>
               {recharges.map((recharge) => (
                 <tr key={recharge.trxId} className="hover:bg-gray-100">
-                  <td className="border border-gray-300 px-6 py-4">{recharge.name}</td>
+                  <td className="border border-gray-300 px-6 py-4">{recharge.name} ({recharge.userNumber})</td>
                   <td className="border border-gray-300 px-6 py-4">{recharge.number}</td>
-                  <td className="border border-gray-300 px-6 py-4">${recharge.amount}</td>
+                  <td className="border border-gray-300 px-6 py-4">৳ {recharge.amount} tk</td>
                   <td className="border border-gray-300 px-6 py-4">{recharge.trxId}</td>
                   <td className="border border-gray-300 px-6 py-4">
                     <div className="flex items-center space-x-3">
                       <button
                         onClick={() => handleRechargeStatus(recharge.trxId, recharge.amount)}
-                        disabled={recharge.status === 'success'} // Disable button if already approved
+                        disabled={recharge.status === 'success'} 
                         className={`px-4 py-2 text-white rounded-md ${recharge.status === 'pending' ? 'bg-green-500' : 'bg-gray-400 cursor-not-allowed'
                           }`}
                       >
-                        {recharge.status === 'pending' ? 'Approve' : 'Approved'}
+                        {recharge.status === 'success' ? 'Approved' : 'Approve'}
                       </button>
                       <button
                         disabled={recharge.status === 'cancel' || recharge.status === 'success'}
@@ -93,7 +96,7 @@ const AdminRecharge = () => {
                             : 'bg-red-500'
                           }`}
                       >
-                        Cancel
+                        {recharge.status === 'cancel'?'Canceled' :  'Cancel'}
                       </button>
 
                     </div>

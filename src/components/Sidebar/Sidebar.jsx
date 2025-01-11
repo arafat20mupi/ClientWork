@@ -26,7 +26,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`overflow-y-scroll pb-28 duration-300 fixed z-30 top-20 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
+      className={`overflow-y-scroll pb-16 duration-300 fixed z-30 top-10 py-10 px-1 h-screen dark:bg-slate-700 bg-zinc-100 shadow-lg w-1/2 md:w-1/5 ${OpenSide ? "-left-0 md:-left-96" : "-left-96 md:-left-0"
         }`}
     >
       <div>
@@ -41,7 +41,7 @@ const Sidebar = () => {
                   <div className="p-2 bg-blue-200 rounded-full">
                     <MdDashboard className="text-xl text-blue-600" />
                   </div>
-                  <div>Admin Dashboard</div>
+                  <div className="text-lg">Admin Dashboard</div>
                 </Link>
               </li>
 
