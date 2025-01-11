@@ -24,12 +24,12 @@ const Navbar = () => {
   };
   return (
     <div>
-      <nav className="h-[80px] z-40 fixed top-0 left-0 right-0 text-white dark:bg-slate-700 bg-zinc-100 shadow-md px-5 md:px-20 flex items-center justify-between">
+      <nav className="h-[80px] z-40 fixed top-0 left-0 right-0 text-white bg-slate-700  shadow-md px-5 md:px-20 flex items-center justify-between">
         <div className="flex items-center space-x-2 cursor-pointer">
           <div onClick={handleSidebar}>
             <GiHamburgerMenu className="text-2xl md:mr-5" />
           </div>
-          <h1 className="dark:text-white text-black md:text-xl">
+          <h1 className="text-whitek md:text-xl">
             {user?.user?.name || "Guest"}
           </h1>
           <div className="w-8" onClick={handleClick}>
@@ -37,7 +37,7 @@ const Navbar = () => {
           </div>
           {UserDorpDpwn && (
             <div className={`fixed top-16 left-60 z-50`}>
-              <ul className="py-2 px-1 shadow-xl space-y-2 ring-1 dark:ring-gray-600 ring-gray-200 rounded dark:bg-slate-700 bg-white">
+              <ul className="py-2 px-1 shadow-xl space-y-2 ring-1 ring-gray-600  rounded bg-slate-700">
                 <button
                   onClick={handleLogout}
                   className="hover:bg-blue-500 w-full flex items-center space-x-1 hover:text-white py-2 px-8"

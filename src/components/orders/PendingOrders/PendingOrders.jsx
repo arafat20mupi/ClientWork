@@ -119,7 +119,7 @@ const PendingOrders = () => {
 
       {/* Sign Copy */}
       <h1 className="text-3xl text-center py-3">Sign Copy</h1>
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
@@ -159,7 +159,7 @@ const PendingOrders = () => {
 
       {/* Server Copy */}
       <h1 className="text-3xl text-center py-3">Server Copy</h1>
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
@@ -199,7 +199,7 @@ const PendingOrders = () => {
 
       {/* NID User Password Set */}
       <h1 className="text-3xl text-center py-3">NID User Password Set</h1>
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
@@ -239,7 +239,7 @@ const PendingOrders = () => {
 
       {/* Address to NID */}
       <h1 className="text-3xl text-center py-3">Address to NID</h1>
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
@@ -279,7 +279,7 @@ const PendingOrders = () => {
 
       {/* ID PDF */}
       <h1 className="text-3xl text-center py-3">ID PDF</h1>
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">Order</th>
