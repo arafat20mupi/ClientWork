@@ -20,19 +20,19 @@ const PriceList = () => {
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Price List</h1>
-      <table className="min-w-full border-collapse shadow-md text-white dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md text-white bg-slate-700">
         <thead className=" font-extrabold">
           <tr>
-            <th className="border border-gray-300 px-4 py-2 text-left">
+            <th className="border border-gray-300 px-6 py-6 text-left">
               Id
             </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
+            <th className="border border-gray-300 px-6 py-6 text-left">
               Name
             </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
+            <th className="border border-gray-300 px-6 py-6 text-left">
               Price
             </th>
-            <th className="border border-gray-300 px-4 py-2 text-left">
+            <th className="border border-gray-300 px-6 py-6 text-left">
               Status
             </th>
           </tr>
@@ -41,20 +41,20 @@ const PriceList = () => {
         {prices && prices.map((price, index) => (
             <tr key={price._id} className="">
               {/* Order Column */}
-              <td className="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-6 py-6">
                 <p>{index + 1}</p>
               </td>
 
               {/* Details Column */}
-              <td className="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-6 py-6">
                 {price.name}
               </td>
 
               {/* Price Column */}
-              <td className="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-6 py-6">
                 {price.price}
               </td>
-              <td className="border border-gray-300 px-4 py-2">
+              <td className="border border-gray-300 px-6 py-6">
                 {price.status}
               </td>
 

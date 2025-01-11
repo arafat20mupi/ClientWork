@@ -76,7 +76,7 @@ const AdminIdPdf = () => {
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Id Pdf</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">

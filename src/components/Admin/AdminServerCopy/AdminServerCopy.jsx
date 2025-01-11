@@ -75,7 +75,7 @@ const AdminServerCopy = () => {
   return (
     <div className="p-2 w-full overflow-x-scroll md:overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-4">Server Copy</h1>
-      <table className="min-w-full border-collapse shadow-md dark:bg-slate-700 bg-zinc-100">
+      <table className="min-w-full border-collapse shadow-md bg-slate-700">
         <thead className="font-extrabold">
           <tr>
             <th className="border border-gray-300 px-4 py-2 text-left">Select Method</th>
@@ -97,7 +97,7 @@ const AdminServerCopy = () => {
                 <input type="file" id={`file-input-server-copy-${user._id}`} />
                 <button
                   disabled={user.status === "Cancel" || user.status === "Approved"}
-                  className="btn btn-success"
+                  className="bg-green-500 duration-200 hover:bg-green-600 cursor-pointer rounded-md px-4 py-2 text-whit"
                   onClick={() => handleFileSubmit(user._id)}
                 >
                   Confirm
@@ -106,7 +106,7 @@ const AdminServerCopy = () => {
               <td className="border border-gray-300 px-4 py-2">
                 <button
                   disabled={user.status === "Cancel" || user.status === "Approved"}
-                  className="btn btn-warning"
+                  className="bg-red-500 duration-200 cursor-pointer hover:bg-red-600 rounded-md px-4 py-2 text-white"
                   onClick={() =>
                     document.getElementById(`cancel-modal-${user._id}`).showModal()
                   }

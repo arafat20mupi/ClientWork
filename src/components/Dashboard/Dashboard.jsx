@@ -41,7 +41,7 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-2 text-white md:grid-cols-4 gap-4">
               <Link to="/reacharge">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-blue-600 text-center bg-blue-200">
                     <h2 className="">
                       <FaArrowTrendUp />
@@ -53,7 +53,7 @@ const Dashboard = () => {
               </Link>
 
               <Link to="/PriceList">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-slate-600 text-center bg-slate-200">
                     <h2 className="">
                       <IoPricetags />
@@ -65,7 +65,7 @@ const Dashboard = () => {
               </Link>
               <Link
                 to="/servercopy"
-                className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white"
+                className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700"
               >
                 <div className="text-2xl p-3 w-[50px] rounded-md text-pink-600 text-center bg-pink-200">
                   <h2 className="">
@@ -77,7 +77,7 @@ const Dashboard = () => {
               </Link>
               <Link
                 to="/signcopy"
-                className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white"
+                className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700"
               >
                 <div className="text-2xl p-3 w-[50px] rounded-md text-purple-600 text-center bg-purple-200">
                   <h2 className="">
@@ -88,7 +88,7 @@ const Dashboard = () => {
                 <h1 className="md:text-xl">Sign copy</h1>
               </Link>
               <Link to="/addressToNid">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-red-600 text-center bg-red-200">
                     <h2 className="">
                       <FaAddressCard />
@@ -100,7 +100,7 @@ const Dashboard = () => {
               </Link>
               <Link
                 to="/NidUserPassSet"
-                className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white"
+                className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700"
               >
                 <div className="text-2xl p-3 w-[50px] rounded-md text-purple-600 text-center bg-purple-200">
                   <h2 className="">
@@ -111,7 +111,7 @@ const Dashboard = () => {
                 <h1 className="md:text-xl">Nid User Password Set</h1>
               </Link>
               <Link to="/idpdf">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-lime-600 text-center bg-lime-200">
                     <h2 className="">
                       <FaFilePdf />
@@ -122,7 +122,7 @@ const Dashboard = () => {
                 </div>
               </Link>
               <Link to="/order/pending">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-orange-600 text-center bg-orange-200">
                     <h2 className="">
                       <MdOutlineAccessTimeFilled />
@@ -133,7 +133,7 @@ const Dashboard = () => {
                 </div>
               </Link>
               <Link to="/order/success">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-green-600 text-center bg-green-200">
                     <h2 className="">
                       <TiTick />
@@ -144,7 +144,7 @@ const Dashboard = () => {
                 </div>
               </Link>
               <Link to="/order/cancel">
-                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 dark:bg-slate-700 bg-white">
+                <div className="cursor-pointer rounded-md px-6 py-5 md:py-10 bg-slate-700">
                   <div className="text-2xl p-3 w-[50px] rounded-md text-cyan-600 text-center bg-cyan-200">
                     <h2 className="">
                       <ImCross />
